@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoshi - Nouvelle Collection</title>
+  
+  <!-- ===== TYPOGRAPHIE ===== -->
+  <!-- Poppins pour UI et titres, Noto Sans JP pour le sous-titre japonais -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ===== FEUILLE DE STYLE PRINCIPALE ===== -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- ===== STYLES LOCAUX (BADGE PANIER) ===== -->
+  <!-- Garde léger et local pour éviter d'éditer le CSS global -->
+  <style>
+    .icon-btn.cart-btn { position: relative; }
+    .cart-badge { 
+      position: absolute; 
+      top: -6px; 
+      right: -6px; 
+      background: #c2185b; 
+      color: #fff; 
+      border-radius: 999px; 
+      padding: 2px 6px; 
+      font-size: 12px; 
+      font-weight: 700; 
+      line-height: 1; 
+      display: none; 
+      min-width: 20px; 
+      text-align: center; 
+    }
+    .cart-badge.show { display: inline-block; }
+  </style>
+  
+  <!-- ===== FAVICON ===== -->
+  <!-- Remplacez le chemin si besoin -->
+  <link rel="icon" href="images-site/kanji etoile.png" sizes="32x32" type="image/png">
+</head>
+
+<body>
+  <!-- ===== CONTENU PRINCIPAL DE LA PAGE ===== -->
+  <div class="page-content">
+  
+  <!-- ===== BARRE DE LIVRAISON (TOP) ===== -->
+  <div class="top-bar">
+    <div class="topbar-rotator" aria-live="polite">
+      <span class="topbar-msg topbar-msg--visible">Livraison offerte en <strong>France MÉTROPOLITAINE</strong> dès 100€ 🚚</span>
+      <span class="topbar-msg">Tente de gagner un voyage au <strong>Japon</strong>⛩️</span>
+    </div>
+  </div>
+
+    <!-- ===== HEADER (EN-TÊTE NAVIGATION) ===== -->
+  <header>
+    <button class="menu" aria-controls="site-overlay" aria-expanded="false">☰</button>
+    <div class="logo"><a href="https://www.youtube.com/watch?v=6DQxRQb9dCE">星</a></div>
+      <div class="icons">
+  <form class="search-bar hidden" role="search" onsubmit="return false;">
+          <label for="site-search" class="visually-hidden">Rechercher sur le site</label>
+          <button id="search-clear" class="icon-btn" aria-label="Effacer la recherche" type="button">
+            <span class="search-clear__cross">✕</span>
+            <svg class="search-clear__loupe" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM4 9.5C4 6.46 6.46 4 9.5 4S15 6.46 15 9.5 12.54 15 9.5 15 4 12.54 4 9.5z"/>
+            </svg>
+          </button>
+          <input id="site-search" type="search" placeholder="Rechercher des produits..." aria-label="Rechercher" />
+        </form>
+        <button id="search-open-btn" class="icon-btn" aria-label="Ouvrir la recherche" title="Rechercher">
+          <svg class="icon icon-search-open" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM4 9.5C4 6.46 6.46 4 9.5 4S15 6.46 15 9.5 12.54 15 9.5 15 4 12.54 4 9.5z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Panier">
+          <svg class="icon icon-cart" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.16 14l.84-2h7.45c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45C5.08 15.37 5 15.68 5 16c0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.26-.25L7.16 14z"/>
+          </svg>
+          <span class="cart-badge" id="cartBadge" aria-hidden="true">0</span>
+        </button>
+        <button class="icon-btn profile-btn" aria-label="Profil">
+          <!-- inline SVG for a user/profile icon; uses currentColor so CSS controls its color -->
+          <svg class="icon icon-profile" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/>
+          </svg>
+        </button>
+      </div>
+      <!-- inline search bar replaces the loupe icon and sits next to the cart -->
+  </header>
+
+  <!-- Overlay + side menu (moved outside page-content to avoid blur) -->
+
+  <!-- ===== HERO SECTION (BANNIÈRE PRINCIPALE) ===== -->
+  <section class="hero">
+    <h1 class="hero-title">NOUVELLE<br><span class="hero-main-word">COLLECTION</span>
+  <span class="hero-subtitle"><span class="hero-subtitle-inner">新しいコレクション</span></span>
+    </h1>
+
+    <div class="hero-images">
+      <!-- Image rose/bleu en fond -->
+      <img src="images-site/cherry blossom.jpg" alt="Fond rose et bleu" class="fond">
+
+      <!-- Coques -->
+      <a href="https://www.youtube.com/watch?v=IBcB_dYtGUg" class="coque-link coque-vague-link" title="La Grande Vague de Kanagawa">
+        <img src="images-site/coque_vague_japon.png" alt="Coque Vague" class="coque-vague">
+      </a>
+      <a href="https://www.youtube.com/watch?v=SEKBeTIFiNk" class="coque-link coque-neko-link" title="Le maneki-neko">
+        <img src="images-site/coque_neeko.png" alt="Coque Neko" class="coque-neko">
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FILTRES ET TRI ===== -->
+  <div class="filters">
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false" aria-controls="filter-menu">Filtrer ▾</button>
+      <ul id="filter-menu" class="dropdown-menu" role="menu">
+        <li role="menuitem"><button data-filter="all">Tous</button></li>
+        <li role="menuitem">
+          <label class="filter-label-right">
+            <button data-filter="in-stock">Disponibles</button>
+            <input type="checkbox" id="filter-available" />
+          </label>
+        </li>
+        <li role="menuitem">
+          <label class="filter-label-right">
+            <button data-filter="out-of-stock">Rupture</button>
+            <input type="checkbox" id="filter-out" />
+          </label>
+        </li>
+        <li role="menuitem"><button data-filter="size">Taille</button></li>
+        <li role="menuitem"><button data-filter="price">Prix</button></li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false" aria-controls="sort-menu">Trier ▾</button>
+      <ul id="sort-menu" class="dropdown-menu" role="menu">
+        <li role="menuitem"><button data-sort="featured">En vedette</button></li>
+        <li role="menuitem"><button data-sort="new">Nouveautés</button></li>
+        <li role="menuitem"><button data-sort="price-asc">Prix : bas → haut</button></li>
+        <li role="menuitem"><button data-sort="price-desc">Prix : haut → bas</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== GRILLE DES PRODUITS ===== -->
+  <section class="product-grid">
+  <!-- Produit 1: Hoodie Sakura Shirotae -->
+  <a href="page produit 1.html" class="product" data-max="10" data-images="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 5.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 6.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 7.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 8.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 9.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 10.webp" data-price="90" data-stock="in-stock" data-new="1">
+    <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+    <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" alt="Hoodie Sakura Shirotae">
+    <p class="product-title">Hoodie Sakura Shirotae</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+      <a href="https://www.youtube.com/watch?v=IBcB_dYtGUg" class="coque-link coque-vague-link" title="La Grande Vague de Kanagawa">
+        <img src="images-site/coque_vague_japon.png" alt="Coque Vague" class="coque-vague">
+      </a>
+      <a href="https://www.youtube.com/watch?v=SEKBeTIFiNk" class="coque-link coque-neko-link" title="Le maneki-neko">
+        <img src="images-site/coque_neeko.png" alt="Coque Neko" class="coque-neko">
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FILTRES ===== -->
+  <div class="filters">
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false" aria-controls="filter-menu">Filtrer ▾</button>
+      <ul id="filter-menu" class="dropdown-menu" role="menu">
+        <li role="menuitem"><button data-filter="all">Tous</button></li>
+        <li role="menuitem">
+          <label class="filter-label-right">
+            <button data-filter="in-stock">Disponibles</button>
+            <input type="checkbox" id="filter-available" />
+          </label>
+        </li>
+        <li role="menuitem">
+          <label class="filter-label-right">
+            <button data-filter="out-of-stock">Rupture</button>
+            <input type="checkbox" id="filter-out" />
+          </label>
+        </li>
+        <li role="menuitem"><button data-filter="size">Taille</button></li>
+        <li role="menuitem"><button data-filter="price">Prix</button></li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false" aria-controls="sort-menu">Trier ▾</button>
+      <ul id="sort-menu" class="dropdown-menu" role="menu">
+        <li role="menuitem"><button data-sort="featured">En vedette</button></li>
+        <li role="menuitem"><button data-sort="new">Nouveautés</button></li>
+        <li role="menuitem"><button data-sort="price-asc">Prix : bas → haut</button></li>
+        <li role="menuitem"><button data-sort="price-desc">Prix : haut → bas</button></li>
+      </ul>
+    </div>
+  </div>
+
+    <!-- ===== PRODUITS ===== -->
+  <section class="product-grid">
+  <a href="page produit 1.html" class="product" data-max="10" data-images="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 5.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 6.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 7.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 8.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 9.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 10.webp" data-price="90" data-stock="in-stock" data-new="1">
+    <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+    <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" alt="Hoodie Sakura Shirotae">
+    <p class="product-title">Hoodie Sakura Shirotae</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+      
+  <a href="page produit 2.html" class="product" data-images="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 2.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 3.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 4.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 5.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 6.webp" data-price="90" data-stock="in-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+    <img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp" alt="Hoodie Sakura Zippé">
+    <p class="product-title">Hoodie Sakura Zippé</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 3.html" class="product" data-images="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 10.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 2.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 3.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 4.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 5.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 6.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 8.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 9.jpg" data-price="90" data-stock="out-of-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+    <img src="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp" alt="Hoodie Black Kitsune">
+    <p class="product-title">Hoodie Black Kitsune</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 4.html" class="product" data-images="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 2.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 3.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 4.jpg,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 5.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 6.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 7.jpg,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 8.webp" data-price="30" data-stock="in-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+      <img src="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp" alt="T-Shirt blanc ONI x HOKUSAI">
+      <p class="product-title">T-Shirt blanc ONI X HOKUSAI</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+    <!-- Additional products added as requested -->
+  <a href="page produit 5.html" class="product" data-images="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 2.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 3.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 4.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 5.jpg,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 5.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 6.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 7.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 8.webp" data-price="33" data-stock="in-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp" alt="T-Shirt noir ONI x HOKUSAI">
+  <p class="product-title">T-Shirt noir ONI x HOKUSAI</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 6.html" class="product" data-images="images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 1.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 2.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 3.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 4.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 5.jpg,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 6.jpg" data-price="33" data-stock="out-of-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 1.webp" alt="T-Shirt gris ONI x NOGI">
+  <p class="product-title">T-Shirt gris ONI x NOGI</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <div class="last-row">
+  <a href="produit7.html" class="product" data-images="images-site/alpine/alpine 34 eloigner.jpg,images-site/alpine/alpine 34 avant proche.jpg,images-site/alpine/alpine 34 arriere.JPG,images-site/alpine/alpine avant face.jpg,images-site/alpine/alpine arriere.jpg,images-site/alpine/alpine logo.jpg,images-site/alpine/alpine phare.jpg,images-site/alpine/alpine roue.JPG,images-site/alpine/alpine volant.JPG" data-price="200" data-stock="in-stock" data-new="1">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+      <img src="images-site/alpine/alpine 34 eloigner.jpg" alt="alpine collection">
+      <p class="product-title">alpine collection</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">NOMBRES PHOTOS</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">5</button>
+          <button type="button">10</button>
+          <button type="button">15</button>
+          <button type="button">20</button>
+          <button type="button">25</button>
+          <button type="button">SUR DEMANDE</button>
+        </div>
+      </div>
+    </a>
+  <a href="produit8.html" class="product" data-images="images-site/porsche/porsche 34 avant.JPG,images-site/porsche/porsche logo.JPG,images-site/porsche/porsche phare.JPG" data-price="200" data-stock="out-of-stock">
+      <span class="sold-out-badge" aria-hidden="true">Rupture de stock</span>
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+      <img src="images-site/porsche/porsche 34 avant.JPG" alt="porsche collection">
+      <p class="product-title">porsche collection</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">NOMBREs PHOTOS</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">5</button>
+          <button type="button">10</button>
+          <button type="button">15</button>
+          <button type="button">20</button>
+          <button type="button">25</button>
+          <button type="button">SUR DEMANDE</button>
+        </div>
+      </div>
+    </a>
+  </div>
+  </section>
+    
+  </div>
+
+  <!-- ===== OVERLAY ET MENU LATÉRAL ===== -->
+  <div class="overlay" id="site-overlay" aria-hidden="true">
+    <nav class="side-menu" role="navigation" aria-label="Menu principal">
+      
+      <!-- Bouton fermer -->
+      <button class="close-menu" aria-label="Fermer le menu">
+        <span class="close-icon">✕</span>
+      </button>
+      
+      <!-- Menu principal -->
+      <ul class="menu-main">
+        <li><a href="index.html" data-samewindow>Accueil</a></li>
+        <li><a href="#" class="open-panel" data-panel="shop">Boutique</a></li>
+        <li><a href="#" class="open-panel" data-panel="new">Nouveautés</a></li>
+        <li><a href="#" class="open-panel" data-panel="contact">Contact</a></li>
+      </ul>
+      
+      <!-- Panel Boutique -->
+      <div class="side-panel" id="panel-shop" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour au menu principal">← Retour</button>
+        <h3>Boutique</h3>
+        <div class="panel-submenu" aria-hidden="false">
+          <button class="submenu-item" data-scroll-to="vetements">Vêtements</button>
+          <button class="submenu-item" data-scroll-to="accessoires">Accessoires</button>
+          <button class="submenu-item" data-scroll-to="miniatures">Miniatures</button>
+        </div>
+      </div>
+      
+      <!-- Panel Nouveautés -->
+      <div class="side-panel" id="panel-new" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour au menu principal">← Retour</button>
+        <h3>Nouveautés</h3>
+        <div class="panel-submenu" aria-hidden="false">
+          <button class="submenu-item" data-scroll-to="nouveautes">Tous les nouveaux produits</button>
+          <button class="submenu-item" data-scroll-to="collections">Nouvelles collections</button>
+        </div>
+      </div>
+      
+      <!-- Panel Contact -->
+      <div class="side-panel" id="panel-contact" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour au menu principal">← Retour</button>
+        <h3>Contact</h3>
+        <div class="contact-info">
+          <p><strong>Email:</strong> contact@hoshi-store.com</p>
+          <p><strong>Téléphone:</strong> +33 1 23 45 67 89</p>
+          <p><strong>Adresse:</strong> 123 Rue de la Paix, 75001 Paris</p>
+        </div>
+        <div class="contact-form">
+          <input type="text" placeholder="Votre nom" aria-label="Nom">
+          <input type="email" placeholder="Votre email" aria-label="Email">
+          <textarea placeholder="Votre message" aria-label="Message"></textarea>
+          <button type="submit">Envoyer</button>
+        </div>
+      </div>
+      
+      <!-- Footer du menu -->
+      <div class="menu-footer">
+        <div class="language-selector">
+          <button class="lang-btn" data-lang="FR">Français</button>
+          <button class="lang-btn" data-lang="EN">English</button>
+          <button class="lang-btn" data-lang="JP">日本語</button>
+        </div>
+        <div class="delivery-selector">
+          <select id="delivery-country" aria-label="Pays de livraison">
+            <option value="FR">France</option>
+            <option value="EU">Europe</option>
+            <option value="US">États-Unis</option>
+            <option value="JP">Japon</option>
+          </select>
+        </div>
+      </div>
+      
+    </nav>
+  </div>
+
+  <!-- Audio de fond (optionnel) -->
+  <audio id="bg-audio" src="audio/background.mp3" loop preload="auto"></audio>
+
+  <!-- ===== SCRIPTS JAVASCRIPT ===== -->
+  <script>
+    // ===== CONFIGURATION ET VARIABLES GLOBALES =====
+    
+    // Éléments DOM principaux
+    const menuBtn = document.querySelector('.menu');
+    const overlay = document.getElementById('site-overlay');
+    const closeBtn = document.querySelector('.close-menu');
+    const searchBar = document.querySelector('.search-bar');
+    const searchInput = document.getElementById('site-search');
+    const searchClear = document.getElementById('search-clear');
+    const searchOpenBtn = document.getElementById('search-open-btn');
+    
+    // État de défilement pour effets visuels
+    let isScrolled = false;
+    
+    // ===== GESTION DU DÉFILEMENT =====
+    
+    function handleScroll() {
+      const scrollY = window.scrollY;
+      const shouldBeScrolled = scrollY > 50;
+      
+      if (shouldBeScrolled !== isScrolled) {
+        isScrolled = shouldBeScrolled;
+        document.body.classList.toggle('scrolled', isScrolled);
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // ===== GESTION DU MENU LATÉRAL =====
+    
+    // Initialisation ARIA
+    if (overlay) overlay.setAttribute('aria-hidden', 'true');
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+    if (closeBtn) closeBtn.style.setProperty('pointer-events', 'none');
+    
+    // Variables pour la gestion du défilement
+    let savedScrollY = 0;
+    let savedBodyPaddingRight = '';
+    let scrollbarCompensated = false;
+    
+    // Fonction pour ouvrir le menu
+    function openMenu() {
+      if (!overlay) return;
+      
+      // Sauvegarder la position de défilement
+      savedScrollY = window.scrollY;
+      savedBodyPaddingRight = document.body.style.paddingRight;
+      
+      // Bloquer le défilement
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.width = '100%';
+      
+      // Afficher l'overlay
+      overlay.setAttribute('aria-hidden', 'false');
+      menuBtn?.setAttribute('aria-expanded', 'true');
+      closeBtn?.style.removeProperty('pointer-events');
+      
+      // Ajouter classe active
+      overlay.classList.add('active');
+    }
+    
+    // Fonction pour fermer le menu
+    function closeMenu() {
+      if (!overlay) return;
+      
+      // Masquer l'overlay
+      overlay.setAttribute('aria-hidden', 'true');
+      menuBtn?.setAttribute('aria-expanded', 'false');
+      closeBtn?.style.setProperty('pointer-events', 'none');
+      
+      // Restaurer le défilement
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.paddingRight = savedBodyPaddingRight;
+      
+      // Restaurer la position de défilement
+      window.scrollTo(0, savedScrollY);
+      
+      // Supprimer classe active
+      overlay.classList.remove('active');
+      
+      // Fermer tous les panneaux
+      closeAllPanels();
+    }
+    
+    // Écouteurs d'événements pour le menu
+    menuBtn?.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    
+    // Fermer en cliquant en dehors
+    overlay?.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeMenu();
+      }
+    });
+    
+    // Fermer avec Échap
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay?.getAttribute('aria-hidden') === 'false') {
+        closeMenu();
+      }
+    });
+    
+    // ===== GESTION DES PANNEAUX LATÉRAUX =====
+    
+    const panelTriggers = document.querySelectorAll('.open-panel');
+    const panels = document.querySelectorAll('.side-panel');
+    const sideMenuEl = document.querySelector('.side-menu');
+    
+    // Fonction pour fermer tous les panneaux
+    function closeAllPanels() {
+      panels.forEach(panel => {
+        panel.setAttribute('aria-hidden', 'true');
+        panel.classList.remove('open');
+      });
+      
+      sideMenuEl?.classList.remove('panel-open');
+      closeBtn?.style.removeProperty('display');
+    }
+    
+    // Fonction pour ouvrir un panneau
+    function openPanel(panelId) {
+      closeAllPanels();
+      
+      const panel = document.getElementById(`panel-${panelId}`);
+      if (panel) {
+        panel.setAttribute('aria-hidden', 'false');
+        panel.classList.add('open');
+        sideMenuEl?.classList.add('panel-open');
+        closeBtn?.style.setProperty('display', 'none');
+      }
+    }
+    
+    // Écouteurs pour ouvrir les panneaux
+    panelTriggers.forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const panelId = trigger.getAttribute('data-panel');
+        if (panelId) {
+          openPanel(panelId);
+        }
+      });
+    });
+    
+    // Écouteurs pour les boutons "Retour"
+    document.querySelectorAll('.panel-back').forEach(backBtn => {
+      backBtn.addEventListener('click', closeAllPanels);
+    });
+    
+    // ===== GESTION DE LA RECHERCHE =====
+    
+    // Fonction pour ouvrir la barre de recherche
+    function openSearchBar() {
+      if (!searchBar) return;
+      
+      searchBar.classList.remove('hidden');
+      searchBar.classList.add('search-opening');
+      searchInput?.focus();
+      
+      // Animation du bouton loupe
+      searchOpenBtn?.classList.add('search-btn-animate');
+      
+      // Nettoyage après animation
+      setTimeout(() => {
+        searchBar?.classList.remove('search-opening');
+        searchOpenBtn?.classList.remove('search-btn-animate');
+      }, 400);
+    }
+    
+    // Fonction pour fermer la barre de recherche
+    function closeSearchBar() {
+      if (!searchBar) return;
+      
+      searchBar.classList.add('search-closing');
+      
+      setTimeout(() => {
+        searchBar?.classList.remove('search-closing');
+        searchBar?.classList.add('hidden');
+        if (searchInput) searchInput.value = '';
+      }, 300);
+    }
+    
+    // Écouteurs pour la recherche
+    searchOpenBtn?.addEventListener('click', openSearchBar);
+    searchClear?.addEventListener('click', closeSearchBar);
+    
+    // Fermer avec Échap
+    searchInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeSearchBar();
+      }
+    });
+    
+    // ===== CARROUSEL D'IMAGES PRODUITS =====
+    
+    function initProductCarousels() {
+      document.querySelectorAll('.product').forEach(product => {
+        const imagesData = product.getAttribute('data-images');
+        if (!imagesData) return;
+        
+        const images = imagesData.split(',');
+        const maxSlidesAttr = parseInt(product.getAttribute('data-max'), 10);
+        let maxSlides = !isNaN(maxSlidesAttr) && maxSlidesAttr > 0 ? maxSlidesAttr : images.length;
+        
+        // Limiter au nombre d'images disponibles
+        if (images.length > maxSlides) {
+          images.splice(maxSlides);
+        }
+        
+        if (images.length <= 1) return;
+        
+        let currentIndex = 0;
+        const img = product.querySelector('img');
+        const leftBtn = product.querySelector('.carousel-left');
+        const rightBtn = product.querySelector('.carousel-right');
+        
+        if (!img || !leftBtn || !rightBtn) return;
+        
+        // Navigation précédente
+        leftBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          img.src = images[currentIndex].trim();
+        });
+        
+        // Navigation suivante
+        rightBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          currentIndex = (currentIndex + 1) % images.length;
+          img.src = images[currentIndex].trim();
+        });
+        
+        // Gestion des erreurs d'images
+        img.addEventListener('error', () => {
+          img.src = 'images-site/placeholder.jpg';
+        });
+      });
+    }
+    
+    // ===== FILTRAGE ET TRI DES PRODUITS =====
+    
+    function applyFilter() {
+      const inStockChecked = document.getElementById('filter-in-stock')?.checked;
+      const outOfStockChecked = document.getElementById('filter-out-of-stock')?.checked;
+      
+      document.querySelectorAll('.product').forEach(product => {
+        const stock = product.getAttribute('data-stock');
+        let show = true;
+        
+        if (inStockChecked && outOfStockChecked) {
+          show = true; // Afficher tous si les deux sont cochés
+        } else if (inStockChecked && !outOfStockChecked) {
+          show = stock === 'in-stock';
+        } else if (!inStockChecked && outOfStockChecked) {
+          show = stock === 'out-of-stock';
+        } else if (!inStockChecked && !outOfStockChecked) {
+          show = true; // Afficher tous si aucun n'est coché
+        }
+        
+        product.style.display = show ? '' : 'none';
+      });
+    }
+    
+    function applySort(sortType) {
+      const productGrid = document.querySelector('.product-grid');
+      const products = Array.from(productGrid.querySelectorAll('.product:not(.last-row)'));
+      const lastRow = productGrid.querySelector('.last-row');
+      
+      products.sort((a, b) => {
+        const priceA = parseInt(a.getAttribute('data-price')) || 0;
+        const priceB = parseInt(b.getAttribute('data-price')) || 0;
+        
+        return sortType === 'price-asc' ? priceA - priceB : priceB - priceA;
+      });
+      
+      // Réorganiser les produits
+      products.forEach(product => {
+        productGrid.insertBefore(product, lastRow);
+      });
+    }
+    
+    // ===== GESTION DES PRIX =====
+    
+    function injectPrices() {
+      document.querySelectorAll('.product').forEach(product => {
+        const price = product.getAttribute('data-price');
+        if (!price) return;
+        
+        const title = product.querySelector('.product-title');
+        if (!title) return;
+        
+        let priceElement = product.querySelector('.product-price');
+        if (!priceElement) {
+          priceElement = document.createElement('p');
+          priceElement.className = 'product-price';
+          title.parentNode.insertBefore(priceElement, title.nextSibling);
+        }
+        
+        priceElement.textContent = `${price}€`;
+      });
+    }
+    
+    // ===== GESTION DES FILTRES MUTUELLEMENT EXCLUSIFS =====
+    
+    function setupExclusiveFilters() {
+      const inStockCb = document.getElementById('filter-in-stock');
+      const outOfStockCb = document.getElementById('filter-out-of-stock');
+      
+      if (!inStockCb || !outOfStockCb) return;
+      
+      function setState() {
+        applyFilter();
+      }
+      
+      inStockCb.addEventListener('change', setState);
+      outOfStockCb.addEventListener('change', setState);
+    }
+    
+    // ===== GESTION DE L'AUDIO DE FOND =====
+    
+    function initBackgroundAudio() {
+      const audio = document.getElementById('bg-audio');
+      if (!audio) return;
+      
+      // Lecture automatique après interaction utilisateur
+      function enableAudio() {
+        audio.play().catch(() => {
+          // Ignorer les erreurs de lecture automatique
+        });
+        document.removeEventListener('click', enableAudio);
+      }
+      
+      document.addEventListener('click', enableAudio, { once: true });
+    }
+    
+    // ===== GESTION DES LANGUES =====
+    
+    function initLanguageSelector() {
+      const langButtons = document.querySelectorAll('.lang-btn');
+      const deliverySelect = document.getElementById('delivery-country');
+      
+      // Charger la langue sauvegardée
+      const savedLang = localStorage.getItem('site-language') || 'FR';
+      
+      langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.getAttribute('data-lang');
+          localStorage.setItem('site-language', lang);
+          
+          // Mettre à jour l'interface (ici on pourrait ajouter les traductions)
+          updateLanguage(lang);
+        });
+        
+        // Marquer le bouton actif
+        if (btn.getAttribute('data-lang') === savedLang) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Sauvegarder le pays de livraison
+      deliverySelect?.addEventListener('change', () => {
+        localStorage.setItem('delivery-country', deliverySelect.value);
+      });
+      
+      // Charger le pays sauvegardé
+      const savedCountry = localStorage.getItem('delivery-country') || 'FR';
+      if (deliverySelect) {
+        deliverySelect.value = savedCountry;
+      }
+    }
+    
+    function updateLanguage(lang) {
+      // Ici on pourrait implémenter les traductions
+      console.log(`Langue changée vers: ${lang}`);
+    }
+    
+    // ===== INITIALISATION =====
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialiser tous les composants
+      initProductCarousels();
+      injectPrices();
+      setupExclusiveFilters();
+      initBackgroundAudio();
+      initLanguageSelector();
+      
+      // Exposer les fonctions globalement pour les liens
+      window._filter = applyFilter;
+      window._sort = applySort;
+      
+      // Message de fin d'initialisation
+      console.log('Site Hoshi initialisé avec succès');
+    });
+
+    // --- Checkboxes de disponibilité ---
+    (function(){
+      function $(s){ return document.querySelector(s); }
+      const cbAvail = $('#filter-available');
+      const cbOut = $('#filter-out');
+      if (!cbAvail || !cbOut) return;
+      
+      function callLiveFilter(name) {
+        const fn = window.applyFilter || window._filter || function(){ console.warn('[filter] no filter function available'); };
+        try { fn(name); } catch(e){ console.error('[filter] error calling filter', e); }
+      }
+
+      cbAvail.addEventListener('change', function(){
+        if (this.checked) {
+          cbOut.checked = false;
+          callLiveFilter('in-stock');
+        } else {
+          callLiveFilter('all');
+        }
+      });
+
+      cbOut.addEventListener('change', function(){
+        if (this.checked) {
+          cbAvail.checked = false;
+          callLiveFilter('out-of-stock');
+        } else {
+          callLiveFilter('all');
+        }
+      });
+    })();
+
+    // ===== GESTION D'ERREURS GLOBALES =====
+    
+    window.addEventListener('error', (e) => {
+      console.error('Erreur JavaScript:', e.error);
+    });
+    
+    // Message de fin d'initialisation
+    console.log('Site Hoshi initialisé avec succès - Version simplifiée');
+    
+  </script>
+
+  <!-- ==== OVERLAY + MENUS LATÉRAUX ==== -->
+  <!-- Overlay + side menu -->
+  <div class="overlay" id="site-overlay" aria-hidden="true">
+    <nav class="side-menu" role="navigation" aria-label="Menu principal">
+  <button class="close-menu" aria-label="Fermer le menu"><span class="close-icon">✕</span></button>
+      <ul class="menu-main">
+  <li><a href="index.html" data-samewindow>Accueil</a></li>
+        <li><a href="#" class="open-panel" data-panel="shop">Boutique</a></li>
+        <li><a href="#" class="open-panel" data-panel="new">Nouveautés</a></li>
+  <li><a href="#" class="open-panel" data-panel="contact">Contact</a></li>
+      </ul>
+      <!-- Sous-menu (panel) pour la boutique -->
+      <div class="side-panel" id="panel-shop" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Boutique</h3>
+        <ul>
+          <li><a href="#" class="panel-link open-panel" data-panel="shop-vetements">Vêtements</a></li>
+          <li><a href="#" class="panel-link">Accessoires</a></li>
+          <li><a href="#" class="panel-link">Chaussures</a></li>
+          <li><a href="#" class="panel-link">Sacs</a></li>
+          <li><a href="#" class="panel-link">Promotions</a></li>
+        </ul>
+      </div>
+      <!-- Bloc bas de menu: pays de livraison et lien d'aide -->
+      <div class="menu-footer">
+        <!-- Music control: toggle background music on/off -->
+        <div class="audio-controls">
+          <button class="audio-toggle" aria-pressed="false" aria-label="Activer la musique">🔈 Musique</button>
+          <label class="audio-volume" aria-hidden="false">Volume
+            <input type="range" class="audio-volume-range" min="0" max="100" value="80" aria-label="Volume de la musique">
+          </label>
+        </div>
+        <!-- Small CTA shown only if autoplay is blocked to request a user gesture to enable sound -->
+        <div id="sound-cta" style="display:none;position:fixed;bottom:14px;left:14px;z-index:9999;">
+          <button id="sound-cta-btn" style="background:#111;color:#fff;border:none;padding:8px 12px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25);">Activer le son</button>
+        </div>
+        <!-- Delivery country selector (styled dropdown to match DA) -->
+        <div class="delivery-country">
+          <span class="delivery-label">Livraison vers :</span>
+          <div class="country-dropdown" data-expanded="false">
+            <button class="country-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Sélectionner le pays de livraison">
+              <span class="country-label">France</span>
+              <span class="country-caret">▾</span>
+            </button>
+            <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="true">
+              <li role="option"><button class="country-option" data-value="FR">France</button></li>
+              <li role="option"><button class="country-option" data-value="RE">La Réunion</button></li>
+              <li role="option"><button class="country-option" data-value="BE">Belgique</button></li>
+              <li role="option"><button class="country-option" data-value="ES">Espagne</button></li>
+              <li role="option"><button class="country-option" data-value="JP">Japon</button></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Language selector (matches delivery DA) - placed directly under delivery selector -->
+        <div class="language-selector">
+          <span class="lang-label" aria-hidden="true">Language :</span>
+          <div class="lang-dropdown country-dropdown" data-expanded="false">
+            <button class="lang-btn country-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Sélectionner la langue">
+              <span class="lang-visible country-label">Français</span>
+              <span class="country-caret">▾</span>
+            </button>
+            <ul class="lang-list country-list" role="listbox" tabindex="-1" aria-hidden="true">
+              <li role="option"><button class="lang-option country-option" data-lang="FR">Français</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="EN">English</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="ES">Español</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="JP">日本語</button></li>
+            </ul>
+          </div>
+        </div>
+        <a href="#" class="help-link">Besoin d'aide ?</a>
+      </div>
+    <!-- Nouveautés panel (similar to boutique panel) -->
+    <div class="side-panel" id="panel-new" aria-hidden="true">
+      <button class="panel-back" aria-label="Retour">← Retour</button>
+      <h3>Nouveautés</h3>
+      <ul>
+        <li><a href="nouveaute-photo.html" class="panel-link">Photo</a></li>
+        <li><a href="nouveaute-video.html" class="panel-link">Vidéo</a></li>
+        <li><a href="nouveaute-formule.html" class="panel-link">Formule</a></li>
+      </ul>
+    </div>
+    <!-- Contact panel -->
+    <div class="side-panel" id="panel-contact" aria-hidden="true">
+      <button class="panel-back" aria-label="Retour">← Retour</button>
+      <h3>Contact</h3>
+      <div class="contact-info">
+        <p><strong>Nom :</strong> ROGER Mathys</p>
+        <p><strong>Email :</strong> mathysroger974@gmail.com</p>
+        <p><strong>Téléphone :</strong> +33 7 75 72 98 92</p>
+        <form class="contact-form" action="#" method="post">
+          <label>Message
+            <textarea name="message" rows="4" placeholder="Votre message..." required></textarea>
+          </label>
+          <button type="submit" class="panel-link">Envoyer</button>
+        </form>
+      </div>
+    </div>
+    <!-- Vêtements sub-panel (mirror same animation/structure as other panels) -->
+    <div class="side-panel" id="panel-shop-vetements" aria-hidden="true">
+      <button class="panel-back" aria-label="Retour">← Retour</button>
+      <h3>Vêtements</h3>
+      <ul>
+        <li><a href="#" class="panel-link submenu-item" data-category="hoodie">Hoodie</a></li>
+        <li><a href="#" class="panel-link submenu-item" data-category="tshirt">T-Shirt</a></li>
+        <li><a href="#" class="panel-link submenu-item" data-category="kimono">Kimono</a></li>
+        <li><a href="#" class="panel-link submenu-item" data-category="jogging">Jogging</a></li>
+      </ul>
+    </div>
+    </nav>
+    <!-- Cart panel: slides from the right, similar behavior to .side-menu -->
+    <nav class="cart-menu" role="navigation" aria-label="Panier" aria-hidden="true">
+      <button class="close-cart" aria-label="Fermer le panier">✕</button>
+      <div class="cart-main" role="region" aria-label="Contenu du panier">
+        <h3>Votre panier</h3>
+        <p class="cart-empty">Votre panier est vide.</p>
+        <!-- Example cart items (replace with dynamic content as needed) -->
+        <ul class="cart-items" aria-live="polite"></ul>
+        <div class="cart-actions">
+          <button class="cart-checkout">Commander</button>
+          <button class="cart-view">Voir le panier</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Background audio (place your file in audio/background.mp3) -->
+  <audio id="bg-audio" src="audio/background.mp3" loop preload="auto"></audio>
+
+</body>
+</html>

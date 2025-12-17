@@ -1,0 +1,641 @@
+<!-- Créer votre squellette HTML de base ici. -->
+<!-- N'oubliez pas d'inclure les balises DOCTYPE, html, head, meta et body. -->
+<!-- Assurez-vous que la langue est définie sur le français dans la balise html. -->
+<!-- Le titre de la page est MNTN - GUIDE DE RANDONNÉE -->
+<!-- Inclure les GOOGLE FONTS Playfair Display et Questrial-->
+<!-- Inclure le fichier CSS style.css -->
+
+<!-- les images doivent êtres rangées dans un dossier "images" -->
+<!-- les les pictogrammes doivent êtres rangés dans un dossier "icons" -->
+
+<!-- Zone du menu avec logo + Equipement - A propos - Blog + Utilisteur (icone) -->
+<!-- Zone de l'en-tête avec image de fond + Un guide de randonnée + Soyez prêt pour l’aventure ! + scroll down (icone) -->
+<!-- Zone principale avec 3 sections : 
+    01. Pour commencer. Quel est votre niveau en randonée ? Déterminer votre niveau de randonneur est essentiel pour bien planifier vos prochaines excursions. Ce guide des niveaux de difficulté vous aidera à organiser vos randonnées selon les différentes classifications établies par des sites web comme AllTrails et Modern Hiker. Quel type de randonneur êtes-vous : débutant, intermédiaire, intermédiaire avancé, expert ou randonneur chevronné ? En savoir plus (icone)
+    02. Essentiel pour la randonnée. Choisir le bon équipement. Ce qui est bien avec la randonnée, c'est qu'on n'a pas vraiment besoin d'équipement spécial ; on peut généralement se débrouiller avec ce qu'on a déjà.  Commençons par les vêtements. Une erreur fréquente chez les randonneurs débutants est de porter des jeans et des vêtements ordinaires, qui deviennent vite lourds et irritants s'ils sont mouillés ou s'ils transpirent. En savoir plus (icone)
+    03. Votre destination est la clé. Comprendre votre carte & le Timing. Pour commencer, imprimez le guide de randonnée et la carte. S'il pleut, mettez-les dans un sac Ziploc. Lisez attentivement le guide, étudiez la carte et familiarisez-vous avec le parcours. J'aime repérer les points de repère pendant ma randonnée. Par exemple, je lis le guide et je sais que, dans un kilomètre et demi, je dois tourner à droite à l'intersection. En savoir plus (icone)
+-->
+<!-- Footer :
+ Logo - Partez à la découverte de la montagne ! - Copyright 2025 MNTN, Inc.
+ En Savoir Plus - A propos - Contributeurs - Ecrire pour nous - Contactez nous - Politique de Confidentialité
+ MNTN - Notre équipe - Offre d’emploi - Article de presse
+-->
+
+<!-- Vous devez commenter votre code HTML pour expliquer la structure et le contenu de votre page. Vous devez utiliser des classes avec des noms en français qui exprime ce que definit cette zone et reutiliser ces classes autant que possible pour faciliter la maintenance et la lisibilité du code. (exemple: .section-produit => .section-produit-titre => section-produit-prix etc ...) -->
+
+<!-- Vous devez utiliser le plus souvent les balises sémantiques -->
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNTN - GUIDE DE RANDONNÉE</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Questrial&display=swap" rel="stylesheet">
+    
+    <!-- Fichier CSS -->
+    <link rel="stylesheet" href="mountain.css">
+</head>
+<body>
+    
+    <!-- Musique d'ambiance : Sons de forêt -->
+    <audio id="musique-ambiance" loop>
+        <source src="audio forest/audio de foret.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas la lecture audio.
+    </audio>
+    
+    <!-- Contrôles audio personnalisés -->
+    <div class="lecteur-audio-personnalise">
+        <button id="play-pause-btn" class="lecteur-btn" aria-label="Play/Pause">
+            <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <svg id="pause-icon" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+        </button>
+        <input type="range" id="volume-slider" min="0" max="100" value="50" class="lecteur-volume">
+    </div>
+    
+    <!-- En-tête : Menu de navigation avec logo, liens et icône utilisateur -->
+    <header class="menu">
+        <nav class="menu-conteneur">
+            <!-- Logo -->
+            <div class="menu-logo">
+                <img src="icons mountain/logo.svg" alt="Logo MNTN">
+            </div>
+            
+            <!-- Navigation principale -->
+            <ul class="menu-navigation">
+                <li class="menu-navigation-item"><a href="#equipement">Equipement</a></li>
+                <li class="menu-navigation-item"><a href="#apropos">A propos</a></li>
+                <li class="menu-navigation-item"><a href="#blog">Blog</a></li>
+            </ul>
+            
+            <!-- Icône utilisateur -->
+            <div class="menu-utilisateur" id="icone-utilisateur">
+                <img src="icons mountain/utilisateur.svg" alt="Icône utilisateur">
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Modal de connexion/inscription -->
+    <div class="modal-overlay" id="modal-auth">
+        <div class="modal-auth-conteneur">
+            <!-- Bouton de fermeture -->
+            <button class="modal-close" id="modal-close-btn" aria-label="Fermer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- Onglets connexion/inscription -->
+            <div class="modal-auth-onglets">
+                <button class="modal-auth-onglet active" data-onglet="connexion">Connexion</button>
+                <button class="modal-auth-onglet" data-onglet="inscription">Inscription</button>
+            </div>
+            
+            <!-- Formulaire de connexion -->
+            <div class="modal-auth-contenu active" id="connexion-form">
+                <h2 class="modal-auth-titre">Bon retour !</h2>
+                <p class="modal-auth-sous-titre">Connectez-vous pour continuer votre aventure</p>
+                
+                <form class="modal-auth-formulaire">
+                    <div class="modal-auth-groupe">
+                        <label for="connexion-email" class="modal-auth-label">Email</label>
+                        <input type="email" id="connexion-email" class="modal-auth-input" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="modal-auth-groupe">
+                        <label for="connexion-password" class="modal-auth-label">Mot de passe</label>
+                        <input type="password" id="connexion-password" class="modal-auth-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="modal-auth-options">
+                        <label class="modal-auth-checkbox">
+                            <input type="checkbox" id="remember-me">
+                            <span>Se souvenir de moi</span>
+                        </label>
+                        <a href="#" class="modal-auth-lien" id="lien-mot-de-passe-oublie">Mot de passe oublié ?</a>
+                    </div>
+                    
+                    <button type="submit" class="modal-auth-btn">Se connecter</button>
+                </form>
+            </div>
+            
+            <!-- Formulaire mot de passe oublié -->
+            <div class="modal-auth-contenu" id="mot-de-passe-oublie-form">
+                <h2 class="modal-auth-titre">Mot de passe oublié ?</h2>
+                <p class="modal-auth-sous-titre">Entrez votre adresse email pour recevoir un lien de réinitialisation</p>
+                
+                <form class="modal-auth-formulaire">
+                    <div class="modal-auth-groupe">
+                        <label for="reset-email" class="modal-auth-label">Email</label>
+                        <input type="email" id="reset-email" class="modal-auth-input" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <button type="submit" class="modal-auth-btn">Envoyer le lien</button>
+                    
+                    <a href="#" class="modal-auth-retour" id="retour-connexion">← Retour à la connexion</a>
+                </form>
+            </div>
+            
+            <!-- Formulaire d'inscription -->
+            <div class="modal-auth-contenu" id="inscription-form">
+                <h2 class="modal-auth-titre">Rejoignez-nous !</h2>
+                <p class="modal-auth-sous-titre">Créez votre compte pour démarrer l'aventure</p>
+                
+                <form class="modal-auth-formulaire">
+                    <div class="modal-auth-groupe">
+                        <label for="inscription-nom" class="modal-auth-label">Nom complet</label>
+                        <input type="text" id="inscription-nom" class="modal-auth-input" placeholder="Jean Dupont" required>
+                    </div>
+                    
+                    <div class="modal-auth-groupe">
+                        <label for="inscription-email" class="modal-auth-label">Email</label>
+                        <input type="email" id="inscription-email" class="modal-auth-input" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="modal-auth-groupe">
+                        <label for="inscription-password" class="modal-auth-label">Mot de passe</label>
+                        <input type="password" id="inscription-password" class="modal-auth-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="modal-auth-groupe">
+                        <label for="inscription-password-confirm" class="modal-auth-label">Confirmer le mot de passe</label>
+                        <input type="password" id="inscription-password-confirm" class="modal-auth-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <label class="modal-auth-checkbox">
+                        <input type="checkbox" id="accept-terms" required>
+                        <span>J'accepte les <a href="#" class="modal-auth-lien">conditions d'utilisation</a></span>
+                    </label>
+                    
+                    <button type="submit" class="modal-auth-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de contact -->
+    <div class="modal-overlay" id="modal-contact">
+        <div class="modal-contact-conteneur">
+            <!-- Bouton de fermeture -->
+            <button class="modal-close" id="modal-contact-close-btn" aria-label="Fermer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="modal-contact-contenu">
+                <h2 class="modal-contact-titre">Contactez-nous</h2>
+                <p class="modal-contact-sous-titre">Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais</p>
+                
+                <form class="modal-contact-formulaire" id="form-contact">
+                    <div class="modal-contact-groupe">
+                        <label for="contact-nom" class="modal-contact-label">Nom complet</label>
+                        <input type="text" id="contact-nom" class="modal-contact-input" placeholder="Jean Dupont" required>
+                    </div>
+                    
+                    <div class="modal-contact-groupe">
+                        <label for="contact-email" class="modal-contact-label">Email</label>
+                        <input type="email" id="contact-email" class="modal-contact-input" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="modal-contact-groupe">
+                        <label for="contact-sujet" class="modal-contact-label">Sujet</label>
+                        <input type="text" id="contact-sujet" class="modal-contact-input" placeholder="Objet de votre message" required>
+                    </div>
+                    
+                    <div class="modal-contact-groupe">
+                        <label for="contact-message" class="modal-contact-label">Message</label>
+                        <textarea id="contact-message" class="modal-contact-textarea" placeholder="Votre message..." rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="modal-contact-btn">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Barre latérale : Réseaux sociaux -->
+    <aside class="reseaux-sociaux">
+        <span class="reseaux-sociaux-titre">Suivez-nous</span>
+        <div class="reseaux-sociaux-icones">
+            <a href="https://www.instagram.com/astra_photo974/" target="_blank" rel="noopener noreferrer" class="reseaux-sociaux-lien">
+                <img src="icons mountain/instagram.svg" alt="Instagram">
+            </a>
+            <a href="#" class="reseaux-sociaux-lien">
+                <img src="icons mountain/twitter.svg" alt="Twitter">
+            </a>
+        </div>
+    </aside>
+    
+    <!-- Section héro : Image de fond avec titre principal et appel à l'action -->
+    <section class="hero">
+        <!-- Couche de sol pour l'effet parallaxe -->
+        <div class="hero-ground"></div>
+        
+        <!-- Dégradé par-dessus toutes les couches -->
+        <div class="hero-gradient"></div>
+        
+        <div class="hero-conteneur">
+            <!-- Texte d'introduction avec ligne décorative -->
+            <div class="hero-introduction-conteneur">
+                <span class="hero-introduction-ligne"></span>
+                <p class="hero-introduction">Un guide de randonnée</p>
+            </div>
+            
+            <!-- Titre principal -->
+            <h1 class="hero-titre">Soyez prêt pour l'aventure !</h1>
+            
+            <!-- Indicateur de défilement -->
+            <a href="#section-1" class="hero-scroll">
+                <span class="hero-scroll-texte">scroll down</span>
+                <img src="icons mountain/arrow_downward.svg" alt="Icône scroll down" class="hero-scroll-icone">
+            </a>
+        </div>
+    </section>
+    
+    <!-- Contenu principal : Trois sections d'information sur la randonnée -->
+    <main class="contenu-principal">
+        
+        <!-- Section 1 : Niveau de randonnée -->
+        <article id="section-1" class="section-article">
+            <div class="section-article-conteneur">
+                <!-- Contenu textuel -->
+                <div class="section-article-contenu">
+                    <span class="section-article-numero">01.</span>
+                    <div class="section-article-surtitre-conteneur">
+                        <span class="section-article-surtitre-ligne"></span>
+                        <p class="section-article-surtitre">Pour commencer</p>
+                    </div>
+                    <h2 class="section-article-titre">Quel est votre niveau en randonnée ?</h2>
+                    <p class="section-article-texte">
+                        Déterminer votre niveau de randonneur est essentiel pour bien planifier vos prochaines excursions. 
+                        Ce guide des niveaux de difficulté vous aidera à organiser vos randonnées selon les différentes 
+                        classifications établies par des sites web comme AllTrails et Modern Hiker. Quel type de randonneur 
+                        êtes-vous : débutant, intermédiaire, intermédiaire avancé, expert ou randonneur chevronné ?
+                    </p>
+                    <a href="#" class="section-article-lien">
+                        En savoir plus
+                        <img src="icons mountain/fleche.svg" alt="Icône flèche" class="section-article-lien-icone">
+                    </a>
+                </div>
+                
+                <!-- Image illustrative -->
+                <div class="section-article-image">
+                    <img src="imagesmountain/essentiel-randonnee.jpg" alt="Randonneur en montagne">
+                </div>
+            </div>
+        </article>
+        
+        <!-- Section 2 : Équipement de randonnée -->
+        <article class="section-article section-article-inverse">
+            <div class="section-article-conteneur">
+                <!-- Contenu textuel -->
+                <div class="section-article-contenu">
+                    <span class="section-article-numero">02.</span>
+                    <div class="section-article-surtitre-conteneur">
+                        <span class="section-article-surtitre-ligne"></span>
+                        <p class="section-article-surtitre">Essentiel pour la randonnée</p>
+                    </div>
+                    <h2 class="section-article-titre">Choisir le bon équipement.</h2>
+                    <p class="section-article-texte">
+                        Ce qui est bien avec la randonnée, c'est qu'on n'a pas vraiment besoin d'équipement spécial ; 
+                        on peut généralement se débrouiller avec ce qu'on a déjà. Commençons par les vêtements. Une erreur 
+                        fréquente chez les randonneurs débutants est de porter des jeans et des vêtements ordinaires, 
+                        qui deviennent vite lourds et irritants s'ils sont mouillés ou s'ils transpirent.
+                    </p>
+                    <a href="#" class="section-article-lien">
+                        En savoir plus
+                        <img src="icons mountain/fleche.svg" alt="Icône flèche" class="section-article-lien-icone">
+                    </a>
+                </div>
+                
+                <!-- Image illustrative -->
+                <div class="section-article-image">
+                    <img src="imagesmountain/essentiel-randonnee.jpg" alt="Équipement de randonnée">
+                </div>
+            </div>
+        </article>
+        
+        <!-- Section 3 : Carte et timing -->
+        <article class="section-article">
+            <div class="section-article-conteneur">
+                <!-- Contenu textuel -->
+                <div class="section-article-contenu">
+                    <span class="section-article-numero">03.</span>
+                    <div class="section-article-surtitre-conteneur">
+                        <span class="section-article-surtitre-ligne"></span>
+                        <p class="section-article-surtitre">Votre destination est la clé</p>
+                    </div>
+                    <h2 class="section-article-titre">Comprendre votre carte & le Timing.</h2>
+                    <p class="section-article-texte">
+                        Pour commencer, imprimez le guide de randonnée et la carte. S'il pleut, mettez-les dans un sac Ziploc. 
+                        Lisez attentivement le guide, étudiez la carte et familiarisez-vous avec le parcours. J'aime repérer 
+                        les points de repère pendant ma randonnée. Par exemple, je lis le guide et je sais que, dans un 
+                        kilomètre et demi, je dois tourner à droite à l'intersection.
+                    </p>
+                    <a href="#" class="section-article-lien">
+                        En savoir plus
+                        <img src="icons mountain/fleche.svg" alt="Icône flèche" class="section-article-lien-icone">
+                    </a>
+                </div>
+                
+                <!-- Image illustrative -->
+                <div class="section-article-image">
+                    <img src="imagesmountain/carte-et-timing.jpg" alt="Carte de randonnée">
+                </div>
+            </div>
+        </article>
+        
+    </main>
+    
+    <!-- Pied de page : Logo, slogan, copyright et liens -->
+    <footer class="pied-de-page">
+        <div class="pied-de-page-conteneur">
+            
+            <!-- Colonne 1 : Logo et informations -->
+            <div class="pied-de-page-colonne-principale">
+                <div class="pied-de-page-logo">
+                    <img src="icons mountain/logo.svg" alt="Logo MNTN">
+                </div>
+                <p class="pied-de-page-slogan">Partez à la découverte de la montagne !</p>
+                <p class="pied-de-page-copyright">Copyright 2025 MNTN, Inc.</p>
+            </div>
+            
+            <!-- Conteneur des colonnes de droite -->
+            <div class="pied-de-page-colonnes-droite">
+                <!-- Colonne 2 : En Savoir Plus -->
+                <div class="pied-de-page-colonne">
+                    <h3 class="pied-de-page-colonne-titre">En Savoir Plus</h3>
+                    <ul class="pied-de-page-liste">
+                        <li class="pied-de-page-liste-item"><a href="#apropos">A propos</a></li>
+                        <li class="pied-de-page-liste-item"><a href="#contributeurs">Contributeurs</a></li>
+                        <li class="pied-de-page-liste-item"><a href="#ecrire">Ecrire pour nous</a></li>
+                        <li class="pied-de-page-liste-item"><a href="#contact" id="lien-contact">Contactez nous</a></li>
+                        <li class="pied-de-page-liste-item"><a href="#confidentialite">Politique de Confidentialité</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Colonne 3 : MNTN -->
+                <div class="pied-de-page-colonne">
+                    <h3 class="pied-de-page-colonne-titre">MNTN</h3>
+                    <ul class="pied-de-page-liste">
+                        <li class="pied-de-page-liste-item"><a href="#equipe">Notre équipe</a></li>
+                        <li class="pied-de-page-liste-item"><a href="#emploi">Offre d'emploi</a></li>
+                        <li class="pied-de-page-liste-item"><a href="#presse">Article de presse</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+    
+    <!-- Script JavaScript pour l'effet de parallaxe au scroll -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            
+            if (hero && scrolled < window.innerHeight * 1.5) {
+                // Ciel - bouge très lentement vers le bas (0.2x)
+                hero.style.setProperty('--sky-offset', scrolled * 0.2 + 'px');
+                // Montagnes - vitesse moyenne (0.5x)
+                hero.style.setProperty('--mountains-offset', scrolled * 0.5 + 'px');
+                // Sol - bouge rapidement (0.6x)
+                hero.style.setProperty('--ground-offset', scrolled * 0.6 + 'px');
+            }
+        });
+        
+        // Script pour le lecteur audio personnalisé
+        const audio = document.getElementById('musique-ambiance');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const volumeSlider = document.getElementById('volume-slider');
+        
+        // Initialiser le volume
+        audio.volume = 0.5;
+        
+        // Toggle play/pause
+        playPauseBtn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                audio.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        });
+        
+        // Contrôle du volume
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+        });
+        
+        // Mettre à jour l'icône selon l'état de lecture
+        audio.addEventListener('play', function() {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        });
+        
+        audio.addEventListener('pause', function() {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        });
+        
+        // Script pour la modal de connexion/inscription
+        const modalAuth = document.getElementById('modal-auth');
+        const iconeUtilisateur = document.getElementById('icone-utilisateur');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const onglets = document.querySelectorAll('.modal-auth-onglet');
+        const contenus = document.querySelectorAll('.modal-auth-contenu');
+        
+        // Ouvrir la modal au clic sur l'icône utilisateur
+        iconeUtilisateur.addEventListener('click', function() {
+            modalAuth.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Empêche le scroll du body
+        });
+        
+        // Fermer la modal
+        function fermerModal() {
+            modalAuth.classList.remove('active');
+            document.body.style.overflow = ''; // Restaure le scroll
+        }
+        
+        // Fermer au clic sur le bouton de fermeture
+        modalCloseBtn.addEventListener('click', fermerModal);
+        
+        // Fermer au clic sur l'overlay (en dehors de la modal)
+        modalAuth.addEventListener('click', function(e) {
+            if (e.target === modalAuth) {
+                fermerModal();
+            }
+        });
+        
+        // Fermer avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalAuth.classList.contains('active')) {
+                fermerModal();
+            }
+        });
+        
+        // Gestion des onglets connexion/inscription
+        onglets.forEach(onglet => {
+            onglet.addEventListener('click', function() {
+                const targetOnglet = this.getAttribute('data-onglet');
+                
+                // Retire la classe active de tous les onglets et contenus
+                onglets.forEach(o => o.classList.remove('active'));
+                contenus.forEach(c => c.classList.remove('active'));
+                
+                // Ajoute la classe active à l'onglet cliqué
+                this.classList.add('active');
+                
+                // Ajoute la classe active au contenu correspondant
+                const targetContenu = document.getElementById(targetOnglet + '-form');
+                if (targetContenu) {
+                    targetContenu.classList.add('active');
+                }
+            });
+        });
+        
+        // Gestion du lien "Mot de passe oublié"
+        const lienMotDePasseOublie = document.getElementById('lien-mot-de-passe-oublie');
+        const motDePasseOublieForm = document.getElementById('mot-de-passe-oublie-form');
+        const retourConnexion = document.getElementById('retour-connexion');
+        const connexionForm = document.getElementById('connexion-form');
+        
+        lienMotDePasseOublie.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Cache tous les contenus
+            contenus.forEach(c => c.classList.remove('active'));
+            // Désactive tous les onglets
+            onglets.forEach(o => o.classList.remove('active'));
+            // Affiche le formulaire mot de passe oublié
+            motDePasseOublieForm.classList.add('active');
+        });
+        
+        retourConnexion.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Cache tous les contenus
+            contenus.forEach(c => c.classList.remove('active'));
+            // Active l'onglet connexion
+            onglets[0].classList.add('active');
+            // Affiche le formulaire de connexion
+            connexionForm.classList.add('active');
+        });
+        
+        // Empêche la soumission réelle des formulaires (pour la démo)
+        const formulaires = document.querySelectorAll('.modal-auth-formulaire');
+        formulaires.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Fonctionnalité de démonstration - Formulaire soumis !');
+                fermerModal();
+            });
+        });
+        
+        // Script pour la modal de contact
+        const modalContact = document.getElementById('modal-contact');
+        const lienContact = document.getElementById('lien-contact');
+        const modalContactCloseBtn = document.getElementById('modal-contact-close-btn');
+        const formContact = document.getElementById('form-contact');
+        
+        // Ouvrir la modal de contact
+        lienContact.addEventListener('click', function(e) {
+            e.preventDefault();
+            modalContact.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Fermer la modal de contact
+        function fermerModalContact() {
+            modalContact.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        modalContactCloseBtn.addEventListener('click', fermerModalContact);
+        
+        // Fermer au clic sur l'overlay
+        modalContact.addEventListener('click', function(e) {
+            if (e.target === modalContact) {
+                fermerModalContact();
+            }
+        });
+        
+        // Fermer avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalContact.classList.contains('active')) {
+                fermerModalContact();
+            }
+        });
+        
+        // Gestion de la soumission du formulaire de contact
+        formContact.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nom = document.getElementById('contact-nom').value;
+            const email = document.getElementById('contact-email').value;
+            const sujet = document.getElementById('contact-sujet').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // Envoi d'exemple de mail (pour la démo)
+            alert(`Message envoyé !\n\nDe: ${nom} (${email})\nSujet: ${sujet}\nMessage: ${message}`);
+            
+            // Réinitialiser le formulaire
+            formContact.reset();
+            fermerModalContact();
+        });
+    </script>
+            <!-- Script pour le lecteur audio d'ambiance -->
+            <script>
+                const audio = document.getElementById('musique-ambiance');
+                const playPauseBtn = document.getElementById('play-pause-btn');
+                const playIcon = document.getElementById('play-icon');
+                const pauseIcon = document.getElementById('pause-icon');
+                const volumeSlider = document.getElementById('volume-slider');
+
+                let isPlaying = false;
+
+                playPauseBtn.addEventListener('click', function () {
+                    if (audio.paused) {
+                        audio.play();
+                        playIcon.style.display = 'none';
+                        pauseIcon.style.display = 'inline';
+                    } else {
+                        audio.pause();
+                        playIcon.style.display = 'inline';
+                        pauseIcon.style.display = 'none';
+                    }
+                });
+
+                audio.addEventListener('play', function () {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'inline';
+                });
+                audio.addEventListener('pause', function () {
+                    playIcon.style.display = 'inline';
+                    pauseIcon.style.display = 'none';
+                });
+
+                volumeSlider.addEventListener('input', function () {
+                    audio.volume = this.value / 100;
+                });
+
+                // Volume initial
+                audio.volume = volumeSlider.value / 100;
+            </script>
+    
+</body>
+</html>

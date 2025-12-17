@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoodie Sakura Zippé - Hoshi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Keep same page-specific styles as other product pages */
+    .product-page { padding: 28px 0 60px; }
+    .product-wrap { max-width:1100px; margin:28px auto; display:grid; grid-template-columns: 1fr 420px; gap:28px; padding: 0 20px; align-items:start; }
+    .product-gallery { background: #fff; border-radius:14px; padding:18px; box-shadow: 0 6px 18px rgba(17,17,17,0.06); }
+    .gallery-main { border-radius:12px; overflow:hidden; display:block; position:relative; }
+    .gallery-main .main-image { width:100%; aspect-ratio: 3 / 4; height: auto; max-height:820px; object-fit:cover; display:block; border-radius:10px; }
+    .thumbs { display:flex; gap:10px; margin-top:12px; }
+    .thumbs img { width:80px; height:106px; object-fit:cover; border-radius:8px; }
+    .related-grid .related-card { display:flex; flex-direction:column; min-height:340px; }
+  </style>
+</head>
+<body>
+  <div class="page-content">
+    <header>
+      <div class="logo"><a href="index.html">星</a></div>
+    </header>
+
+    <main class="product-page">
+      <div class="product-wrap">
+        <div class="product-gallery enter-up" id="gallery">
+          <div class="gallery-main">
+            <button type="button" class="gallery-arrow left" id="prevBtn" aria-label="Image précédente">‹</button>
+            <img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp" alt="Hoodie Sakura Zippé" class="main-image" id="mainImage">
+            <button type="button" class="gallery-arrow right" id="nextBtn" aria-label="Image suivante">›</button>
+          </div>
+          <div class="thumbs" id="thumbs">
+            <button type="button" data-src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp" class="active"><img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp" alt="1"></button>
+            <button type="button" data-src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 2.webp"><img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 2.webp" alt="2"></button>
+            <button type="button" data-src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 3.webp"><img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 3.webp" alt="3"></button>
+            <button type="button" data-src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 4.webp"><img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 4.webp" alt="4"><span class="plus-overlay" title="Voir toutes les images">+</span></button>
+          </div>
+        </div>
+
+        <aside class="product-info enter-up" id="info">
+          <h1>Hoodie Sakura Zippé</h1>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+            <div class="price" id="price" data-price="90">90€</div>
+            <div class="tax">Taxes incluses</div>
+          </div>
+          <p>Hoodie zippé inspiré des sakura, avec capuche et poche kangourou. Coutures renforcées et intérieur brossé.</p>
+          <div class="sizes" id="sizes"><h3 style="font-size:14px;margin:0 0 8px 0;">Taille</h3><div class="size-options"><button type="button">XS</button><button type="button">S</button><button type="button">M</button><button type="button" aria-pressed="true" class="active">L</button><button type="button">XL</button></div></div>
+          <div class="quantity" style="margin-top:18px;"><h3 style="font-size:14px;margin:0 0 8px 0;">Quantité</h3><div class="qty-control" aria-label="Quantité"><button type="button" class="qty-btn" id="qtyDec" aria-label="Diminuer la quantité">−</button><input type="text" id="qtyDisplay" value="1" aria-live="polite" aria-atomic="true" readonly style="width:36px;text-align:center;border:none;background:transparent;font-weight:700;" /><button type="button" class="qty-btn" id="qtyInc" aria-label="Augmenter la quantité">+</button></div><select id="qty" style="display:none;"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+          <div style="margin-top:20px;display:flex;gap:12px;align-items:center;"><button class="add-to-cart" id="addToCart">Ajouter au panier</button><button class="wishlist" id="wishlist">♡ Ajouter à la wishlist</button></div>
+        </aside>
+      </div>
+
+      <section style="max-width:1100px;margin:20px auto;padding:0 20px;"><h2>Description</h2><p>Douceur et confort — idéal pour les fraîches soirées. 80% coton, 20% polyester. Lavable en machine.</p></section>
+
+      <section class="related-products" style="max-width:1100px;margin:20px auto;padding:0 20px;"><h2>Vous pourriez aussi aimer :</h2>
+        <div class="related-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:12px;">
+          <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+            <a href="page produit 1.html" style="text-decoration:none;color:inherit;display:block;"><img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" alt="Hoodie Sakura Shirotae" data-images="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png, images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png, images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp, images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;"></a>
+            <div class="related-footer"><div class="related-meta"><a href="page produit 1.html" style="text-decoration:none;color:inherit;"><div class="related-title">Hoodie Sakura Shirotae</div></a><div class="related-price">90€</div></div><div class="related-actions"><button class="related-add" data-sku="hoodie-sakura-shirotae" data-title="Hoodie Sakura Shirotae" data-price="90" data-image="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png">Ajouter</button></div></div>
+          </div>
+          <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+            <a href="page produit 3.html" style="text-decoration:none;color:inherit;display:block;"><img src="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp" alt="Hoodie Black Kitsune" data-images="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp, images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 2.webp, images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 3.webp, images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 4.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;"></a>
+            <div class="related-footer"><div class="related-meta"><a href="page produit 3.html" style="text-decoration:none;color:inherit;"><div class="related-title">Hoodie Black Kitsune</div></a><div class="related-price">90€</div></div><div class="related-actions"><button class="related-add" data-sku="hoodie-black-kitsune" data-title="Hoodie Black Kitsune" data-price="90" data-image="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp">Ajouter</button></div></div>
+          </div>
+          <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+            <a href="page produit 4.html" style="text-decoration:none;color:inherit;display:block;"><img src="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp" alt="T-Shirt blanc" data-images="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp, images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 2.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;"></a>
+            <div class="related-footer"><div class="related-meta"><a href="page produit 4.html" style="text-decoration:none;color:inherit;"><div class="related-title">T-Shirt blanc ONI x HOKUSAI</div></a><div class="related-price">30€</div></div><div class="related-actions"><button class="related-add" data-sku="tshirt-blanc-oni-hokusai" data-title="T-Shirt blanc ONI x HOKUSAI" data-price="30" data-image="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp">Ajouter</button></div></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    
+    <footer class="site-footer">
+      <div class="footer-bottom"><div class="copyright">© 2025 HOSHI.</div></div>
+    </footer>
+  </div>
+  <!-- Background audio (page-specific) -->
+  <audio id="bg-audio" src="audio/background.mp3" loop preload="auto"></audio>
+  <!-- Overlay + side menu (moved outside .page-content to keep menu sharp while background blurs) -->
+  <div class="overlay" id="site-overlay" aria-hidden="true">
+    <nav class="side-menu" role="navigation" aria-label="Menu principal">
+      <button class="close-menu" aria-label="Fermer le menu"><span class="close-icon">✕</span></button>
+      <ul class="menu-main">
+        <li><a href="index.html" data-samewindow>Accueil</a></li>
+        <li><a href="#" class="open-panel" data-panel="shop">Boutique</a></li>
+        <li><a href="#" class="open-panel" data-panel="new">Nouveautés</a></li>
+        <li><a href="#" class="open-panel" data-panel="contact">Contact</a></li>
+      </ul>
+      <div class="side-panel" id="panel-shop" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Boutique</h3>
+        <ul>
+          <li><a href="#" class="panel-link open-panel" data-panel="shop-vetements">Vêtements</a></li>
+          <li><a href="#" class="panel-link">Accessoires</a></li>
+          <li><a href="#" class="panel-link">Chaussures</a></li>
+          <li><a href="#" class="panel-link">Sacs</a></li>
+          <li><a href="#" class="panel-link">Promotions</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    // Cart panel and product scripts (copied from canonical template)
+    (function(){
+      if (document.querySelector('.cart-menu')) return;
+      var cartHtml = '\n<nav class="cart-menu" role="navigation" aria-label="Panier" aria-hidden="true">\n  <button class="close-cart" aria-label="Fermer le panier">✕</button>\n  <div class="cart-main" role="region" aria-label="Contenu du panier">\n    <h3>Votre panier</h3>\n    <p class="cart-empty">Votre panier est vide.</p>\n    <ul class="cart-items" aria-live="polite"></ul>\n  </div>\n</nav>\n';
+      document.body.insertAdjacentHTML('beforeend', cartHtml);
+    })();
+    (function(){
+      requestAnimationFrame(function(){ document.querySelectorAll('.enter-up').forEach(function(el){ el.classList.add('is-visible'); }); });
+      var main = document.getElementById('mainImage');
+      var thumbs = document.getElementById('thumbs');
+      var imageSrcs = [
+        'images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp',
+        'images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 2.webp',
+        'images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 3.webp',
+        'images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 4.webp'
+      ];
+      var currentIndex = 0;
+      if (thumbs) {
+        thumbs.addEventListener('click', function(e){ var btn = e.target.closest('button'); if(!btn) return; var src = btn.getAttribute('data-src'); if(src){ var idx = imageSrcs.indexOf(src); if(idx!==-1){ var dir = (idx>=currentIndex)?1:-1; currentIndex = idx; animateImage(src, dir); } thumbs.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); }); btn.classList.add('active'); }});
+      }
+      (function(){ var dec=document.getElementById('qtyDec'), inc=document.getElementById('qtyInc'), disp=document.getElementById('qtyDisplay'); var min=1,max=5; function update(n){ if(disp) disp.value = String(n); if(dec) dec.disabled = n<=min; if(inc) inc.disabled = n>=max; } if(dec) dec.addEventListener('click', function(){ update(Math.max(min, parseInt(disp.value||'1',10)-1)); }); if(inc) inc.addEventListener('click', function(){ update(Math.min(max, parseInt(disp.value||'1',10)+1)); }); update(parseInt(disp.value||'1',10)); })();
+      var sizes = document.getElementById('sizes'); if (sizes) sizes.addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b || b.classList.contains('disabled')) return; sizes.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); x.removeAttribute('aria-pressed'); }); b.classList.add('active'); b.setAttribute('aria-pressed','true'); });
+      var CART_KEY='hoshi_cart_v1'; function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)||'[]'); } catch(e){ return []; } } function saveCart(c){ try{ localStorage.setItem(CART_KEY, JSON.stringify(c)); } catch(e){} }
+      function addToCartLocal(item){ var cart = loadCart(); var existing = cart.find(function(x){ return x.sku === item.sku; }); if(existing) existing.qty = Math.min(99, existing.qty + item.qty); else cart.push(item); saveCart(cart); try{ window.updateCartBadge && window.updateCartBadge(); } catch(e){} }
+      var addBtn = document.getElementById('addToCart'); if(addBtn) addBtn.addEventListener('click', function(e){ e.preventDefault(); var title = document.querySelector('.product-info h1')?.textContent?.trim()||'Produit'; var priceEl = document.getElementById('price'); var price = priceEl ? parseFloat(priceEl.getAttribute('data-price')||'0')||0 : 0; var qty = parseInt(document.getElementById('qtyDisplay')?.value||'1',10)||1; var sizeBtn = document.querySelector('#sizes button.active'); var sizeText = sizeBtn?sizeBtn.textContent.trim():''; var sku = title.toLowerCase().replace(/[^a-z0-9]+/g,'-') + (sizeText?'-'+sizeText.toLowerCase():''); var img = main && main.src ? main.src : (imageSrcs && imageSrcs.length?imageSrcs[0]:''); try{ if(typeof window.addToCart === 'function') window.addToCart({sku:sku,title:title,price:price,qty:qty,sizeText:sizeText,image:img}); else addToCartLocal({sku:sku,title:title,price:price,qty:qty,sizeText:sizeText,image:img}); var old = addBtn.textContent; addBtn.textContent = 'Ajouté ✓'; addBtn.disabled = true; setTimeout(function(){ addBtn.textContent = old; addBtn.disabled = false; },900); } catch(err){ console.error(err); } });
+
+      function animateImage(newSrc, dir){ if(!main) return; var overlay = document.createElement('img'); overlay.src = newSrc; overlay.alt = main.alt || ''; overlay.className = 'overlay-image ' + (dir>0?'overlay-enter-right':'overlay-enter-left'); var container = main.parentElement; container.style.position = container.style.position || 'relative'; container.appendChild(overlay); void overlay.offsetWidth; overlay.classList.add('overlay-enter-visible'); var handler = function(e){ if(e.target===overlay && (e.propertyName==='opacity' || e.propertyName==='transform')){ main.src = newSrc; if(overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay); overlay.removeEventListener('transitionend', handler); } }; overlay.addEventListener('transitionend', handler); }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoshi - Nouvelle Collection</title>
+    <!-- Typographie: Poppins pour UI et titres, Noto Sans JP pour le sous-titre japonais -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* cart badge (header) — kept lightweight and page-local to avoid editing global CSS */
+    .icon-btn.cart-btn { position: relative; }
+    .cart-badge { position: absolute; top: -6px; right: -6px; background: #c2185b; color: #fff; border-radius: 999px; padding: 2px 6px; font-size: 12px; font-weight: 700; line-height: 1; display: none; min-width: 20px; text-align: center; }
+    .cart-badge.show { display: inline-block; }
+  </style>
+  <!-- FAVICON: ligne ci-dessous -> remplacez le chemin si besoin -->
+  <link rel="icon" href="images-site/kanji etoile.png" sizes="32x32" type="image/png">
+</head>
+<body>
+  <!-- Barre livraison -->
+  <div class="page-content">
+  
+  <div class="top-bar">
+    <div class="topbar-rotator" aria-live="polite">
+      <span class="topbar-msg topbar-msg--visible">Livraison offerte en <strong>France MÉTROPOLITAINE</strong> dès 100€ 🚚</span>
+      <span class="topbar-msg">Tente de gagner un voyage au <strong>Japon</strong>⛩️</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <button class="menu" aria-controls="site-overlay" aria-expanded="false">☰</button>
+    <div class="logo"><a href="https://www.youtube.com/watch?v=6DQxRQb9dCE">星</a></div>
+      <div class="icons">
+  <form class="search-bar hidden" role="search" onsubmit="return false;">
+          <label for="site-search" class="visually-hidden">Rechercher sur le site</label>
+          <button id="search-clear" class="icon-btn" aria-label="Effacer la recherche" type="button">
+            <span class="search-clear__cross">✕</span>
+            <svg class="search-clear__loupe" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM4 9.5C4 6.46 6.46 4 9.5 4S15 6.46 15 9.5 12.54 15 9.5 15 4 12.54 4 9.5z"/>
+            </svg>
+          </button>
+          <input id="site-search" type="search" placeholder="Rechercher des produits..." aria-label="Rechercher" />
+        </form>
+        <button id="search-open-btn" class="icon-btn" aria-label="Ouvrir la recherche" title="Rechercher">
+          <svg class="icon icon-search-open" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM4 9.5C4 6.46 6.46 4 9.5 4S15 6.46 15 9.5 12.54 15 9.5 15 4 12.54 4 9.5z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Panier">
+          <svg class="icon icon-cart" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.16 14l.84-2h7.45c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45C5.08 15.37 5 15.68 5 16c0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.26-.25L7.16 14z"/>
+          </svg>
+          <span class="cart-badge" id="cartBadge" aria-hidden="true">0</span>
+        </button>
+        <button class="icon-btn profile-btn" aria-label="Profil">
+          <!-- SVG en ligne pour une icône utilisateur/profil ; utilise currentColor donc le CSS contrôle sa couleur -->
+          <svg class="icon icon-profile" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/>
+          </svg>
+        </button>
+      </div>
+      <!-- barre de recherche en ligne remplace l'icône loupe et se place à côté du panier -->
+  </header>
+
+  <!-- Superposition + menu latéral (déplacé en dehors du contenu de page pour éviter le flou) -->
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 class="hero-title">NOUVELLE<br><span class="hero-main-word">COLLECTION</span>
+  <span class="hero-subtitle"><span class="hero-subtitle-inner">新しいコレクション</span></span>
+    </h1>
+
+    <div class="hero-images">
+      <!-- Image rose/bleu en fond -->
+      <img src="images-site/cherry blossom.jpg" alt="Fond rose et bleu" class="fond">
+
+      <!-- Coques -->
+      <a href="https://www.youtube.com/watch?v=IBcB_dYtGUg" class="coque-link coque-vague-link" title="La Grande Vague de Kanagawa">
+        <img src="images-site/coque_vague_japon.png" alt="Coque Vague" class="coque-vague">
+      </a>
+      <a href="https://www.youtube.com/watch?v=SEKBeTIFiNk" class="coque-link coque-neko-link" title="Le maneki-neko">
+        <img src="images-site/coque_neeko.png" alt="Coque Neko" class="coque-neko">
+      </a>
+    </div>
+  </section>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false" aria-controls="filter-menu">Filtrer ▾</button>
+      <ul id="filter-menu" class="dropdown-menu" role="menu">
+        <li role="menuitem"><button data-filter="all">Tous</button></li>
+        <li role="menuitem">
+          <label class="filter-label-right">
+            <button data-filter="in-stock">Disponibles</button>
+            <input type="checkbox" id="filter-available" />
+          </label>
+        </li>
+        <li role="menuitem">
+          <label class="filter-label-right">
+            <button data-filter="out-of-stock">Rupture</button>
+            <input type="checkbox" id="filter-out" />
+          </label>
+        </li>
+        <li role="menuitem"><button data-filter="size">Taille</button></li>
+        <li role="menuitem"><button data-filter="price">Prix</button></li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false" aria-controls="sort-menu">Trier ▾</button>
+      <ul id="sort-menu" class="dropdown-menu" role="menu">
+        <li role="menuitem"><button data-sort="featured">En vedette</button></li>
+        <li role="menuitem"><button data-sort="new">Nouveautés</button></li>
+        <li role="menuitem"><button data-sort="price-asc">Prix : bas → haut</button></li>
+        <li role="menuitem"><button data-sort="price-desc">Prix : haut → bas</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Produits -->
+  <section class="product-grid">
+  <a href="page produit 1.html" class="product" data-max="10" data-images="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 5.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 6.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 7.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 8.png,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 9.webp,images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 10.webp" data-price="90" data-stock="in-stock" data-new="1">
+    <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+    <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" alt="Hoodie Sakura Shirotae">
+    <p class="product-title">Hoodie Sakura Shirotae</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 2.html" class="product" data-images="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 2.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 3.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 4.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 5.webp,images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 6.webp" data-price="90" data-stock="in-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+    <img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp" alt="Hoodie Sakura Zippé">
+    <p class="product-title">Hoodie Sakura Zippé</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 3.html" class="product" data-images="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 10.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 2.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 3.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 4.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 5.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 6.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 8.webp,images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 9.jpg" data-price="90" data-stock="out-of-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+    <img src="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp" alt="Hoodie Black Kitsune">
+    <p class="product-title">Hoodie Black Kitsune</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 4.html" class="product" data-images="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 2.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 3.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 4.jpg,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 5.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 6.webp,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 7.jpg,images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 8.webp" data-price="30" data-stock="in-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+      <img src="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp" alt="T-Shirt blanc ONI x HOKUSAI">
+      <p class="product-title">T-Shirt blanc ONI X HOKUSAI</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+    <!-- Produits supplémentaires ajoutés comme demandé -->
+  <a href="page produit 5.html" class="product" data-images="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 2.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 3.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 4.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 5.jpg,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 5.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 6.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 7.webp,images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 8.webp" data-price="33" data-stock="in-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp" alt="T-Shirt noir ONI x HOKUSAI">
+  <p class="product-title">T-Shirt noir ONI x HOKUSAI</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <a href="page produit 6.html" class="product" data-images="images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 1.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 2.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 3.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 4.webp,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 5.jpg,images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 6.jpg" data-price="33" data-stock="out-of-stock">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+  <img src="images-site/vetement/T-Shirt gris ONI X NOGI/T-Shirt gris ONI X NOGI 1.webp" alt="T-Shirt gris ONI x NOGI">
+  <p class="product-title">T-Shirt gris ONI x NOGI</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">CHOISIR SA TAILLE</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">XS</button>
+          <button type="button">S</button>
+          <button type="button">M</button>
+          <button type="button">L</button>
+          <button type="button">XL</button>
+          <button type="button">XXL</button>
+        </div>
+      </div>
+    </a>
+  <div class="last-row">
+  <a href="produit7.html" class="product" data-images="images-site/alpine/alpine 34 eloigner.jpg,images-site/alpine/alpine 34 avant proche.jpg,images-site/alpine/alpine 34 arriere.JPG,images-site/alpine/alpine avant face.jpg,images-site/alpine/alpine arriere.jpg,images-site/alpine/alpine logo.jpg,images-site/alpine/alpine phare.jpg,images-site/alpine/alpine roue.JPG,images-site/alpine/alpine volant.JPG" data-price="200" data-stock="in-stock" data-new="1">
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+      <img src="images-site/alpine/alpine 34 eloigner.jpg" alt="alpine collection">
+      <p class="product-title">alpine collection</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">NOMBRES PHOTOS</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">5</button>
+          <button type="button">10</button>
+          <button type="button">15</button>
+          <button type="button">20</button>
+          <button type="button">25</button>
+          <button type="button">SUR DEMANDE</button>
+        </div>
+      </div>
+    </a>
+  <a href="produit8.html" class="product" data-images="images-site/porsche/porsche 34 avant.JPG,images-site/porsche/porsche logo.JPG,images-site/porsche/porsche phare.JPG" data-price="200" data-stock="out-of-stock">
+      <span class="sold-out-badge" aria-hidden="true">Rupture de stock</span>
+      <button class="carousel-arrow carousel-left" aria-label="Image précédente">‹</button>
+      <button class="carousel-arrow carousel-right" aria-label="Image suivante">›</button>
+      <img src="images-site/porsche/porsche 34 avant.JPG" alt="porsche collection">
+      <p class="product-title">porsche collection</p>
+      <div class="product-body">
+        <span class="price"></span>
+        <button class="cta-choose-size" type="button">NOMBREs PHOTOS</button>
+        <div class="size-options" role="group" aria-label="Choisir la taille">
+          <button type="button">5</button>
+          <button type="button">10</button>
+          <button type="button">15</button>
+          <button type="button">20</button>
+          <button type="button">25</button>
+          <button type="button">SUR DEMANDE</button>
+        </div>
+      </div>
+    </a>
+  </div>
+  </section>
+</div>
+
+  <!-- Superposition + menu latéral -->
+  <div class="overlay" id="site-overlay" aria-hidden="true">
+    <nav class="side-menu" role="navigation" aria-label="Menu principal">
+  <button class="close-menu" aria-label="Fermer le menu"><span class="close-icon">✕</span></button>
+      <ul class="menu-main">
+  <li><a href="index.html" data-samewindow>Accueil</a></li>
+        <li><a href="#" class="open-panel" data-panel="shop">Boutique</a></li>
+        <li><a href="#" class="open-panel" data-panel="new">Nouveautés</a></li>
+  <li><a href="#" class="open-panel" data-panel="contact">Contact</a></li>
+      </ul>
+      <!-- Sous-menu (panel) pour la boutique -->
+      <div class="side-panel" id="panel-shop" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Boutique</h3>
+        <ul>
+          <li><a href="#" class="panel-link open-panel" data-panel="shop-vetements">Vêtements</a></li>
+          <li><a href="#" class="panel-link">Accessoires</a></li>
+          <li><a href="#" class="panel-link">Chaussures</a></li>
+          <li><a href="#" class="panel-link">Sacs</a></li>
+          <li><a href="#" class="panel-link">Promotions</a></li>
+        </ul>
+      </div>
+      <!-- Bloc bas de menu: pays de livraison et lien d'aide -->
+      <div class="menu-footer">
+        <!-- Contrôle musical : basculer la musique de fond on/off -->
+        <div class="audio-controls">
+          <button class="audio-toggle" aria-pressed="false" aria-label="Activer la musique">🔈 Musique</button>
+          <label class="audio-volume" aria-hidden="false">Volume
+            <input type="range" class="audio-volume-range" min="0" max="100" value="80" aria-label="Volume de la musique">
+          </label>
+        </div>
+        <!-- Petit CTA affiché seulement si la lecture automatique est bloquée pour demander un geste utilisateur pour activer le son -->
+        <div id="sound-cta" style="display:none;position:fixed;bottom:14px;left:14px;z-index:9999;">
+          <button id="sound-cta-btn" style="background:#111;color:#fff;border:none;padding:8px 12px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25);">Activer le son</button>
+        </div>
+        <!-- Sélecteur de pays de livraison (menu déroulant stylisé pour correspondre au DA) -->
+        <div class="delivery-country">
+          <span class="delivery-label">Livraison vers :</span>
+          <div class="country-dropdown" data-expanded="false">
+            <button class="country-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Sélectionner le pays de livraison">
+              <span class="country-label">France</span>
+              <span class="country-caret">▾</span>
+            </button>
+            <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="true">
+              <li role="option"><button class="country-option" data-value="FR">France</button></li>
+              <li role="option"><button class="country-option" data-value="RE">La Réunion</button></li>
+              <li role="option"><button class="country-option" data-value="BE">Belgique</button></li>
+              <li role="option"><button class="country-option" data-value="ES">Espagne</button></li>
+              <li role="option"><button class="country-option" data-value="JP">Japon</button></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Sélecteur de langue (correspond au DA de livraison) - placé directement sous le sélecteur de livraison -->
+        <div class="language-selector">
+          <span class="lang-label" aria-hidden="true">Language :</span>
+          <div class="lang-dropdown country-dropdown" data-expanded="false">
+            <button class="lang-btn country-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Sélectionner la langue">
+              <span class="lang-visible country-label">Français</span>
+              <span class="country-caret">▾</span>
+            </button>
+            <ul class="lang-list country-list" role="listbox" tabindex="-1" aria-hidden="true">
+              <li role="option"><button class="lang-option country-option" data-lang="FR">Français</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="EN">English</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="ES">Español</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="JP">日本語</button></li>
+            </ul>
+          </div>
+        </div>
+        <a href="#" class="help-link">Besoin d'aide ?</a>
+      </div>
+    <!-- Panneau nouveautés (similaire au panneau boutique) -->
+    <div class="side-panel" id="panel-new" aria-hidden="true">
+      <button class="panel-back" aria-label="Retour">← Retour</button>
+      <h3>Nouveautés</h3>
+      <ul>
+        <li><a href="nouveaute-photo.html" class="panel-link">Photo</a></li>
+        <li><a href="nouveaute-video.html" class="panel-link">Vidéo</a></li>
+        <li><a href="nouveaute-formule.html" class="panel-link">Formule</a></li>
+      </ul>
+    </div>
+    <!-- Panneau contact -->
+    <div class="side-panel" id="panel-contact" aria-hidden="true">
+      <button class="panel-back" aria-label="Retour">← Retour</button>
+      <h3>Contact</h3>
+      <div class="contact-info">
+        <p><strong>Nom :</strong> ROGER Mathys</p>
+        <p><strong>Email :</strong> mathysroger974@gmail.com</p>
+        <p><strong>Téléphone :</strong> +33 7 75 72 98 92</p>
+        <form class="contact-form" action="#" method="post">
+          <label>Message
+            <textarea name="message" rows="4" placeholder="Votre message..." required></textarea>
+          </label>
+          <button type="submit" class="panel-link">Envoyer</button>
+        </form>
+      </div>
+    </div>
+    <!-- Sous-panneau vêtements (reflète la même animation/structure que les autres panneaux) -->
+    <div class="side-panel" id="panel-shop-vetements" aria-hidden="true">
+      <button class="panel-back" aria-label="Retour">← Retour</button>
+      <h3>Vêtements</h3>
+      <ul>
+        <li><a href="#" class="panel-link submenu-item" data-category="hoodie">Hoodie</a></li>
+        <li><a href="#" class="panel-link submenu-item" data-category="tshirt">T-Shirt</a></li>
+        <li><a href="#" class="panel-link submenu-item" data-category="kimono">Kimono</a></li>
+        <li><a href="#" class="panel-link submenu-item" data-category="jogging">Jogging</a></li>
+      </ul>
+    </div>
+    </nav>
+    <!-- Panneau panier : glisse depuis la droite, comportement similaire à .side-menu -->
+    <nav class="cart-menu" role="navigation" aria-label="Panier" aria-hidden="true">
+      <button class="close-cart" aria-label="Fermer le panier">✕</button>
+      <div class="cart-main" role="region" aria-label="Contenu du panier">
+        <h3>Votre panier</h3>
+        <p class="cart-empty">Votre panier est vide.</p>
+        <!-- Example cart items (replace with dynamic content as needed) -->
+        <ul class="cart-items" aria-live="polite"></ul>
+        <div class="cart-actions">
+          <button class="cart-checkout">Commander</button>
+          <button class="cart-view">Voir le panier</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Background audio (place your file in audio/background.mp3) -->
+  <audio id="bg-audio" src="audio/background.mp3" loop preload="auto"></audio>
+
+  <script>
+    // S'assurer qu'un fallback global pour positionner le bouton d'effacement de recherche existe
+    // pour que d'autres scripts en ligne puissent l'appeler indépendamment de l'ordre d'initialisation.
+    if (!window.positionClearOverOpen) {
+      window.positionClearOverOpen = function() {
+        try {
+          var searchInput = document.getElementById('site-search');
+          var searchClear = document.getElementById('search-clear');
+          var searchForm = document.querySelector('.search-bar');
+          if (!searchInput || !searchClear || !searchForm) return;
+          var inputRect = searchInput.getBoundingClientRect();
+          var formRect = searchForm.getBoundingClientRect();
+          searchClear.style.position = 'absolute';
+          // placer le bouton d'effacement dans le formulaire de recherche, près du bord droit de l'entrée
+          var left = Math.round(inputRect.right - formRect.left - 36);
+          // limiter à l'intérieur des bornes du formulaire
+          left = Math.max(6, Math.min(left, Math.max(6, formRect.width - 42)));
+          // utiliser right pour que le bouton d'effacement s'ancre au bord droit du formulaire
+          searchClear.style.removeProperty('left');
+          searchClear.style.right = Math.max(6, Math.min(42, formRect.width - left)) + 'px';
+          // centrer verticalement en utilisant transform CSS pour une mise en page plus cohérente
+          searchClear.style.top = '50%';
+          searchClear.style.transform = 'translateY(-50%)';
+        } catch (e) { /* ignore */ }
+      };
+    }
+    // Basculement de menu déroulant simple
+    document.querySelectorAll('.dropbtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('.dropdown');
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        // fermer les autres menus déroulants
+        document.querySelectorAll('.dropdown').forEach(d => {
+          if (d !== parent) d.classList.remove('open');
+          const b = d.querySelector('.dropbtn');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
+        parent.classList.toggle('open', !expanded);
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+    });
+
+    // Fermer lors du clic à l'extérieur
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(d => {
+          d.classList.remove('open');
+          const b = d.querySelector('.dropbtn');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // Fermer avec Échap
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.dropbtn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      }
+    });
+
+  // Basculement du menu coulissant
+    const menuBtn = document.querySelector('.menu');
+    const overlay = document.getElementById('site-overlay');
+    const closeBtn = document.querySelector('.close-menu');
+
+  // Initialiser les états ARIA pour éviter les attributs indéfinis / sauts de focus
+  if (overlay) overlay.setAttribute('aria-hidden', 'true');
+  if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+  // s'assurer que le bouton de fermeture n'est pas accidentellement interactif avant l'ouverture du menu
+  if (closeBtn) closeBtn.style.setProperty('pointer-events', 'none');
+
+    // Assistants de verrouillage du défilement pour éviter le glissement en arrière-plan quand le menu latéral est ouvert
+    // On sauvera la position de défilement mais on évite d'utiliser position:fixed car cela cause
+    // un décalage de mise en page visible (le contenu saute à cause de la disparition de la barre de défilement). Au lieu de cela
+    // on compense la barre de défilement supprimée en ajoutant un padding-right égal à la
+    // largeur de la barre de défilement sur le body et sur tous les éléments d'en-tête fixes. Cela évite
+    // que la page ne se déplace horizontalement quand la superposition apparaît.
+  let _savedScrollY = 0;
+  let _savedBodyPaddingRight = '';
+  let _scrollbarCompensated = false; // éviter la double compensation quand plusieurs panneaux sont ouverts
+  // On force une barre de défilement persistante via CSS (html { overflow-y: scroll }) donc la compensation JS
+  // est inutile. Garder le drapeau de détection pour la rétrocompatibilité mais traiter comme non supporté.
+  const supportsScrollbarGutter = true;
+
+    function getScrollbarWidth() {
+      return window.innerWidth - document.documentElement.clientWidth;
+    }
+
+    function applyScrollbarCompensation() {
+      // Aucune opération : CSS force une barre de défilement persistante, donc aucun padding JS requis.
+      return;
+    }
+
+    function clearScrollbarCompensation() {
+      // Aucune opération
+      return;
+    }
+
+    // État de verrouillage de défilement centralisé : appliquer la compensation et le débordement quand un panneau est ouvert
+    function updateScrollLockState() {
+      // considérer qu'un panneau est ouvert si les classes du body le disent OU si la superposition est visible (aria-hidden === 'false')
+      const overlayVisible = overlay && overlay.getAttribute && overlay.getAttribute('aria-hidden') === 'false';
+      const anyOpen = document.body.classList.contains('menu-open') || document.body.classList.contains('cart-open') || overlayVisible;
+      if (anyOpen) {
+        // s'assurer que la compensation est appliquée AVANT de masquer le défilement
+        applyScrollbarCompensation();
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('scroll-locked');
+      } else {
+        // restaurer le défilement et effacer la compensation
+        document.body.style.overflow = '';
+        document.body.classList.remove('scroll-locked');
+        clearScrollbarCompensation();
+      }
+      try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+    }
+
+    // Protection : si le débordement était laissé masqué accidentellement (race / erreur), déverrouiller automatiquement lors des gestes de défilement de l'utilisateur
+    function _guardClearOverflow() {
+      try {
+        const overlayVisible = overlay && overlay.getAttribute && overlay.getAttribute('aria-hidden') === 'false';
+        const anyOpen = document.body.classList.contains('menu-open') || document.body.classList.contains('cart-open') || overlayVisible;
+        if (!anyOpen && document.body.style.overflow === 'hidden') {
+          document.body.style.overflow = '';
+          document.body.classList.remove('scroll-locked');
+          clearScrollbarCompensation();
+          try { console.debug && console.debug('guard: cleared stale overflow:hidden'); } catch(e){}
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // Écouter les gestes de défilement physiques et essayer de récupérer si la page est accidentellement verrouillée
+    window.addEventListener('wheel', _guardClearOverflow, { passive: true });
+    window.addEventListener('touchmove', _guardClearOverflow, { passive: true });
+    // S'assurer aussi au chargement du DOM que le débordement est sain
+    document.addEventListener('DOMContentLoaded', () => { if (document.body.style.overflow === 'hidden' && !document.body.classList.contains('menu-open') && !document.body.classList.contains('cart-open')) { document.body.style.overflow = ''; document.body.classList.remove('scroll-locked'); } });
+
+    // petit verrou pour éviter les conditions de course lors du basculement rapide des panneaux
+    let _panelTransitionLock = false;
+
+    function openMenu() {
+      if (_panelTransitionLock) return; // ignorer pendant la transition
+      _panelTransitionLock = true;
+      setTimeout(() => { _panelTransitionLock = false; }, 200);
+
+      // si le panier est ouvert, le fermer mais garder la compensation de barre de défilement pendant le basculement
+      if (cartMenu && cartMenu.getAttribute('aria-hidden') === 'false') {
+        closeCart(true);
+      }
+    // sauvegarder la position de défilement
+    _savedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.classList.add('menu-open');
+    // mettre à jour l'état de verrouillage de défilement centralisé
+    updateScrollLockState();
+      overlay.setAttribute('aria-hidden', 'false');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      // s'assurer que le bouton de fermeture est visible et cliquable
+      if (closeBtn) {
+        closeBtn.style.removeProperty('display');
+        closeBtn.style.setProperty('pointer-events', 'auto');
+      }
+      // déplacer le focus vers le bouton de fermeture pour l'accessibilité
+      closeBtn?.focus();
+    }
+
+    function closeMenu(keepCompensated = false) {
+      document.body.classList.remove('menu-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      // Si l'appelant veut garder la compensation (basculement vers un autre panneau), ignorer l'effacement
+      if (!keepCompensated) {
+        updateScrollLockState();
+      }
+      // restaurer la position de défilement précédente
+      window.scrollTo(0, _savedScrollY || 0);
+      // rendre le bouton de fermeture non-interactif à nouveau pour éviter les clics accidentels
+      if (closeBtn) {
+        closeBtn.style.setProperty('pointer-events', 'none');
+      }
+      menuBtn?.focus();
+    }
+
+    menuBtn?.addEventListener('click', (e) => {
+      const isOpen = document.body.classList.contains('menu-open');
+      if (isOpen) closeMenu(); else openMenu();
+    });
+
+    closeBtn?.addEventListener('click', closeMenu);
+
+    // cliquer sur la superposition (à l'extérieur du menu) ferme les panneaux actifs (géré ci-dessous). Supprimer le gestionnaire de menu unique dupliqué.
+
+    // fermer aussi le menu avec Échap, mais seulement quand le menu est ouvert (éviter de voler le focus)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (document.body.classList.contains('menu-open')) closeMenu();
+      }
+    });
+
+    // Basculement du panneau panier (côté droit)
+    const cartBtn = document.querySelector('.cart-btn');
+    const cartMenu = document.querySelector('.cart-menu');
+    const closeCartBtn = document.querySelector('.close-cart');
+
+    function openCart() {
+      if (_panelTransitionLock) return;
+      _panelTransitionLock = true;
+      setTimeout(() => { _panelTransitionLock = false; }, 200);
+
+      // s'assurer que le menu latéral principal est fermé lors de l'ouverture du panier
+      if (document.body.classList.contains('menu-open')) {
+        // Fermer le menu mais garder la compensation pendant le basculement vers le panier
+        closeMenu(true);
+      }
+      // forcer le masquage de l'élément menu latéral comme sécurité supplémentaire pour éviter les flashs visuels
+      try {
+        const side = document.querySelector('.side-menu');
+        if (side) {
+          side.setAttribute('aria-hidden', 'true');
+          side.style.transform = 'translateX(-100%)';
+          side.style.pointerEvents = 'none';
+        }
+      } catch (e) { /* ignore */ }
+      // marquer le panier comme ouvert puis mettre à jour l'état de verrouillage de défilement centralisé
+      document.body.classList.add('cart-open');
+      updateScrollLockState();
+      overlay.setAttribute('aria-hidden', 'false');
+    if (cartMenu) cartMenu.setAttribute('aria-hidden', 'false');
+      // piège à focus : déplacer le focus vers le bouton de fermeture du panier
+      closeCartBtn?.focus();
+    }
+
+    function closeCart(keepCompensated = false) {
+      if (cartMenu) cartMenu.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+      // supprimer cart-open puis mettre à jour l'état de verrouillage de défilement centralisé (sauf si l'appelant veut le garder)
+      document.body.classList.remove('cart-open');
+      // restaurer tous les styles en ligne du menu latéral qu'openCart peut avoir définis pour le masquer
+      try {
+        const side = document.querySelector('.side-menu');
+        if (side) {
+          side.removeAttribute('aria-hidden');
+          side.style.removeProperty('transform');
+          side.style.removeProperty('pointer-events');
+        }
+      } catch (e) { /* ignore */ }
+      if (!keepCompensated) updateScrollLockState();
+      cartBtn?.focus();
+    }
+
+    // NOTE : les écouteurs du bouton panier sont attachés dans l'IIFE des assistants panier ci-dessous
+    // pour éviter d'enregistrer des gestionnaires dupliqués qui causaient une ouverture/fermeture immédiate.
+    // (Si vous préférez, supprimez l'écouteur de l'IIFE à la place — gardez exactement un.)
+
+    // --- Assistants panier (charger/sauvegarder/rendre/ajouter/supprimer + badge) ---
+    (function(){
+      var CART_KEY = 'hoshi_cart_v1';
+      function loadCart(){ try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e){ return []; } }
+      function saveCart(cart){ try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e){} }
+      function updateCartBadge(){
+        try {
+          var cart = loadCart();
+          var total = 0;
+          for (var i=0;i<cart.length;i++) total += (cart[i].qty || 0);
+          var badge = document.getElementById('cartBadge');
+          if (!badge) return;
+          if (total > 0) { badge.textContent = String(total); badge.classList.add('show'); badge.setAttribute('aria-hidden','false'); }
+          else { badge.textContent = '0'; badge.classList.remove('show'); badge.setAttribute('aria-hidden','true'); }
+        } catch(e){ /* ignore */ }
+      }
+      function renderCart(){
+        var cart = loadCart();
+        var cartItemsEl = document.querySelector('.cart-items');
+        var cartEmpty = document.querySelector('.cart-empty');
+        if (!cartItemsEl || !cartEmpty) return;
+        cartItemsEl.innerHTML = '';
+        if (!cart.length) {
+          cartEmpty.style.display = '';
+        } else {
+          cartEmpty.style.display = 'none';
+          cart.forEach(function(item, idx){
+            var li = document.createElement('li');
+            li.className = 'cart-item';
+            var imgHtml = item.image ? '<img src="' + item.image + '" alt="" style="width:60px;height:80px;object-fit:cover;border-radius:6px;margin-right:10px;flex:0 0 auto;">' : '';
+            var removeBtnHtml = '<button class="cart-remove" data-idx="' + idx + '" title="Supprimer cet article" aria-label="Supprimer cet article" style="background:transparent;border:none;color:#c2185b;cursor:pointer;font-weight:700;padding:4px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;">🗑️</button>';
+            li.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">' + imgHtml + '<div style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px;"><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;align-items:center;gap:8px;"><strong>' + escapeHtml(item.title) + '</strong>' + removeBtnHtml + '</div><div style="font-size:13px;color:#666;">' + escapeHtml(item.sizeText || '') + '</div></div><div style="text-align:right">' + item.qty + ' × ' + item.price + '€<div style="font-weight:700">' + (item.qty * item.price) + '€</div></div></div></div>';
+            cartItemsEl.appendChild(li);
+          });
+        }
+        try { updateCartBadge(); } catch(e){}
+      }
+      function removeItem(idx){
+        var cart = loadCart();
+        if (!cart || !cart.length) return;
+        if (idx < 0 || idx >= cart.length) return;
+        cart.splice(idx,1);
+        saveCart(cart);
+        renderCart();
+        try { updateCartBadge(); } catch(e){}
+      }
+      function openCart(){
+        if (!cartMenu) return;
+        var overlay = document.getElementById('site-overlay');
+        var side = document.querySelector('.side-menu');
+        try { if (side) { side.setAttribute('aria-hidden','true'); side.style.transform='translateX(-100%)'; side.style.pointerEvents='none'; } } catch(e){}
+        document.body.classList.add('cart-open');
+        if (overlay) overlay.setAttribute('aria-hidden','false');
+        cartMenu.setAttribute('aria-hidden','false');
+      }
+      function closeCart(){
+        if (!cartMenu) return;
+        var overlay = document.getElementById('site-overlay');
+        var side = document.querySelector('.side-menu');
+        cartMenu.setAttribute('aria-hidden','true');
+        var done = function(){ try { if (overlay) overlay.setAttribute('aria-hidden','true'); document.body.classList.remove('cart-open'); if (side) { side.removeAttribute('aria-hidden'); side.style.removeProperty('transform'); side.style.removeProperty('pointer-events'); } } catch(e){} };
+        var handler = function(e){ if (e.target === cartMenu && (e.propertyName === 'transform' || e.propertyName === 'opacity')) { cartMenu.removeEventListener('transitionend', handler); done(); } };
+        cartMenu.addEventListener('transitionend', handler);
+        setTimeout(function(){ try { cartMenu.removeEventListener('transitionend', handler); done(); } catch(e){} }, 450);
+      }
+      function addToCart(item){
+        var cart = loadCart();
+        var existing = cart.find(function(c){ return c.sku === item.sku; });
+        if (existing) { existing.qty = Math.min(99, existing.qty + item.qty); }
+        else cart.push(item);
+        saveCart(cart);
+        renderCart();
+        openCart();
+        try { updateCartBadge(); } catch(e){}
+      }
+      function escapeHtml(s){ return String(s).replace(/[&"'<>]/g, function(c){ return {'&':'&amp;','"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;'}[c]; }); }
+
+      // déléguer les clics de suppression à l'intérieur du panier
+      if (cartMenu) {
+        cartMenu.addEventListener('click', function(e){ var rem = e.target.closest && e.target.closest('.cart-remove'); if (rem) { var idx = parseInt(rem.getAttribute('data-idx'),10); if (!isNaN(idx)) removeItem(idx); } });
+      }
+
+      // câbler le bouton panier de l'en-tête pour ouvrir le panier (garde la parité avec la page produit)
+      // utiliser des requêtes DOM fraîches ici pour éviter toute collision de portée extérieure et ajouter un petit
+      // journal de débogage pour qu'il soit facile de confirmer que le gestionnaire de clic s'exécute dans la console du navigateur.
+      var _cartBtn = document.querySelector('.cart-btn');
+      var _closeCartBtn = document.querySelector('.close-cart');
+      var _cartMenu = document.querySelector('.cart-menu');
+      if (_cartBtn) {
+        _cartBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          try { console.debug && console.debug('[cart] header clicked'); } catch(e){}
+          var open = _cartMenu && _cartMenu.getAttribute('aria-hidden') === 'false';
+          if (open) { closeCart(); } else { renderCart(); openCart(); }
+        });
+      }
+      if (_closeCartBtn) _closeCartBtn.addEventListener('click', function(){ closeCart(); });
+
+      // initialiser
+      try { renderCart(); } catch(e){}
+    })();
+
+    // Garder le panier synchronisé entre plusieurs onglets/fenêtres : quand localStorage change,
+    // re-rendre le panier et mettre à jour le badge. Cela gère les actions de suppression/ajout
+    // effectuées dans une autre page/onglet.
+    window.addEventListener('storage', function(e){
+      try {
+        if (!e.key || e.key !== 'hoshi_cart_v1') return;
+        try { renderCart && renderCart(); } catch(e){}
+        try { updateCartBadge && updateCartBadge(); } catch(e){}
+      } catch(err) { /* ignore */ }
+    });
+
+    // fermer le panier quand l'arrière-plan de superposition est cliqué
+    overlay?.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        // fermer quel que soit le panneau actuellement ouvert ; si les deux sont ouverts d'une manière ou d'une autre, fermer les deux
+        const cartOpenNow = cartMenu && cartMenu.getAttribute('aria-hidden') === 'false';
+        const menuOpenNow = document.body.classList.contains('menu-open');
+        if (cartOpenNow) closeCart();
+        if (menuOpenNow) closeMenu();
+        // après fermeture, effacer la compensation seulement si aucun panneau ne reste
+        setTimeout(() => {
+          if (!document.body.classList.contains('menu-open') && !document.body.classList.contains('cart-open')) {
+            clearScrollbarCompensation();
+          }
+        }, 220); // permettre aux animations de se terminer
+      }
+    });
+
+  // Gestion des panneaux latéraux (sous-menu boutique)
+  const panelTriggers = document.querySelectorAll('.open-panel');
+  const panels = document.querySelectorAll('.side-panel');
+  const sideMenuEl = document.querySelector('.side-menu');
+
+    // Se souvenir de l'ouvreur pour restaurer le focus quand le panneau se ferme
+    let lastPanelOpener = null;
+
+    panelTriggers.forEach(t => {
+      t.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = t.getAttribute('data-panel');
+        const panel = document.getElementById('panel-' + id);
+        if (!panel) return;
+        // masquer les autres panneaux
+        panels.forEach(p => {
+          p.classList.remove('open');
+          p.setAttribute('aria-hidden', 'true');
+        });
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+  // masquer le menu principal quand le panneau est ouvert
+  sideMenuEl?.classList.add('panel-open');
+  // masquer le bouton de fermeture pendant qu'un panneau est actif
+  closeBtn?.style.setProperty('display', 'none');
+        lastPanelOpener = t; // se souvenir quel élément l'a ouvert
+        // déplacer le focus vers le premier lien à l'intérieur du panneau
+        const firstLink = panel.querySelector('.panel-link, button');
+        firstLink?.focus();
+      });
+    });
+
+    // Boutons retour à l'intérieur des panneaux
+    document.querySelectorAll('.panel-back').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.side-panel');
+        if (!panel) return;
+        // Si on est à l'intérieur du sous-panneau Vêtements, revenir au panneau Boutique principal au lieu de fermer le menu
+        if (panel.id === 'panel-shop-vetements') {
+          // fermer le sous-panneau actuel
+          panel.classList.remove('open');
+          panel.setAttribute('aria-hidden', 'true');
+          // ouvrir le panneau boutique parent
+          const parentPanel = document.getElementById('panel-shop');
+          if (parentPanel) {
+            parentPanel.classList.add('open');
+            parentPanel.setAttribute('aria-hidden', 'false');
+            sideMenuEl?.classList.add('panel-open');
+            // masquer le bouton de fermeture principal pendant que le panneau est actif
+            closeBtn?.style.setProperty('display', 'none');
+            // donner le focus au premier lien dans le panneau parent
+            const firstLink = parentPanel.querySelector('.panel-link, button');
+            firstLink?.focus();
+            return; // done
+          }
+        }
+        // Comportement par défaut : fermer le panneau et retourner au menu
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+  // afficher le menu principal à nouveau
+  sideMenuEl?.classList.remove('panel-open');
+  // restaurer la visibilité du bouton de fermeture
+  closeBtn?.style.removeProperty('display');
+        // restaurer le focus vers l'élément qui a ouvert le panneau, ou menuBtn
+        (lastPanelOpener || menuBtn)?.focus();
+        lastPanelOpener = null;
+      });
+    });
+
+    // Faire passer la coque-vague derrière l'en-tête quand l'utilisateur fait défiler
+    function updateCoqueOnScroll() {
+      if (window.scrollY > 0) document.body.classList.add('scrolled');
+      else document.body.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', updateCoqueOnScroll, { passive: true });
+    // exécuter une fois au chargement
+    updateCoqueOnScroll();
+
+    // Aligner la largeur du sous-titre japonais pour correspondre à la largeur visuelle du mot 'COLLECTION'
+    function matchSubtitleToMainWord() {
+      const main = document.querySelector('.hero-main-word');
+      const sub = document.querySelector('.hero-subtitle');
+      if (!main || !sub) return;
+      // Obtenir la largeur calculée du mot principal
+      const rect = main.getBoundingClientRect();
+      const inner = sub.querySelector('.hero-subtitle-inner');
+      if (!inner) return;
+
+      // Sur petits écrans, garder le flux naturel
+      if (window.innerWidth <= 700) {
+        inner.style.transform = 'none';
+        inner.style.fontSize = '';
+        inner.style.whiteSpace = '';
+        sub.style.width = 'auto';
+        sub.style.left = '0';
+        sub.style.textAlign = 'left';
+        return;
+      }
+
+      // Préparer pour la mesure
+      inner.style.whiteSpace = 'nowrap';
+      inner.style.transformOrigin = 'left center';
+
+      const innerRect = inner.getBoundingClientRect();
+      const mainWidth = rect.width;
+      const innerWidth = innerRect.width || inner.offsetWidth || inner.scrollWidth || 1;
+
+      // Calculer l'échelle cible mais limiter pour éviter les artefacts visuels avec les glyphes CJK
+      let scaleX = mainWidth / innerWidth;
+      const MIN_SCALE = 0.88; // ne pas écraser plus de ~12%
+      const MAX_SCALE = 1.08; // ne pas étirer plus de ~8%
+
+      if (scaleX < MIN_SCALE) {
+        // Trop étroit : éviter l'écrasement — réduire légèrement la taille de police à la place
+        inner.style.transform = 'none';
+        try {
+          const cs = window.getComputedStyle(inner);
+          const fs = parseFloat(cs.fontSize) || 16;
+          const newFs = Math.max(12, Math.round(fs * Math.max(scaleX, 0.85)));
+          inner.style.fontSize = newFs + 'px';
+        } catch (e) { /* ignore */ }
+        sub.style.width = mainWidth + 'px';
+      } else if (scaleX > MAX_SCALE) {
+        // Trop large : plafonner l'échelle horizontale et ajuster la taille de police si nécessaire
+        inner.style.transform = 'scaleX(' + MAX_SCALE + ')';
+        inner.style.fontSize = '';
+        sub.style.width = mainWidth + 'px';
+        try {
+          const measured = inner.getBoundingClientRect().width;
+          if (measured > mainWidth) {
+            const cs = window.getComputedStyle(inner);
+            const fs = parseFloat(cs.fontSize) || 16;
+            const ratio = mainWidth / measured;
+            inner.style.fontSize = Math.max(12, Math.round(fs * ratio)) + 'px';
+          }
+        } catch (e) { /* ignore */ }
+      } else {
+        // Mise à l'échelle douce normale
+        inner.style.fontSize = '';
+        inner.style.transform = 'scaleX(' + scaleX + ')';
+        sub.style.width = mainWidth + 'px';
+      }
+
+      // Positionner le conteneur de sous-titre sous le mot principal
+      const heroTitle = main.closest('.hero-title');
+      if (heroTitle) {
+        const heroLeft = heroTitle.getBoundingClientRect().left;
+        sub.style.left = (rect.left - heroLeft) + 'px';
+      } else {
+        sub.style.left = '0';
+      }
+      sub.style.textAlign = 'center';
+    }
+
+    window.addEventListener('resize', matchSubtitleToMainWord);
+    // Run after fonts/images load to get correct sizing
+    window.addEventListener('load', matchSubtitleToMainWord);
+    // Also run on DOMContentLoaded in case script execution timing varies
+    document.addEventListener('DOMContentLoaded', matchSubtitleToMainWord);
+
+  // --- Initialisateur de carrousel d'images produit (piste coulissante, jusqu'à 6 images) ---
+  (function () {
+    document.querySelectorAll('.product[data-images]').forEach(product => {
+      const raw = product.getAttribute('data-images') || '';
+      let images = raw.split(',').map(s => s.trim()).filter(Boolean);
+      if (!images.length) return;
+
+  // maximum configurable par produit (data-max). Si non fourni, utilise le
+  // nombre exact d'images listées (pas de répétition). Cela évite
+  // de dupliquer les images pour atteindre un maximum par défaut quand les images viennent
+  // d'une liste de dossier.
+  const maxSlidesAttr = parseInt(product.getAttribute('data-max'), 10);
+  let maxSlides;
+  if (!isNaN(maxSlidesAttr) && maxSlidesAttr > 0) {
+    maxSlides = maxSlidesAttr;
+    // si moins d'images que le maximum, répéter la dernière image pour remplir les emplacements
+    while (images.length < maxSlides) images.push(images[images.length - 1]);
+  } else {
+    // pas de data-max : utiliser le nombre d'images fournies comme maximum
+    maxSlides = images.length;
+  }
+  if (images.length > maxSlides) images = images.slice(0, maxSlides);
+
+      // build image track
+      const origImg = product.querySelector('img');
+      const left = product.querySelector('.carousel-left');
+      const right = product.querySelector('.carousel-right');
+
+      const wrap = document.createElement('div');
+      wrap.className = 'image-wrap';
+      const track = document.createElement('div');
+      track.className = 'image-track';
+
+      images.forEach(src => {
+        const im = document.createElement('img');
+        im.src = src;
+        im.alt = origImg?.getAttribute('alt') || '';
+        track.appendChild(im);
+      });
+
+      wrap.appendChild(track);
+      // replace original img with the new wrap
+      if (origImg) product.replaceChild(wrap, origImg);
+
+      let idx = 0;
+
+      function update() {
+        track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        // keep both aria and native disabled state in sync so the button is
+        // visually dimmed, non-interactive, and unfocusable when at bounds
+        if (left) {
+          const isFirst = idx === 0;
+          left.setAttribute('aria-disabled', String(isFirst));
+          left.disabled = isFirst;
+          if (isFirst) left.setAttribute('tabindex', '-1'); else left.removeAttribute('tabindex');
+        }
+        if (right) {
+          const isLast = idx === images.length - 1;
+          right.setAttribute('aria-disabled', String(isLast));
+          right.disabled = isLast;
+          if (isLast) right.setAttribute('tabindex', '-1'); else right.removeAttribute('tabindex');
+        }
+          try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      }
+
+      update();
+
+      left?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (idx <= 0) return;
+        idx = Math.max(0, idx - 1);
+        update();
+      });
+      right?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (idx >= images.length - 1) return;
+        idx = Math.min(images.length - 1, idx + 1);
+        update();
+      });
+
+      // Permettre de cliquer/taper la zone d'image pour changer de photos aussi.
+      // Click on left half -> previous, right half -> next. Ignore clicks on arrows.
+      wrap.addEventListener('click', (e) => {
+        try {
+          if (e.target.closest('.carousel-arrow')) return; // let arrow buttons handle themselves
+          const r = wrap.getBoundingClientRect();
+          const x = (e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX)) - r.left;
+          if (x < r.width / 2) left?.click(); else right?.click();
+        } catch (err) { /* ignore */ }
+      }, { passive: true });
+
+      // Support touchend similarly (some mobile browsers report touches differently)
+      wrap.addEventListener('touchend', (e) => {
+        try {
+          if (e.target.closest('.carousel-arrow')) return;
+          const touch = (e.changedTouches && e.changedTouches[0]);
+          if (!touch) return;
+          const r = wrap.getBoundingClientRect();
+          const x = touch.clientX - r.left;
+          if (x < r.width / 2) left?.click(); else right?.click();
+        } catch (err) { /* ignore */ }
+      }, { passive: true });
+
+      // keyboard accessibility
+      product.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { left?.click(); }
+        if (e.key === 'ArrowRight') { right?.click(); }
+      });
+    });
+  })();
+
+  // Global error banner + logging to help diagnose runtime problems
+  (function(){
+    function makeBanner(){
+      try {
+        if (document.getElementById('js-error-banner')) return document.getElementById('js-error-banner');
+        const b = document.createElement('div');
+        b.id = 'js-error-banner';
+        b.style.position = 'fixed';
+        b.style.top = '0';
+        b.style.left = '0';
+        b.style.right = '0';
+        b.style.zIndex = '99999';
+        b.style.background = 'rgba(200,20,20,0.95)';
+        b.style.color = '#fff';
+        b.style.fontFamily = 'sans-serif';
+        b.style.padding = '8px 12px';
+        b.style.display = 'none';
+        b.style.whiteSpace = 'pre-wrap';
+        b.style.maxHeight = '40vh';
+        b.style.overflow = 'auto';
+        b.style.boxShadow = '0 2px 10px rgba(0,0,0,.3)';
+        const close = document.createElement('button');
+        close.textContent = '✕';
+        close.style.float = 'right';
+        close.style.marginLeft = '12px';
+        close.style.background = 'transparent';
+        close.style.border = 'none';
+        close.style.color = '#fff';
+        close.style.cursor = 'pointer';
+        close.addEventListener('click', ()=>{ b.style.display='none'; });
+        b.appendChild(close);
+        const txt = document.createElement('div'); txt.id = 'js-error-banner-txt'; b.appendChild(txt);
+        document.body.appendChild(b);
+        return b;
+      } catch (e) { return null; }
+    }
+
+    window.addEventListener('error', function(ev){
+      try {
+        const b = makeBanner();
+        const msg = (ev && ev.message) ? ev.message : String(ev || 'Unknown error');
+        const info = (ev && ev.filename) ? (ev.filename + ':' + ev.lineno + ':' + ev.colno) : '';
+        console.error('Runtime error captured:', msg, info, ev.error || ev);
+        if (b) {
+          const txt = document.getElementById('js-error-banner-txt');
+          txt.textContent = 'JS Error: ' + msg + (info ? '\n(' + info + ')' : '');
+          b.style.display = 'block';
+        }
+      } catch (e) { console.error('error banner failed', e); }
+    });
+
+    window.addEventListener('unhandledrejection', function(ev){
+      try {
+        const reason = ev && ev.reason ? ev.reason : String(ev);
+        console.error('Unhandled promise rejection:', reason);
+        const b = makeBanner();
+        if (b) {
+          const txt = document.getElementById('js-error-banner-txt');
+          txt.textContent = 'Unhandled rejection: ' + (reason && reason.message ? reason.message : reason.toString());
+          b.style.display = 'block';
+        }
+      } catch (e) { console.error('unhandledrejection banner failed', e); }
+    });
+  })();
+
+  // Initialiser le comportement de la barre de recherche en ligne
+  (function () {
+  const searchInput = document.getElementById('site-search');
+  const searchClear = document.getElementById('search-clear');
+    const searchForm = document.querySelector('.search-bar');
+    const searchOpenBtn = document.getElementById('search-open-btn');
+
+    if (searchInput && searchClear) {
+      // show/hide clear button based on input value
+      const updateClear = () => {
+        if (searchInput.value && searchInput.value.trim() !== '') searchClear.style.visibility = 'visible'; else searchClear.style.visibility = 'hidden';
+      };
+      // Position the clear button when the search bar opens. Some pages had a
+      // helper called positionClearOverOpen(); provide a safe fallback here to
+      // avoid uncaught ReferenceErrors and to roughly align the clear button.
+      function positionClearOverOpen() {
+        try {
+          var searchForm = document.querySelector('.search-bar');
+          if (!searchForm || !searchInput || !searchClear) return;
+          var inputRect = searchInput.getBoundingClientRect();
+          var formRect = searchForm.getBoundingClientRect();
+          searchClear.style.position = 'absolute';
+          var left = Math.round(inputRect.right - formRect.left - 36);
+          left = Math.max(6, Math.min(left, Math.max(6, formRect.width - 42)));
+          // use right to anchor inside the search form and avoid layout shifts
+          searchClear.style.removeProperty('left');
+          searchClear.style.right = Math.max(6, Math.min(42, formRect.width - left)) + 'px';
+          // vertically center using CSS transform for consistent layout
+          searchClear.style.top = '50%';
+          searchClear.style.transform = 'translateY(-50%)';
+          updateClear();
+        } catch (err) { /* aucune opération si la mesure échoue */ }
+      }
+  // also expose globally in case other inline scripts call it
+  try { window.positionClearOverOpen = positionClearOverOpen; } catch(e) { /* ignore */ }
+      updateClear();
+      searchInput.addEventListener('input', updateClear);
+      searchClear.addEventListener('click', () => {
+        // start closing animation (shrink left->right)
+        const bar = searchForm;
+        if (!bar) {
+          searchInput.value = '';
+          updateClear();
+          searchInput.focus();
+          return;
+        }
+        // add class to animate
+        bar.classList.remove('hidden');
+        bar.classList.add('search-closing');
+        const onEnd = (ev) => {
+          if (ev.target !== bar) return;
+          bar.classList.remove('search-closing');
+          // hide the bar after animation
+          bar.classList.add('hidden');
+          // cleanup and reset input
+          try { searchInput.value = ''; } catch (e) {}
+          try { updateClear(); } catch (e) {}
+          // blur the input to avoid accidental re-opening via keyboard
+          try { searchInput.blur(); } catch (e) {}
+          // hide and reset clear button positioning
+          try {
+            if (clearBtn) {
+              clearBtn.style.visibility = 'hidden';
+              clearBtn.style.left = '';
+              clearBtn.style.top = '';
+            }
+          } catch (e) {}
+          // no runtime resize listener to cleanup for the clear button
+          // restore pointer-events on reopen loupe if present
+          try {
+            const reopen = document.getElementById('search-open-btn');
+            if (reopen) reopen.style.pointerEvents = '';
+          } catch (e) { /* ignore */ }
+          // clear any inline transform style to avoid visual glitches
+          try { bar.style.transform = ''; } catch (e) {}
+          // remove listener
+          bar.removeEventListener('animationend', onEnd);
+        };
+        bar.addEventListener('animationend', onEnd);
+      });
+      // Escape clears the input when focused
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (searchInput.value) {
+            searchInput.value = '';
+            updateClear();
+          } else {
+            searchInput.blur();
+          }
+        }
+      });
+      // prevent form submit reload (optional: wire to real search)
+      searchForm?.addEventListener('submit', (e) => { e.preventDefault(); /* TODO: implement search */ });
+    }
+    // (left cancel button removed) the right clear button handles clear/Focus
+  })();
+
+  // Open search bar via the new open button
+  (function() {
+    const openBtn = document.getElementById('search-open-btn');
+    const bar = document.querySelector('.search-bar');
+    const input = document.getElementById('site-search');
+    const clearBtn = document.getElementById('search-clear');
+    if (!openBtn || !bar || !input) return;
+    // clear button is positioned via CSS on the left; no runtime positioning required
+
+    openBtn.addEventListener('click', () => {
+      // unhide and animate open (right->left)
+      bar.classList.remove('hidden');
+      // ensure no closing class left
+      bar.classList.remove('search-closing');
+  // open: rely on CSS positioning for the clear button; keep reopen-loupe interactive
+      // trigger open animation
+      bar.classList.add('search-opening');
+      const onEnd = (ev) => {
+        if (ev.target !== bar) return;
+        // focus input after animation completes
+        input.focus();
+        bar.classList.remove('search-opening');
+        // ensure clear is correctly positioned after animation
+        positionClearOverOpen();
+        bar.removeEventListener('animationend', onEnd);
+      };
+      bar.addEventListener('animationend', onEnd);
+    });
+    // cleanup is handled in the bar-specific animationend handler (attached when closing)
+  })();
+
+    // Contrôle audio d'arrière-plan : initialiser et connecter le basculeur de menu
+    (function() {
+      const audio = document.getElementById('bg-audio');
+      const btn = document.querySelector('.audio-toggle');
+      const range = document.querySelector('.audio-volume-range');
+      // proceed if audio exists; btn/range are optional (button might be omitted in some builds)
+      if (!audio) return;
+
+      // Helper to update UI
+      function updateButton(isPlaying) {
+        if (!btn) return; // safely ignore if button not present
+        btn.setAttribute('aria-pressed', String(!!isPlaying));
+        // use translated labels if available
+  const t = (window && window._JPapplied && window.translations && window.translations.JP) ? window.translations.JP : null;
+        const onLabel = t && t.audio && t.audio.on ? t.audio.on : '🔊 Musique (on)';
+        const offLabel = t && t.audio && t.audio.off ? t.audio.off : '🔈 Musique (off)';
+        btn.textContent = isPlaying ? onLabel : offLabel;
+        // aria-label translation (attrMap may also handle this, but prefer explicit fallback)
+        const ariaOn = (t && t.attrMap) ? (t.attrMap.find(a=>a.sel === '.audio-toggle' && a.attr === 'aria-label') || {}).value : null;
+        const ariaDefault = isPlaying ? 'Désactiver la musique' : 'Activer la musique';
+        btn.setAttribute('aria-label', ariaOn || ariaDefault);
+      }
+
+      // Load saved states
+      let savedPlay = localStorage.getItem('bg-music-on');
+      let savedVol = parseFloat(localStorage.getItem('bg-music-volume'));
+      if (isNaN(savedVol)) savedVol = 0.8; // default 80%
+
+      // Apply saved volume
+      audio.volume = Math.max(0, Math.min(1, savedVol));
+      if (range) range.value = Math.round(audio.volume * 100);
+
+      // If user previously enabled music, attempt unmuted playback immediately.
+      // We'll set a local flag to avoid running the muted autoplay fallback if unmuted start succeeds.
+      let bgStartedUnmuted = false;
+      if (savedPlay === 'true') {
+        // try unmuted playback first
+        audio.muted = false;
+        startPlaybackUnmuted().then(() => {
+          bgStartedUnmuted = true;
+        }).catch(() => {
+          // failed to start unmuted; leave bgStartedUnmuted false so fallback runs
+          bgStartedUnmuted = false;
+        });
+      }
+
+      // Aggressive autoplay strategy:
+      // 1) Try muted autoplay first (most browsers allow muted autoplay).
+      // 2) If muted autoplay succeeds, keep playing muted and unmute on first gesture.
+      // 3) If muted autoplay fails, fall back to unmuted attempt and then CTA.
+      function startPlaybackUnmuted() {
+        // Try to play unmuted
+        return audio.play().then(() => {
+          console.log('bg-audio: unmuted playback started');
+          updateButton(true);
+          localStorage.setItem('bg-music-on', 'true');
+          return true;
+        });
+      }
+
+      // Try muted autoplay first (often allowed). If it succeeds, attempt periodic
+      // unmute/play retries automatically (no user button). This is best-effort;
+      // some browsers will still prevent unmuted playback.
+      // Only run the muted autoplay fallback when an immediate unmuted start didn't already succeed.
+      if (!bgStartedUnmuted) {
+        audio.muted = true;
+        audio.setAttribute('autoplay', '');
+        audio.play().then(() => {
+        console.log('bg-audio: muted playback started');
+        updateButton(true);
+        localStorage.setItem('bg-music-on', 'true');
+
+        // Periodically try to unmute and play unmuted (best-effort, no user gesture)
+        let retries = 0;
+        const maxRetries = 12; // try for ~12 seconds
+        const retryDelay = 1000; // ms
+        const retryTimer = setInterval(() => {
+          retries += 1;
+          if (audio.paused) {
+            // try to resume play
+            audio.muted = false;
+            audio.play().then(() => {
+              console.log('bg-audio: unmuted playback succeeded during retry');
+              updateButton(true);
+              localStorage.setItem('bg-music-on', 'true');
+              clearInterval(retryTimer);
+            }).catch((e) => {
+              // failed to unmute/play; re-mute and keep trying
+              console.warn('bg-audio: retry unmute/play failed', e);
+              audio.muted = true;
+            });
+          } else {
+            // if playing but still muted, try unmute + play to apply unmute
+            if (audio.muted) {
+              audio.muted = false;
+              audio.play().then(() => {
+                console.log('bg-audio: unmuted while already playing');
+                updateButton(true);
+                localStorage.setItem('bg-music-on', 'true');
+                clearInterval(retryTimer);
+              }).catch((e) => {
+                console.warn('bg-audio: failed to unmute while playing', e);
+                audio.muted = true;
+              });
+            }
+          }
+
+          if (retries >= maxRetries) {
+            console.warn('bg-audio: max unmute retries reached; stopping attempts');
+            clearInterval(retryTimer);
+            // continuer à jouer en sourdine comme solution de secours
+          }
+        }, retryDelay);
+
+        // Also attempt an unmute when the page becomes visible
+        const onVisible = () => {
+          if (document.visibilityState === 'visible') {
+            audio.muted = false;
+            audio.play().then(() => {
+              console.log('bg-audio: unmuted on visibilitychange');
+              updateButton(true);
+              localStorage.setItem('bg-music-on', 'true');
+            }).catch((e) => {
+              console.warn('bg-audio: visibility unmute failed', e);
+              audio.muted = true;
+            });
+          }
+        };
+        document.addEventListener('visibilitychange', onVisible);
+
+      }).catch((mutedErr) => {
+        // Muted autoplay itself was blocked. Try unmuted playback directly a few times.
+        console.warn('bg-audio: muted autoplay blocked or failed:', mutedErr);
+        audio.muted = false;
+        let attempts = 0;
+        const maxAttempts = 6;
+        const attemptDelay = 1000;
+        const attemptLoop = setInterval(() => {
+          attempts += 1;
+          audio.play().then(() => {
+            console.log('bg-audio: unmuted playback started after retries');
+            updateButton(true);
+            localStorage.setItem('bg-music-on', 'true');
+            clearInterval(attemptLoop);
+          }).catch((err) => {
+            console.warn('bg-audio: unmuted retry failed', err);
+            if (attempts >= maxAttempts) {
+              clearInterval(attemptLoop);
+              console.warn('bg-audio: giving up after retries; browser likely blocks autoplay');
+            }
+          });
+  }, attemptDelay);
+        // If we've exhausted retries and autoplay still blocked, show the CTA to request a gesture.
+        const showSoundCta = () => {
+          try {
+            const cta = document.getElementById('sound-cta');
+            if (cta) cta.style.display = 'block';
+            const ctaBtn = document.getElementById('sound-cta-btn');
+            if (ctaBtn) ctaBtn.addEventListener('click', async () => {
+              try {
+                await audio.play();
+                audio.muted = false;
+                updateButton(true);
+                localStorage.setItem('bg-music-on', 'true');
+                if (cta) cta.style.display = 'none';
+              } catch (err) {
+                console.warn('sound-cta: play failed', err);
+              }
+            });
+            // also add a one-time global interaction handler to try to enable sound on first user gesture
+            const onFirstInteract = async () => {
+              try {
+                await audio.play();
+                audio.muted = false;
+                updateButton(true);
+                localStorage.setItem('bg-music-on', 'true');
+                if (cta) cta.style.display = 'none';
+              } catch (err) {
+                // still blocked
+              }
+              window.removeEventListener('pointerdown', onFirstInteract);
+              window.removeEventListener('keydown', onFirstInteract);
+            };
+            window.addEventListener('pointerdown', onFirstInteract, { once: true });
+            window.addEventListener('keydown', onFirstInteract, { once: true });
+          } catch (err) { /* ignore */ }
+        };
+        // schedule CTA display after a short delay so transient network or decoding delays don't show it prematurely
+        setTimeout(showSoundCta, 1200);
+  });
+  }
+
+  // Volume control
+      if (range) {
+        range.addEventListener('input', (e) => {
+          const v = Math.max(0, Math.min(100, Number(e.target.value || 0)));
+          audio.volume = v / 100;
+          localStorage.setItem('bg-music-volume', String(audio.volume));
+          // if volume set to 0, consider it muted
+          if (audio.volume === 0) {
+            audio.pause();
+            updateButton(false);
+            localStorage.setItem('bg-music-on', 'false');
+          } else {
+            // si précédemment sauvé comme en cours de lecture, essayer de reprendre
+            if (localStorage.getItem('bg-music-on') === 'true') {
+              audio.play().then(() => updateButton(true)).catch(() => updateButton(false));
+            }
+          }
+        });
+      }
+
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const isPlaying = btn.getAttribute('aria-pressed') === 'true';
+          if (isPlaying) {
+            audio.pause();
+            updateButton(false);
+            localStorage.setItem('bg-music-on', 'false');
+          } else {
+            // If volume is zero, restore to default 0.8
+            if (audio.volume === 0) {
+              audio.volume = 0.8;
+              if (range) range.value = Math.round(audio.volume * 100);
+              localStorage.setItem('bg-music-volume', String(audio.volume));
+            }
+            audio.play().then(() => {
+              updateButton(true);
+              localStorage.setItem('bg-music-on', 'true');
+            }).catch(() => {
+              updateButton(false);
+              console.warn('Autoplay blocked or audio file missing.');
+            });
+          }
+        });
+      }
+    })();
+
+  // Vêtements sub-panel item clicks: close panel and optionally scroll to product
+  (function () {
+    const panel = document.getElementById('panel-shop-vetements');
+    if (!panel) return;
+    panel.addEventListener('click', (e) => {
+      const item = e.target.closest('.submenu-item');
+      if (!item) return;
+      e.preventDefault();
+      const cat = item.getAttribute('data-category') || item.textContent.trim().toLowerCase();
+      // close this panel like the existing panel-back handler
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      document.querySelector('.side-menu')?.classList.remove('panel-open');
+      document.querySelector('.close-menu')?.style.removeProperty('display');
+      (document.querySelector('.menu') || document.querySelector('.open-panel[data-panel="shop"]'))?.focus();
+      // try to find a matching product title and scroll to it
+      const titles = Array.from(document.querySelectorAll('.product-title'));
+      const target = titles.find(t => t.textContent && t.textContent.toLowerCase().includes(cat.replace(/tshirt/, 't-shirt')));
+      if (target) { try { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (err) { target.scrollIntoView(); } }
+    });
+  })();
+
+  // Product filtering & sorting
+  (function(){
+    const grid = document.querySelector('.product-grid');
+    if(!grid) return;
+
+    function getProducts() {
+      return Array.from(grid.querySelectorAll('.product'));
+    }
+
+    function applyFilter(filter) {
+      console.debug('[filter] applyFilter called ->', filter);
+      const products = getProducts();
+      products.forEach(p => {
+        let show = true;
+        const stock = (p.getAttribute('data-stock')||'').toLowerCase();
+        const size = p.getAttribute('data-size') || '';
+        if (filter === 'in-stock') show = stock === 'in-stock';
+        else if (filter === 'out-of-stock') show = stock === 'out-of-stock';
+        else if (filter === 'size') {
+          // size filter placeholder: show all products that have a data-size attribute (allows future sizing)
+          show = !!p.getAttribute('data-size');
+        } else if (filter === 'price') {
+          // filtre de prix : afficher les produits tarifés sous 50 comme exemple
+          const price = parseFloat(p.getAttribute('data-price')||'0');
+          show = price > 0 && price <= 50;
+        } else if (filter === 'all') show = true;
+
+        p.style.display = show ? '' : 'none';
+      });
+      try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      // expose for live debugging
+      try{ window.applyFilter = applyFilter; window._filter = applyFilter; }catch(e){}
+      // report how many are visible
+      try{ console.debug('[filter] visible count:', getProducts().filter(x => x.style.display !== 'none').length); }catch(e){}
+    }
+
+    function applySort(sortKey) {
+      const products = getProducts().filter(p => p.style.display !== 'none');
+      let sorted = products.slice();
+      if (sortKey === 'featured') {
+        // keep original order (we assume DOM order is featured order)
+        sorted = products;
+      } else if (sortKey === 'new') {
+        sorted.sort((a,b) => {
+          const an = parseInt(a.getAttribute('data-new')||'0',10);
+          const bn = parseInt(b.getAttribute('data-new')||'0',10);
+          return bn - an; // newest first
+        });
+      } else if (sortKey === 'price-asc' || sortKey === 'price-desc') {
+        sorted.sort((a,b) => {
+          const ap = parseFloat(a.getAttribute('data-price')||'0');
+          const bp = parseFloat(b.getAttribute('data-price')||'0');
+          return (ap - bp) * (sortKey === 'price-asc' ? 1 : -1);
+        });
+      }
+
+      // Re-append in sorted order to grid
+      const frag = document.createDocumentFragment();
+      sorted.forEach(s => frag.appendChild(s));
+      grid.appendChild(frag);
+      try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+    }
+
+    // Wire up filter buttons
+    document.querySelectorAll('#filter-menu button[data-filter]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const f = btn.getAttribute('data-filter') || 'all';
+        applyFilter(f);
+      });
+    });
+
+    // Wire up sort buttons
+    document.querySelectorAll('#sort-menu button[data-sort]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const s = btn.getAttribute('data-sort') || 'featured';
+        applySort(s);
+      });
+    });
+
+    // Expose methods for debugging
+    try { window._filter = applyFilter; window._sort = applySort; } catch(e){}
+  })();
+
+  // Make availability checkboxes mutually exclusive and wire to applyFilter
+  (function(){
+    function $(s){ return document.querySelector(s); }
+    const cbAvail = $('#filter-available');
+    const cbOut = $('#filter-out');
+    if (!cbAvail || !cbOut) return;
+      function callLiveFilter(name) {
+        const fn = window.applyFilter || window._filter || function(){ console.warn('[filter] no filter function available'); };
+        try { fn(name); } catch(e){ console.error('[filter] error calling filter', e); }
+      }
+
+      function setState(){
+        if (cbAvail.checked) { cbOut.checked = false; cbOut.disabled = true; callLiveFilter('in-stock'); }
+        else if (cbOut.checked) { cbAvail.checked = false; cbAvail.disabled = true; callLiveFilter('out-of-stock'); }
+        else { cbAvail.disabled = false; cbOut.disabled = false; callLiveFilter('all'); }
+      }
+
+    cbAvail.addEventListener('change', setState);
+    cbOut.addEventListener('change', setState);
+  })();
+
+  // Ensure products always show an image: replace missing/broken images with a fallback
+  (function(){
+    const fallbackPool = [
+      'images-site/alpine/alpine 34 avant proche.jpg',
+      'images-site/alpine/alpine 34 arriere.JPG',
+      'images-site/porsche/porsche 34 avant.JPG'
+    ];
+
+    function pickFallbackFromDataImages(p) {
+      const raw = p.getAttribute('data-images') || '';
+      const list = raw.split(',').map(s => s.trim()).filter(Boolean);
+      return list.length ? list[0] : null;
+    }
+
+    function ensureImg(img) {
+      if (!img) return;
+      // if src empty or already failed, try to set from parent data-images
+      const p = img.closest('.product');
+      function setTo(src) {
+        try { img.src = src; img.alt = img.alt || ''; } catch(e){}
+      }
+      // attach error handler to try next fallback on failure
+      img.addEventListener('error', () => {
+        try {
+          const candidate = pickFallbackFromDataImages(p) || fallbackPool[0];
+          if (img.src && img.src.indexOf(candidate) !== -1) {
+            // already tried candidate, rotate to another fallback
+            setTo(fallbackPool[1] || fallbackPool[0]);
+          } else setTo(candidate);
+        } catch (e) { /* ignore */ }
+      }, { passive: true });
+      // if src is empty, set initial candidate
+      if (!img.getAttribute('src') || img.getAttribute('src').trim() === '') {
+        const cand = pickFallbackFromDataImages(p) || fallbackPool[0];
+        setTo(cand);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        document.querySelectorAll('.product img').forEach(ensureImg);
+      } catch (e) { /* ignore */ }
+    });
+  })();
+
+  /* Ensure produit7 and produit8 images match produit1's visible height exactly.
+     This measures the computed height after images load and applies an inline
+     height style to keep visual parity. Debounced on resize. */
+  (function(){
+    function applyHeight() {
+      try {
+        const p1 = document.querySelector('.product[href$="produit1.html"] img');
+        const p7 = document.querySelector('.product[href$="produit7.html"] img');
+        const p8 = document.querySelector('.product[href$="produit8.html"] img');
+        if (!p1) return;
+        const h = p1.getBoundingClientRect().height;
+        if (p7) p7.style.height = h + 'px';
+        if (p8) p8.style.height = h + 'px';
+      } catch (e) { console.warn('syncHeight failed', e); }
+    }
+
+    // debounce helper
+    function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t = setTimeout(fn, wait||80); }; }
+
+    const debounced = debounce(applyHeight, 120);
+
+    // run after DOMContentLoaded and when relevant images finish loading
+    document.addEventListener('DOMContentLoaded', () => {
+      applyHeight();
+      // also try again shortly after in case fonts or late images affect layout
+      setTimeout(applyHeight, 300);
+    });
+
+    // ensure we react when images load/change
+    ['load','error'].forEach(ev => {
+      document.querySelectorAll('.product img').forEach(img => img.addEventListener(ev, debounced, { passive: true }));
+    });
+
+    // update on resize
+    window.addEventListener('resize', debounced, { passive: true });
+  })();
+
+  // Insert price labels under each product name using data-price
+  (function(){
+    function formatPrice(v){
+      try{
+        const n = Number(v);
+        if (isNaN(n)) return '';
+        return n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+      }catch(e){ return v; }
+    }
+
+    function injectPrices(){
+      document.querySelectorAll('.product').forEach(p => {
+        try{
+          const price = p.getAttribute('data-price');
+          if (!price) return;
+          // ensure there is a product-body container
+          let body = p.querySelector('.product-body');
+          if (!body) {
+            body = document.createElement('div');
+            body.className = 'product-body';
+            // move any trailing nodes into the body (defensive)
+            // mais garder le product-title <p> à l'extérieur comme titre visuel
+            p.appendChild(body);
+          }
+
+          // populate existing .price element if present, otherwise create one
+          let label = p.querySelector('.price');
+          if (!label) {
+            label = document.createElement('span');
+            label.className = 'price';
+            // insérer le prix comme premier élément à l'intérieur de product-body pour qu'il se place
+            // between the product title and the CTA (which comes after)
+            const first = body.firstElementChild;
+            if (first) body.insertBefore(label, first);
+            else body.appendChild(label);
+          } else {
+            // if .price exists but is not inside the product-body, move it there
+            if (!body.contains(label)) {
+              const first = body.firstElementChild;
+              if (first) body.insertBefore(label, first);
+              else body.appendChild(label);
+            }
+          }
+          label.textContent = formatPrice(price);
+
+          // size buttons are decorative only: make them non-interactive so only the
+          // CTA is clickable. We set tabindex -1 and aria-hidden for accessibility
+          // and disable pointer events so they don't accept clicks.
+          const sizeButtons = p.querySelectorAll('.size-options button');
+          sizeButtons.forEach(btn => {
+            btn.setAttribute('aria-pressed', 'false');
+            btn.setAttribute('tabindex', '-1');
+            btn.setAttribute('aria-hidden', 'true');
+            try { btn.style.pointerEvents = 'none'; } catch(e){}
+          });
+        }catch(e){ /* ignore */ }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', injectPrices);
+  })();
+
+    // Lightweight fallback EN applier in case the main applyEN is not available
+    try {
+      window.applyEN_fallback = function(){
+        try { console.debug('applyEN_fallback() called'); } catch(e){}
+        try {
+          const map = {
+            '.menu-main li:nth-child(1) a': 'Home',
+            '.menu-main li:nth-child(2) a': 'Shop',
+            '.menu-main li:nth-child(3) a': 'New',
+            '.menu-main li:nth-child(4) a': 'Contact',
+            '.hero-main-word': 'COLLECTION',
+            '.hero-subtitle .hero-subtitle-inner': 'New Collection'
+          };
+          Object.keys(map).forEach(sel => {
+            try{
+              const el = document.querySelector(sel);
+              if(!el) return;
+              if(!el.hasAttribute('data-orig')) el.setAttribute('data-orig', el.innerHTML || el.textContent || '');
+              // set safely
+              if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.setAttribute('placeholder', map[sel]);
+              else el.innerHTML = map[sel];
+            } catch(e){}
+          });
+        } catch (e) { console.warn('applyEN_fallback failed', e); }
+        try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      };
+    } catch(e) {}
+  try { window.applyEN = applyEN; window.revert = revert; } catch (e) {}
+    // Central helper to apply a language by code (exposed globally)
+    try {
+      window.applyLanguageCode = function(code) {
+        const c = (code||'FR').toUpperCase();
+        console.debug('applyLanguageCode()', c);
+        try {
+          if (c === 'EN') {
+            try { window.revert && window.revert(); } catch(e){}
+              try {
+                if (typeof window.applyEN === 'function') window.applyEN();
+                else if (typeof window.applyEN_fallback === 'function') window.applyEN_fallback();
+                else console.warn('No EN applier available');
+              } catch(e){}
+            return;
+          }
+          if (c === 'JP') {
+            try { window.revertJPRuntime && window.revertJPRuntime(); } catch(e){}
+            try {
+              if (typeof window.applyJPRuntime === 'function') {
+                window.applyJPRuntime();
+                return;
+              }
+            } catch(e) { console.warn('applyJPRuntime failed', e); }
+            try { window.revertTranslations && window.revertTranslations(); } catch(e){}
+            try { if (typeof window.applyJP === 'function') window.applyJP(); } catch(e){}
+            return;
+          }
+          // FR or fallback
+          try { window.revert && window.revert(); } catch(e){}
+          try { window.revertTranslations && window.revertTranslations(); } catch(e){}
+        } catch (err) { console.warn('applyLanguageCode error', err); }
+      };
+    } catch(e) {}
+
+    // Lightweight runtime Japanese translator (non-invasive, reversible)
+    (function(){
+      const jpMap = {
+        '.menu-main li:nth-child(1) a': 'ホーム',
+        '.menu-main li:nth-child(2) a': 'ショップ',
+        '.menu-main li:nth-child(3) a': '新着',
+        '.menu-main li:nth-child(4) a': 'お問い合わせ',
+        '.topbar-rotator .topbar-msg:nth-child(1)': '日本：送料無料（100€以上）🚚',
+        '.topbar-rotator .topbar-msg:nth-child(2)': '日本への旅行が当たるチャンス⛩️',
+        '.menu-footer .delivery-label': '配送先：',
+        '.menu-footer .help-link': 'ヘルプ',
+        '.dropbtn': '絞り込み ▾',
+        '#sort-menu button[data-sort="featured"]': '注目',
+        '#sort-menu button[data-sort="new"]': '新着',
+        '#sort-menu button[data-sort="price-asc"]': '価格：安→高',
+        '#sort-menu button[data-sort="price-desc"]': '価格：高→安',
+        '.site-footer .footer-advantages .adv:nth-child(1) .adv-t': '24時間以内に出荷',
+        '.site-footer .footer-advantages .adv:nth-child(2) .adv-t': '専門配送',
+        '.site-footer .footer-advantages .adv:nth-child(3) .adv-t': '安全な支払い',
+        '.site-footer .footer-advantages .adv:nth-child(4) .adv-t': 'フランス拠点',
+        '.site-footer .footer-products h4': '商品',
+        '.site-footer .footer-products ul li:nth-child(1)': 'フーディー',
+        '.site-footer .footer-products ul li:nth-child(2)': '着物',
+        '.site-footer .footer-products ul li:nth-child(3)': 'Tシャツ',
+        '.site-footer .footer-products ul li:nth-child(4)': 'ジョギング',
+        '.site-footer .footer-products ul li:nth-child(5)': 'アクセサリー',
+        '.site-footer .footer-support h4': 'カスタマーサービス',
+        '.site-footer .footer-support ul li:nth-child(1)': '販売条件',
+        '.site-footer .footer-support ul li:nth-child(2)': '法的表記',
+        '.site-footer .footer-support ul li:nth-child(3)': 'プライバシーポリシー',
+        '.site-footer .footer-support ul li:nth-child(4)': '日本旅行コンテスト規約',
+        '.site-footer .footer-support ul li:nth-child(5)': 'お問い合わせ',
+        '.cart-main h3': 'あなたのカート',
+        '.cart-empty': 'カートは空です。',
+        '.cart-checkout': '購入手続き',
+        '.cart-view': 'カートを見る',
+        '#panel-contact h3': 'お問い合わせ',
+        '#panel-contact textarea[name="message"]': 'あなたのメッセージ...',
+        '#panel-contact button[type="submit"]': '送信',
+        // hero : définir sur la structure japonaise (garde le sous-titre en anglais comme demandé)
+        '.hero-title': '新しい<br><span class="hero-main-word">コレクション</span><span class="hero-subtitle"><span class="hero-subtitle-inner">New Collection</span></span>'
+      };
+
+      const jpAttr = [
+        { sel: '.close-menu', attr: 'aria-label', value: 'メニューを閉じる' },
+        { sel: '.country-btn', attr: 'aria-label', value: '配送先を選択' },
+        { sel: '.audio-toggle', attr: 'aria-label', value: '音楽を切り替える' },
+        { sel: '.audio-volume-range', attr: 'aria-label', value: '音量' },
+        { sel: '.panel-back', attr: 'aria-label', value: '戻る' },
+        { sel: '.carousel-left', attr: 'aria-label', value: '前の画像' },
+        { sel: '.carousel-right', attr: 'aria-label', value: '次の画像' }
+      ];
+
+      function shouldSkip(el){
+        if(!el) return true;
+        if(el.getAttribute && el.getAttribute('translate') === 'no') return true;
+        if(el.hasAttribute && el.hasAttribute('data-no-translate')) return true;
+        return false;
+      }
+
+      function applyJPRuntime(){
+        console.debug('applyJPRuntime() called');
+        let changed = 0;
+        Object.keys(jpMap).forEach(sel => {
+          try {
+            const el = document.querySelector(sel);
+            if(!el || shouldSkip(el)) return;
+            if(!el.hasAttribute('data-orig')) el.setAttribute('data-orig', el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' ? (el.getAttribute('placeholder')||'') : el.innerHTML);
+            const val = jpMap[sel];
+            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.setAttribute('placeholder', val); else el.innerHTML = val;
+            changed += 1;
+          } catch (e) { /* ignore per element */ }
+        });
+        jpAttr.forEach(m => {
+          try {
+            const el = document.querySelector(m.sel);
+            if(!el || shouldSkip(el)) return;
+            const key = 'data-orig-attr-' + m.attr;
+            if(!el.hasAttribute(key)) el.setAttribute(key, el.getAttribute(m.attr) || '');
+            el.setAttribute(m.attr, m.value);
+          } catch (e) {}
+        });
+        try { window._JPapplied = true; } catch(e){}
+        console.debug('JP applied, selectors changed:', changed);
+        try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      }
+
+      function revertJPRuntime(){
+        document.querySelectorAll('[data-orig]').forEach(el => {
+          try {
+            const orig = el.getAttribute('data-orig') || '';
+            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.setAttribute('placeholder', orig); else el.innerHTML = orig;
+            el.removeAttribute('data-orig');
+          } catch (e) {}
+        });
+        document.querySelectorAll('[data-orig-attr-aria-label]').forEach(el => {
+          try {
+            const orig = el.getAttribute('data-orig-attr-aria-label') || '';
+            el.setAttribute('aria-label', orig);
+            el.removeAttribute('data-orig-attr-aria-label');
+          } catch (e) {}
+        });
+        console.debug('JP reverted');
+        try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      }
+
+
+      // Auto-apply if saved (no document-level click wiring here; language-selector handles clicks)
+      // Do not auto-apply JP on load; page should load in French by default.
+
+      // expose for manual call
+      try { window.applyJPRuntime = applyJPRuntime; window.revertJPRuntime = revertJPRuntime; } catch(e){}
+    })();
+
+    // Enable topbar rotation when JS is active
+    (function() {
+      const rot = document.querySelector('.topbar-rotator');
+      if (!rot) return;
+      // small delay to ensure CSS is parsed and user prefers reduced motion is respected
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      rot.classList.add('js-rotating');
+      // update visible ARIA label for screen readers by toggling hidden messages
+      const msgs = Array.from(rot.querySelectorAll('.topbar-msg'));
+      let idx = 0;
+      setInterval(() => {
+        msgs.forEach((m, i) => m.classList.toggle('topbar-msg--visible', i === idx));
+        idx = (idx + 1) % msgs.length;
+      }, 4000);
+    })();
+
+    // Lightweight runtime translator (non-invasive)
+    (function(){
+      const enMap = {
+        // menu
+        '.menu-main li:nth-child(1) a': 'Home',
+        '.menu-main li:nth-child(2) a': 'Shop',
+        '.menu-main li:nth-child(3) a': 'New',
+        '.menu-main li:nth-child(4) a': 'Contact',
+        // topbar
+        '.topbar-rotator .topbar-msg:nth-child(1)': 'Free shipping in USA from $100 🚚',
+        '.topbar-rotator .topbar-msg:nth-child(2)': 'Win a trip to Japan ⛩️',
+        // delivery/help labels
+        '.menu-footer .delivery-label': 'Delivery to :',
+        '.menu-footer .help-link': 'Help',
+        // sort/drop
+        '.dropbtn': 'Sort ▾',
+        '#sort-menu button[data-sort="featured"]': 'Featured',
+        '#sort-menu button[data-sort="new"]': 'New',
+        '#sort-menu button[data-sort="price-asc"]': 'Price: low → high',
+        '#sort-menu button[data-sort="price-desc"]': 'Price: high → low',
+        // footer
+        '.site-footer .footer-advantages .adv:nth-child(1) .adv-t': 'Ships within 24h',
+        '.site-footer .footer-advantages .adv:nth-child(2) .adv-t': 'Specialized delivery',
+        '.site-footer .footer-advantages .adv:nth-child(3) .adv-t': 'Secure payment',
+        '.site-footer .footer-advantages .adv:nth-child(4) .adv-t': 'Based in France',
+        '.site-footer .footer-products h4': 'Products',
+        '.site-footer .footer-products ul li:nth-child(1)': 'Hoodies',
+        '.site-footer .footer-products ul li:nth-child(2)': 'Kimonos',
+        '.site-footer .footer-products ul li:nth-child(3)': 'T-Shirts',
+        '.site-footer .footer-products ul li:nth-child(4)': 'Joggers',
+        '.site-footer .footer-products ul li:nth-child(5)': 'Accessories',
+        '.site-footer .footer-support h4': 'Customer Service',
+        '.site-footer .footer-support ul li:nth-child(1)': 'Terms of Sale',
+        '.site-footer .footer-support ul li:nth-child(2)': 'Legal notice',
+        '.site-footer .footer-support ul li:nth-child(3)': 'Privacy policy',
+        '.site-footer .footer-support ul li:nth-child(4)': 'Japan trip contest T&Cs',
+        '.site-footer .footer-support ul li:nth-child(5)': 'Contact',
+        // cart
+        '.cart-main h3': 'Your cart',
+        '.cart-empty': 'Your cart is empty.',
+        '.cart-checkout': 'Checkout',
+        '.cart-view': 'View cart',
+        // contact panel
+        '#panel-contact h3': 'Contact',
+        '#panel-contact textarea[name="message"]': 'Your message...',
+        '#panel-contact button[type="submit"]': 'Send'
+        ,
+        // hero subtitle (translate to English)
+        '.hero-subtitle .hero-subtitle-inner': 'New Collection'
+      };
+
+      // attributes to set (aria-labels)
+      const enAttr = [
+        { sel: '.close-menu', attr: 'aria-label', value: 'Close menu' },
+        { sel: '.country-btn', attr: 'aria-label', value: 'Select delivery country' },
+        { sel: '.audio-toggle', attr: 'aria-label', value: 'Toggle music' },
+        { sel: '.audio-volume-range', attr: 'aria-label', value: 'Volume' },
+        { sel: '.panel-back', attr: 'aria-label', value: 'Back' },
+        { sel: '.carousel-left', attr: 'aria-label', value: 'Previous image' },
+        { sel: '.carousel-right', attr: 'aria-label', value: 'Next image' }
+      ];
+
+      // helper: skip protected elements
+      function shouldSkip(el){
+        if(!el) return true;
+        if(el.getAttribute && el.getAttribute('translate') === 'no') return true;
+        if(el.hasAttribute && el.hasAttribute('data-no-translate')) return true;
+        // Note: Do NOT skip .hero-subtitle-inner here — we want EN to translate the hero subtitle
+        return false;
+      }
+
+      function applyEN(){
+        // map text/innerHTML
+        let changed = 0;
+        const changedList = [];
+        Object.keys(enMap).forEach(sel => {
+          try{
+            const el = document.querySelector(sel);
+            if(!el || shouldSkip(el)) return;
+            // save original in data-orig if not saved
+            if(!el.hasAttribute('data-orig')) el.setAttribute('data-orig', el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' ? el.getAttribute('placeholder') || '' : el.innerHTML);
+            const val = enMap[sel];
+            // Special-case: don't overwrite the hero subtitle if it already contains Japanese characters.
+            if (sel === '.hero-subtitle .hero-subtitle-inner') {
+              try {
+                const cur = (el.textContent || '').trim();
+                const hasJapanese = /[\u3040-\u30FF\u4E00-\u9FFF]/.test(cur);
+                if (hasJapanese) return; // leave Japanese subtitle untouched
+              } catch (e) { /* ignore and fall through */ }
+            }
+            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.setAttribute('placeholder', val);
+            else el.innerHTML = val;
+            changed += 1;
+            changedList.push(sel);
+          }catch(e){/* ignore per element */}
+        });
+        // attributes
+        enAttr.forEach(m => {
+          try{
+            const el = document.querySelector(m.sel);
+            if(!el || shouldSkip(el)) return;
+            const key = 'data-orig-attr-' + m.attr;
+            if(!el.hasAttribute(key)) el.setAttribute(key, el.getAttribute(m.attr) || '');
+            el.setAttribute(m.attr, m.value);
+          }catch(e){}
+        });
+        // special-case: translate main hero title text node (e.g., 'NOUVELLE' -> 'NEW')
+        try {
+          const hero = document.querySelector('.hero-title');
+          if (hero && !shouldSkip(hero)) {
+            // save original whole hero HTML so revert can restore text nodes and structure
+            if (!hero.hasAttribute('data-orig')) hero.setAttribute('data-orig', hero.innerHTML || '');
+            hero.childNodes.forEach(node => {
+              if (node.nodeType === Node.TEXT_NODE) {
+                try {
+                  if (/Nouvelle|NOUVELLE|nouvelle/i.test(node.textContent || '')) {
+                    node.textContent = (node.textContent || '').replace(/Nouvelle|NOUVELLE|nouvelle/gi, 'NEW');
+                  }
+                } catch (e) { /* ignore per node */ }
+              }
+            });
+            // ensure main word is 'COLLECTION' in English
+            const main = hero.querySelector('.hero-main-word');
+            if (main) {
+              if (!main.hasAttribute('data-orig')) main.setAttribute('data-orig', main.innerHTML || '');
+              main.innerHTML = 'COLLECTION';
+            }
+          }
+        } catch (e) { /* ignore */ }
+
+        console.debug('EN applied, selectors changed:', changed, changedList);
+        try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      }
+
+      function revert(){
+        // restore inner HTML / placeholders
+        const elems = Array.from(document.querySelectorAll('[data-orig]'));
+        let restored = 0;
+        elems.forEach(el => {
+          try{
+            const orig = el.getAttribute('data-orig') || '';
+            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.setAttribute('placeholder', orig);
+            else el.innerHTML = orig;
+            el.removeAttribute('data-orig');
+            restored += 1;
+          }catch(e){}
+        });
+        // restore attrs
+        document.querySelectorAll('[data-orig-attr-aria-label]').forEach(el => {
+          try{
+            const orig = el.getAttribute('data-orig-attr-aria-label') || '';
+            el.setAttribute('aria-label', orig);
+            el.removeAttribute('data-orig-attr-aria-label');
+          }catch(e){}
+        });
+        // other data-orig-attr-* handlers
+        document.querySelectorAll('*').forEach(el => {
+          try{
+            Array.from(el.attributes).forEach(a => {
+              if(!a.name.startsWith('data-orig-attr-')) return;
+              const real = a.name.replace('data-orig-attr-','');
+              el.setAttribute(real, a.value || '');
+              el.removeAttribute(a.name);
+            });
+          }catch(e){}
+        });
+        console.debug('EN reverted, restored items:', restored);
+        try { if (typeof matchSubtitleToMainWord === 'function') matchSubtitleToMainWord(); } catch(e){}
+      }
+
+      // wire the language selector without changing existing markup
+      document.addEventListener('click', (e)=>{
+        const opt = e.target.closest && e.target.closest('.lang-option');
+        if(!opt) return;
+        const code = (opt.getAttribute('data-lang')||'FR').toUpperCase();
+        console.debug('document-level click detected language option:', code);
+        try {
+          // update visible label if present
+          const vis = document.querySelector('.lang-visible');
+          const map = { FR: 'Français', EN: 'English', ES: 'Español', JP: '日本語' };
+          if (vis) vis.textContent = map[code] || vis.textContent;
+        } catch (err) { /* ignore */ }
+        // call centralized applier (works for EN/JP/FR)
+        try { if (typeof window.applyLanguageCode === 'function') window.applyLanguageCode(code); }
+        catch (err) { console.warn('applyLanguageCode failed', err); }
+      });
+      // expose EN applier and revert globally so handlers can call them (was previously declared earlier in file)
+      try { window.applyEN = applyEN; window.revert = revert; } catch (e) {}
+    })();
+
+    // Delivery country selector: persist selection and update UI
+    (function() {
+      const dropdown = document.querySelector('.country-dropdown');
+      if (!dropdown) return;
+      const btn = dropdown.querySelector('.country-btn');
+      const list = dropdown.querySelector('.country-list');
+      const options = Array.from(dropdown.querySelectorAll('.country-option'));
+
+      const countryData = {
+        FR: { label: 'France' },
+        RE: { label: 'La Réunion' },
+        BE: { label: 'Belgique' },
+        ES: { label: 'Espagne' },
+        JP: { label: 'Japon' }
+      };
+
+      function setSelected(code) {
+        const data = countryData[code] || countryData.FR;
+        const labelEl = btn.querySelector('.country-label');
+        if (labelEl) labelEl.textContent = data.label;
+        localStorage.setItem('delivery-country', code);
+      }
+
+      // --- Simple translations support: when user selects JP, translate key UI strings ---
+  const translations = {
+    JP: {
+          // precise selector -> html/text replacement
+          map: [
+            { sel: '.topbar-rotator .topbar-msg:nth-child(1)', html: '日本：送料無料（100€以上）🚚' },
+            { sel: '.topbar-rotator .topbar-msg:nth-child(2)', html: '日本への旅行が当たるチャンス⛩️' },
+            { sel: '.menu-main li:nth-child(1) a', html: 'ホーム' },
+            { sel: '.menu-main li:nth-child(2) a', html: 'ショップ' },
+            { sel: '.menu-main li:nth-child(3) a', html: '新着' },
+            { sel: '.menu-main li:nth-child(4) a', html: 'お問い合わせ' },
+            { sel: '.filters .dropdown:first-child .dropbtn', html: '絞り込み ▾' },
+            { sel: '.filters .dropdown:last-child .dropbtn', html: '並び替え ▾' },
+            { sel: '.menu-footer .delivery-label', html: '配送先：' },
+            { sel: '.menu-footer .help-link', html: 'ヘルプ' }
+            ,
+            { sel: '.site-footer .footer-advantages .adv:nth-child(1) .adv-t', html: '24時間以内に出荷' },
+            { sel: '.site-footer .footer-advantages .adv:nth-child(2) .adv-t', html: '専門配送' },
+            { sel: '.site-footer .footer-advantages .adv:nth-child(3) .adv-t', html: '安全な支払い' },
+            { sel: '.site-footer .footer-advantages .adv:nth-child(4) .adv-t', html: 'フランス拠点' },
+            { sel: '.hero-subtitle .hero-subtitle-inner', html: 'New Collection' },
+            { sel: '.site-footer .footer-products h4', html: '商品' },
+            { sel: '.site-footer .footer-products ul li:nth-child(1)', html: 'フーディー' },
+            { sel: '.site-footer .footer-products ul li:nth-child(2)', html: '着物' },
+            { sel: '.site-footer .footer-products ul li:nth-child(3)', html: 'Tシャツ' },
+            { sel: '.site-footer .footer-products ul li:nth-child(4)', html: 'ジョギング' },
+            { sel: '.site-footer .footer-products ul li:nth-child(5)', html: 'アクセサリー' },
+            { sel: '.site-footer .footer-support h4', html: 'カスタマーサービス' },
+            { sel: '.site-footer .footer-support ul li:nth-child(1)', html: '販売条件' },
+            { sel: '.site-footer .footer-support ul li:nth-child(2)', html: '法的表記' },
+            { sel: '.site-footer .footer-support ul li:nth-child(3)', html: 'プライバシーポリシー' },
+            { sel: '.site-footer .footer-support ul li:nth-child(4)', html: '日本旅行コンテスト規約' },
+            { sel: '.site-footer .footer-support ul li:nth-child(5)', html: 'お問い合わせ' }
+          ],
+          // headings
+          headings: [
+            { sel: '#panel-shop h3', html: 'ショップ' },
+            { sel: '#panel-new h3', html: '新着' }
+          ],
+          // filter menu options (order matters)
+          filters: ['すべて', '在庫あり', '在庫切れ', 'サイズ', '価格'],
+          sorts: ['注目', '新着', '価格：安→高', '価格：高→安'],
+          // product names (in document order)
+          products: ['Alpine フロント', 'Alpine リア', 'Alpine 34 遠景', 'Alpine ロゴ', 'Alpine 34 フロント近接', 'Alpine ヘッドライト', '桜 (Cherry Blossom)', 'ロゴ エディション'],
+          // shop panel links
+          shopLinks: ['衣類', 'アクセサリー', '靴', 'バッグ', 'プロモーション'],
+          // new panel links
+          newLinks: ['写真', 'ビデオ', 'フォーミュラ'],
+          // contact panel
+          contact: { title: 'お問い合わせ', labels: ['名前：', 'メール：', '電話：'], messagePlaceholder: 'あなたのメッセージ...' , send: '送信', messageLabel: 'メッセージ' },
+          // audio labels
+          audio: { on: '🔊 音楽 (on)', off: '🔈 音楽 (off)', volumeLabel: '音量' },
+          // generic UI
+          alerts: { enterMessage: '送信するにはメッセージを入力してください。', copied: 'メッセージがクリップボードにコピーされました。メールアプリを開いて ' + ' {recipient} に送信してください。', copyPrompt: 'このメッセージをコピーして {recipient} に送ってください :' },
+          mailSubject: 'サイトからのメッセージ',
+          doc: { title: '星 - 新コレクション', lang: 'ja' },
+          helpLink: 'ヘルプ',
+          // hero
+          // Keep the hero inner subtitle in English when applying JP so it becomes 'New Collection'
+          hero: { titleHtml: '新しい<br><span class="hero-main-word">コレクション</span><span class="hero-subtitle"><span class="hero-subtitle-inner">New Collection</span></span>' },
+          // étiquettes d'options de pays (dans le même ordre que la liste de pays)
+          countryLabels: ['フランス','レユニオン','ベルギー','スペイン','日本'],
+          // attribute mappings for aria-labels or similar
+          attrMap: [
+            { sel: '.close-menu', attr: 'aria-label', value: 'メニューを閉じる' },
+            { sel: '.country-btn', attr: 'aria-label', value: '配送先を選択' },
+            { sel: '.audio-toggle', attr: 'aria-label', value: '音楽を切り替える' },
+            { sel: '.audio-volume-range', attr: 'aria-label', value: '音量' },
+            { sel: '.panel-back', attr: 'aria-label', value: '戻る' }
+          ]
+        }
+      };
+
+      // expose translations globally for other scripts (contact handler, etc.)
+      try { window.translations = translations; } catch (e) { /* non-fatal */ }
+
+      // store original document title so we can restore it on revert
+      if (!document.documentElement.hasAttribute('data-orig-title')) {
+        document.documentElement.setAttribute('data-orig-title', document.title || '');
+      }
+
+      // track whether JP translations are currently applied
+      try { window._JPapplied = false; } catch (e) { /* ignore */ }
+
+      function applyJP() {
+        console.debug('applyJP() called');
+        const t = translations.JP;
+        if (!t) return;
+        // marquer comme appliqué pour que les autres gestionnaires le sachent
+        try { window._JPapplied = true; } catch (e) {}
+        // set document language and title
+        if (t.doc) {
+          if (t.doc.lang) document.documentElement.lang = t.doc.lang;
+          if (t.doc.title) document.title = t.doc.title;
+        }
+        // map replacements
+        t.map.forEach(item => {
+          const el = document.querySelector(item.sel);
+          if (!el) return;
+          if (!el.hasAttribute('data-orig')) el.setAttribute('data-orig', el.innerHTML);
+          el.innerHTML = item.html;
+        });
+        // headings
+        if (t.headings && Array.isArray(t.headings)) {
+          t.headings.forEach(h => {
+            const el = document.querySelector(h.sel);
+            if (!el) return;
+            if (!el.hasAttribute('data-orig')) el.setAttribute('data-orig', el.textContent);
+            el.textContent = h.html;
+          });
+        }
+        // filters
+        const filterBtns = Array.from(document.querySelectorAll('#filter-menu button'));
+        filterBtns.forEach((b, i) => {
+          if (!b.hasAttribute('data-orig')) b.setAttribute('data-orig', b.textContent);
+          b.textContent = t.filters[i] || b.textContent;
+        });
+        const sortBtns = Array.from(document.querySelectorAll('#sort-menu button'));
+        sortBtns.forEach((b, i) => {
+          if (!b.hasAttribute('data-orig')) b.setAttribute('data-orig', b.textContent);
+          b.textContent = t.sorts[i] || b.textContent;
+        });
+        // products
+        const prodNames = Array.from(document.querySelectorAll('.product p'));
+        prodNames.forEach((p, i) => {
+          if (!p.hasAttribute('data-orig')) p.setAttribute('data-orig', p.textContent);
+          p.textContent = t.products[i] || p.textContent;
+        });
+        // contact panel
+        const contactH = document.querySelector('#panel-contact h3');
+        if (contactH && !contactH.hasAttribute('data-orig')) contactH.setAttribute('data-orig', contactH.textContent);
+        if (contactH) contactH.textContent = t.contact.title;
+        const contactPs = Array.from(document.querySelectorAll('#panel-contact .contact-info p'));
+        contactPs.forEach((p, i) => {
+          if (i < 3) {
+            if (!p.hasAttribute('data-orig')) p.setAttribute('data-orig', p.innerHTML);
+            const parts = p.innerHTML.split(':');
+            const rest = parts.slice(1).join(':');
+            p.innerHTML = (t.contact.labels[i] || '') + (rest ? ':' + rest.replace(/^\s*:/,'') : '');
+          }
+        });
+        const ta = document.querySelector('#panel-contact textarea[name="message"]');
+        if (ta && !ta.hasAttribute('data-orig')) ta.setAttribute('data-orig', ta.getAttribute('placeholder') || '');
+        if (ta) ta.setAttribute('placeholder', t.contact.messagePlaceholder);
+        const sendBtn = document.querySelector('#panel-contact button[type="submit"]');
+        if (sendBtn && !sendBtn.hasAttribute('data-orig')) sendBtn.setAttribute('data-orig', sendBtn.textContent);
+        if (sendBtn) sendBtn.textContent = t.contact.send;
+        // contact label (text node before textarea)
+        const msgLabel = document.querySelector('#panel-contact .contact-form label');
+        if (msgLabel) {
+          const current = msgLabel.childNodes && msgLabel.childNodes[0] ? msgLabel.childNodes[0].textContent : '';
+          if (!msgLabel.hasAttribute('data-orig-label')) msgLabel.setAttribute('data-orig-label', current);
+          if (t.contact && t.contact.messageLabel) {
+            if (msgLabel.childNodes && msgLabel.childNodes[0]) msgLabel.childNodes[0].textContent = t.contact.messageLabel;
+          }
+        }
+        // audio
+        const audioBtn = document.querySelector('.audio-toggle');
+        if (audioBtn) {
+          if (!audioBtn.hasAttribute('data-orig')) audioBtn.setAttribute('data-orig', audioBtn.textContent);
+          audioBtn.textContent = audioBtn.getAttribute('aria-pressed') === 'true' ? t.audio.on : t.audio.off;
+        }
+        // audio volume label (preserve range input)
+        const vol = document.querySelector('.audio-volume');
+        if (vol) {
+          const textNode = vol.childNodes && vol.childNodes[0] ? vol.childNodes[0] : null;
+          if (textNode && !vol.hasAttribute('data-orig-label')) vol.setAttribute('data-orig-label', textNode.textContent);
+          if (textNode && t.audio && t.audio.volumeLabel) textNode.textContent = t.audio.volumeLabel;
+        }
+        // panel shop links
+        const shopLinks = Array.from(document.querySelectorAll('#panel-shop .panel-link'));
+        shopLinks.forEach((a, i) => { if (!a.hasAttribute('data-orig')) a.setAttribute('data-orig', a.textContent); a.textContent = t.shopLinks[i] || a.textContent; });
+        // panel new links
+        const newLinks = Array.from(document.querySelectorAll('#panel-new .panel-link'));
+        newLinks.forEach((a, i) => { if (!a.hasAttribute('data-orig')) a.setAttribute('data-orig', a.textContent); a.textContent = t.newLinks[i] || a.textContent; });
+        // panel-back buttons text
+        document.querySelectorAll('.panel-back').forEach(btn => {
+          if (!btn.hasAttribute('data-orig')) btn.setAttribute('data-orig', btn.textContent);
+          btn.textContent = '← 戻る';
+        });
+        // attribute mappings
+        if (t.attrMap && Array.isArray(t.attrMap)) {
+          t.attrMap.forEach(m => {
+            try {
+              const el = document.querySelector(m.sel);
+              if (!el) return;
+              const key = 'data-orig-attr-' + m.attr;
+              if (!el.hasAttribute(key)) el.setAttribute(key, el.getAttribute(m.attr) || '');
+              el.setAttribute(m.attr, m.value);
+            } catch (err) { /* ignore */ }
+          });
+        }
+        // help link
+        const help = document.querySelector('.menu-footer .help-link');
+        if (help && !help.hasAttribute('data-orig')) help.setAttribute('data-orig', help.textContent);
+        if (help) help.textContent = t.helpLink || help.textContent;
+        // hero
+        if (t.hero && t.hero.titleHtml) {
+          const hero = document.querySelector('.hero-title');
+          if (hero && !hero.hasAttribute('data-orig')) hero.setAttribute('data-orig', hero.innerHTML);
+          if (hero) hero.innerHTML = t.hero.titleHtml;
+        }
+        // country labels: translate only the Japan option; leave others in French
+        if (t.countryLabels && Array.isArray(t.countryLabels)) {
+          const opts = Array.from(document.querySelectorAll('.country-option'));
+          opts.forEach((o, i) => {
+            if (!o.hasAttribute('data-orig')) o.setAttribute('data-orig', o.textContent);
+            const code = (o.getAttribute('data-value') || '').toUpperCase();
+            if (code === 'JP') {
+              o.textContent = t.countryLabels[i] || o.textContent;
+            } else {
+              // ensure non-JP options continue using original (French) labels
+              o.textContent = o.getAttribute('data-orig') || o.textContent;
+            }
+          });
+          // set the visible country label: show JP label only when JP is selected
+          const selected = (localStorage.getItem('delivery-country') || 'FR').toUpperCase();
+          const visible = document.querySelector('.country-label');
+          if (visible) {
+            if (selected === 'JP') {
+              const jpIdx = opts.findIndex(o => (o.getAttribute('data-value') || '').toUpperCase() === 'JP');
+              if (jpIdx >= 0) visible.textContent = t.countryLabels[jpIdx] || (opts[jpIdx] && opts[jpIdx].getAttribute('data-orig')) || visible.textContent;
+            } else {
+              const mapping = { FR: 'France', RE: 'La Réunion', BE: 'Belgique', ES: 'Espagne', JP: 'Japon' };
+              visible.textContent = mapping[selected] || visible.textContent;
+            }
+          }
+        }
+      }
+
+      function revertTranslations() {
+        try { window._JPapplied = false; } catch (e) {}
+        // restore mapped elements
+        const allSelectors = translations.JP.map ? translations.JP.map.map(i=>i.sel) : [];
+        allSelectors.forEach(sel => {
+          const el = document.querySelector(sel);
+          if (!el) return;
+          if (el.hasAttribute('data-orig')) el.innerHTML = el.getAttribute('data-orig');
+        });
+        // restore headings
+        if (translations.JP && translations.JP.headings && Array.isArray(translations.JP.headings)) {
+          translations.JP.headings.forEach(h => {
+            const el = document.querySelector(h.sel);
+            if (!el) return;
+            if (el.hasAttribute('data-orig')) el.textContent = el.getAttribute('data-orig');
+          });
+        }
+        // restore document title/lang if present
+        if (translations.JP && translations.JP.doc) {
+          const d = translations.JP.doc;
+          if (d.title && document.title && document.title === d.title) {
+            // try to restore from stored original meta if any
+            const origTitle = document.documentElement.getAttribute('data-orig-title');
+            if (origTitle) document.title = origTitle;
+          }
+          if (d.lang && document.documentElement.lang === d.lang) {
+            // default back to french
+            document.documentElement.lang = 'fr';
+          }
+        }
+        // filters
+        Array.from(document.querySelectorAll('#filter-menu button')).forEach(b => { if (b.hasAttribute('data-orig')) b.textContent = b.getAttribute('data-orig'); });
+        Array.from(document.querySelectorAll('#sort-menu button')).forEach(b => { if (b.hasAttribute('data-orig')) b.textContent = b.getAttribute('data-orig'); });
+        // products
+        Array.from(document.querySelectorAll('.product p')).forEach(p => { if (p.hasAttribute('data-orig')) p.textContent = p.getAttribute('data-orig'); });
+        // contact
+        const contactH = document.querySelector('#panel-contact h3'); if (contactH && contactH.hasAttribute('data-orig')) contactH.textContent = contactH.getAttribute('data-orig');
+        Array.from(document.querySelectorAll('#panel-contact .contact-info p')).forEach(p => { if (p.hasAttribute('data-orig')) p.innerHTML = p.getAttribute('data-orig'); });
+        const ta = document.querySelector('#panel-contact textarea[name="message"]'); if (ta && ta.hasAttribute('data-orig')) ta.setAttribute('placeholder', ta.getAttribute('data-orig'));
+        const sendBtn = document.querySelector('#panel-contact button[type="submit"]'); if (sendBtn && sendBtn.hasAttribute('data-orig')) sendBtn.textContent = sendBtn.getAttribute('data-orig');
+        const audioBtn = document.querySelector('.audio-toggle'); if (audioBtn && audioBtn.hasAttribute('data-orig')) audioBtn.textContent = audioBtn.getAttribute('data-orig');
+        // restore contact label text node
+        const msgLabel = document.querySelector('#panel-contact .contact-form label');
+        if (msgLabel && msgLabel.hasAttribute('data-orig-label')) {
+          const orig = msgLabel.getAttribute('data-orig-label');
+          if (msgLabel.childNodes && msgLabel.childNodes[0]) msgLabel.childNodes[0].textContent = orig;
+        }
+        // restore audio volume label
+        const vol = document.querySelector('.audio-volume');
+        if (vol && vol.hasAttribute('data-orig-label')) {
+          const tn = vol.childNodes && vol.childNodes[0];
+          if (tn) tn.textContent = vol.getAttribute('data-orig-label');
+        }
+        // restore panel links
+        Array.from(document.querySelectorAll('#panel-shop .panel-link')).forEach(a => { if (a.hasAttribute('data-orig')) a.textContent = a.getAttribute('data-orig'); });
+        Array.from(document.querySelectorAll('#panel-new .panel-link')).forEach(a => { if (a.hasAttribute('data-orig')) a.textContent = a.getAttribute('data-orig'); });
+        // restore panel-back
+        document.querySelectorAll('.panel-back').forEach(btn => { if (btn.hasAttribute('data-orig')) btn.textContent = btn.getAttribute('data-orig'); });
+        // restore attributes
+        if (translations.JP && translations.JP.attrMap && Array.isArray(translations.JP.attrMap)) {
+          translations.JP.attrMap.forEach(m => {
+            try {
+              const el = document.querySelector(m.sel);
+              if (!el) return;
+              const key = 'data-orig-attr-' + m.attr;
+              if (el.hasAttribute(key)) el.setAttribute(m.attr, el.getAttribute(key) || '');
+            } catch (err) { /* ignore */ }
+          });
+        }
+        // restore help link
+        const help = document.querySelector('.menu-footer .help-link'); if (help && help.hasAttribute('data-orig')) help.textContent = help.getAttribute('data-orig');
+        // restore hero
+        const hero = document.querySelector('.hero-title'); if (hero && hero.hasAttribute('data-orig')) hero.innerHTML = hero.getAttribute('data-orig');
+        // restore country options
+        Array.from(document.querySelectorAll('.country-option')).forEach(o => { if (o.hasAttribute('data-orig')) o.textContent = o.getAttribute('data-orig'); });
+        // restore visible country label (use stored selection)
+        const sel = localStorage.getItem('delivery-country') || 'FR';
+        const map = { FR: 'France', RE: 'La Réunion', BE: 'Belgique', ES: 'Espagne', JP: 'Japon' };
+        const labelEl = document.querySelector('.country-label');
+        if (labelEl) labelEl.textContent = map[sel] || labelEl.textContent;
+        // expose JP appliers for external calls
+        try { window.applyJP = applyJP; window.revertTranslations = revertTranslations; } catch (e) {}
+      }
+
+  // Load saved
+  const saved = localStorage.getItem('delivery-country') || 'FR';
+  setSelected(saved);
+  // Do NOT auto-apply JP based on delivery-country. Language should only change
+  // when the user explicitly clicks the language selector.
+  try { window._JPapplied = false; } catch (e) {}
+
+      function open() {
+        dropdown.setAttribute('data-expanded', 'true');
+        btn.setAttribute('aria-expanded', 'true');
+        list.setAttribute('aria-hidden', 'false');
+        list.style.display = 'block';
+        // animate
+        requestAnimationFrame(() => list.classList.add('open'));
+      }
+      function close() {
+        dropdown.setAttribute('data-expanded', 'false');
+        btn.setAttribute('aria-expanded', 'false');
+        list.setAttribute('aria-hidden', 'true');
+        list.classList.remove('open');
+        // wait for animation, then hide
+        setTimeout(() => list.style.display = 'none', 220);
+      }
+
+      btn.addEventListener('click', (e) => {
+        const expanded = dropdown.getAttribute('data-expanded') === 'true';
+        if (expanded) close(); else open();
+      });
+
+      // keyboard support
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open();
+          options[0]?.focus();
+        }
+      });
+
+    // Wire up language selector (reuses country-dropdown classes)
+    (function(){
+      const langWrap = document.querySelector('.language-selector');
+      if (!langWrap) return;
+      const dropdown = langWrap.querySelector('.lang-dropdown');
+      const btn = langWrap.querySelector('.lang-btn');
+      const list = langWrap.querySelector('.lang-list');
+      const options = Array.from(langWrap.querySelectorAll('.lang-option'));
+      const visible = langWrap.querySelector('.lang-visible');
+
+      function openLang(){ if (!dropdown) return; dropdown.setAttribute('data-expanded','true'); btn.setAttribute('aria-expanded','true'); list.setAttribute('aria-hidden','false'); list.style.display='block'; requestAnimationFrame(()=>list.classList.add('open')); }
+      function closeLang(){ if (!dropdown) return; dropdown.setAttribute('data-expanded','false'); btn.setAttribute('aria-expanded','false'); list.setAttribute('aria-hidden','true'); list.classList.remove('open'); setTimeout(()=>list.style.display='none',220); }
+
+      btn.addEventListener('click', ()=>{ const expanded = dropdown.getAttribute('data-expanded') === 'true'; if (expanded) closeLang(); else openLang(); });
+      btn.addEventListener('keydown', (e)=>{ if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLang(); options[0]?.focus(); } });
+
+      options.forEach(opt => {
+        opt.addEventListener('click', ()=>{
+          const code = (opt.getAttribute('data-lang')||'FR').toUpperCase();
+          // update visible label
+          const map = { FR: 'Français', EN: 'English', ES: 'Español', JP: '日本語' };
+          if (visible) visible.textContent = map[code] || visible.textContent;
+          // do NOT persist site-language; translations are applied only for this session on explicit click
+          try {
+            console.debug('language selector clicked (local handler):', code);
+            if (typeof window.applyLanguageCode === 'function') {
+              window.applyLanguageCode(code);
+            } else {
+              console.warn('applyLanguageCode missing');
+            }
+          } catch (err) { console.warn('language apply failed', err); }
+          closeLang();
+        });
+        opt.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); } });
+      });
+
+      // initialiser l'étiquette visible depuis la valeur sauvée
+  // initialiser l'étiquette visible à FR par défaut (pas de persistance)
+  const mapInit = { FR: 'Français', EN: 'English', ES: 'Español', JP: '日本語' };
+  if (visible) visible.textContent = mapInit.FR || visible.textContent;
+    })();
+
+    // Force-attach: ensure each .lang-option has a direct click listener (works even if event bubbling is stopped)
+    (function forceAttachLangOptions(){
+      try {
+        const opts = Array.from(document.querySelectorAll('.lang-option'));
+        opts.forEach(o => {
+          // avoid attaching multiple times
+          if (o.__langHookAttached) return;
+          o.__langHookAttached = true;
+          o.addEventListener('click', (ev) => {
+            try {
+              const code = (o.getAttribute('data-lang')||'FR').toUpperCase();
+              console.debug('force-attached lang-option click:', code);
+              if (typeof window.applyLanguageCode === 'function') window.applyLanguageCode(code);
+            } catch (err) { console.warn('force lang click failed', err); }
+          });
+        });
+      } catch (err) { /* ignore */ }
+    })();
+
+      options.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          const code = opt.getAttribute('data-value');
+          setSelected(code);
+          // Do NOT change site language when delivery-country is changed.
+          close();
+        });
+        opt.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            opt.click();
+          }
+        });
+      });
+
+      // close on outside click
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) close();
+      });
+
+      // when the main menu closes, ensure dropdown closes too
+      const observer = new MutationObserver(() => {
+        if (!document.body.classList.contains('menu-open')) close();
+      });
+      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    })();
+
+    // Add temporary click animation to interactive controls
+    (function() {
+      const controls = [document.querySelector('.audio-toggle'), document.querySelector('.country-btn')].filter(Boolean);
+      controls.forEach(el => {
+        // pointer down / touch
+        el.addEventListener('pointerdown', () => {
+          el.classList.add('click-anim');
+          setTimeout(() => el.classList.remove('click-anim'), 180);
+        });
+        // keyboard activation (Space / Enter)
+        el.addEventListener('keydown', (e) => {
+          if (e.key === ' ' || e.key === 'Enter') {
+            el.classList.add('click-anim');
+            setTimeout(() => el.classList.remove('click-anim'), 180);
+          }
+        });
+      });
+    })();
+
+    // Close button: keep simple keyboard accessibility but no animation (user requested no animation)
+    (function() {
+      const close = document.querySelector('.close-menu');
+      if (!close) return;
+      // ensure Enter/Space activate the close behavior for keyboard users
+      close.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          close.click();
+        }
+      });
+      // pointer clicks will call the existing closeMenu via the earlier event binding
+    })();
+
+    // Open links in a new tab/window by default (opt-out with `data-samewindow`)
+    (function() {
+      function shouldOpenNewWindow(a) {
+        if (!a || !a.getAttribute) return false;
+        const href = a.getAttribute('href') || '';
+        if (!href) return false;
+        // Skip in-page anchors, mailto/tel links, javascript pseudo-links
+        if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return false;
+        // Allow explicit opt-out
+        if (a.hasAttribute('data-samewindow')) return false;
+        // If a target is already set (explicit), respect it
+        if (a.target && a.target !== '') return false;
+        return true;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('a[href]').forEach(a => {
+          try {
+            if (shouldOpenNewWindow(a)) {
+              a.setAttribute('target', '_blank');
+              // ensure safe opener behavior
+              const currentRel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+              if (!currentRel.includes('noopener')) currentRel.push('noopener');
+              if (!currentRel.includes('noreferrer')) currentRel.push('noreferrer');
+              a.setAttribute('rel', currentRel.join(' '));
+            }
+          } catch (err) {
+            // ignore any anchors that throw when inspected
+            console.warn('Skipping anchor for new-window logic', a, err);
+          }
+        });
+      });
+    })();
+
+    // Contact form: open user's mail client via mailto: or fall back to clipboard
+    (function() {
+      const form = document.querySelector('.contact-form');
+      if (!form) return;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const textarea = form.querySelector('textarea[name="message"]');
+        const msg = (textarea && textarea.value) ? textarea.value.trim() : '';
+
+        if (!msg) {
+          // use translated alert if available
+          const t = (window && window._JPapplied && window.translations && window.translations.JP) ? window.translations.JP : null;
+          const alertText = (t && t.alerts && t.alerts.enterMessage) ? t.alerts.enterMessage : 'Veuillez saisir un message avant d\'envoyer.';
+          alert(alertText);
+          textarea?.focus();
+          return;
+        }
+
+        // Try to read recipient from the contact panel placeholder text if present
+        let recipient = 'vous@example.com';
+        try {
+          const ps = Array.from(document.querySelectorAll('#panel-contact .contact-info p'));
+          for (const p of ps) {
+            const text = p.textContent || '';
+            if (text.toLowerCase().includes('email')) {
+              const parts = text.split(':');
+              if (parts.length > 1) {
+                recipient = parts.slice(1).join(':').trim();
+                break;
+              }
+            }
+          }
+        } catch (err) {
+          console.warn('Could not read recipient from panel, using default', err);
+        }
+
+  // use translated subject if available
+  const t = (window && window._JPapplied && window.translations && window.translations.JP) ? window.translations.JP : null;
+  const subj = (t && t.mailSubject) ? t.mailSubject : 'Message depuis le site';
+  const subject = encodeURIComponent(subj);
+        const body = encodeURIComponent(msg);
+        const mailto = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+        let opened = false;
+        try {
+          window.location.href = mailto;
+          opened = true;
+        } catch (err) {
+          console.warn('mailto open failed', err);
+        }
+
+        if (!opened) {
+          try {
+            await navigator.clipboard.writeText(msg);
+            // localized copied alert
+            const t2 = (window && window._JPapplied && window.translations && window.translations.JP) ? window.translations.JP : null;
+            const copied = t2 && t2.alerts && t2.alerts.copied ? t2.alerts.copied.replace('{recipient}', recipient) : 'Message copié dans le presse-papiers. Ouvrez votre application email et envoyez-le à ' + recipient + '.';
+            alert(copied);
+          } catch (err) {
+            const t3 = (window && window._JPapplied && window.translations && window.translations.JP) ? window.translations.JP : null;
+            const promptText = t3 && t3.alerts && t3.alerts.copyPrompt ? t3.alerts.copyPrompt.replace('{recipient}', recipient) : 'Copiez ce message et envoyez-le à ' + recipient + ':';
+            window.prompt(promptText, msg);
+          }
+        }
+      });
+    })();
+
+    /* --- Site footer (matching attached design) --- */
+    (function insertFooter(){
+      try {
+        var footerHtml = `
+        <footer class="site-footer">
+          <div class="footer-top">
+            <div class="footer-advantages">
+              <div class="adv"><span class="adv-ico">📦</span><div class="adv-t">Expédition sous 24h</div></div>
+              <div class="adv"><span class="adv-ico">📍</span><div class="adv-t">Livraison spécialisée</div></div>
+              <div class="adv"><span class="adv-ico">💳</span><div class="adv-t">Paiement sécurisé</div></div>
+              <div class="adv"><span class="adv-ico">🇫🇷</span><div class="adv-t">Basé en France</div></div>
+            </div>
+          </div>
+          <div class="footer-main">
+            <div class="footer-col footer-products">
+              <h4>NOS PRODUITS</h4>
+              <ul>
+                <li><a href="#" class="footer-link">Hoodie</a></li>
+                <li><a href="#" class="footer-link">Kimono</a></li>
+                <li><a href="#" class="footer-link">T-Shirt</a></li>
+                <li><a href="#" class="footer-link">Jogging</a></li>
+                <li><a href="#" class="footer-link">Accessoires</a></li>
+              </ul>
+            </div>
+            <div class="footer-col footer-support">
+              <h4>SERVICE CLIENT</h4>
+              <ul>
+                <li><a href="#" class="footer-link">Conditions Générales de Vente</a></li>
+                <li><a href="#" class="footer-link">Mentions légales</a></li>
+                <li><a href="#" class="footer-link">Politique de confidentialité</a></li>
+                <li><a href="#" class="footer-link">Règlement Jeu-concours voyage au Japon</a></li>
+                <li><a href="#" class="footer-link">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer-art">
+              <div class="footer-art-emoji" translate="no" data-no-translate>星</div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="payments">
+              <img src="images-site/Visa_Inc._logo.svg.png" alt="visa"/>
+              <img src="images-site/Mastercard-logo.svg.png" alt="mastercard"/>
+              <img src="images-site/Apple_Pay_logo.svg.png" alt="applepay"/>
+            </div>
+            <div class="copyright">© 2025 HOSHI.</div>
+          </div>
+        </footer>`;
+
+        document.body.insertAdjacentHTML('beforeend', footerHtml);
+      } catch (err) { console.warn('insertFooter failed', err); }
+    })();
+  </script>
+
+</body>
+</html>
+

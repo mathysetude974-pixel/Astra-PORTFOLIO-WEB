@@ -1,0 +1,1141 @@
+/* =====================================================
+   SITE HOSHI - FEUILLE DE STYLE SIMPLIFIÉE
+   =====================================================
+   
+   Organisation du fichier :
+   1. Réinitialisation et bases
+   2. Variables CSS
+   3. Layout principal (header, hero, footer)
+   4. Navigation et menus
+   5. Recherche
+   6. Produits et filtres
+   7. Animations
+   8. Responsive design
+   9. Utilitaires
+   
+   ===================================================== */
+
+/* =====================================================
+   1. RÉINITIALISATION ET BASES
+   ===================================================== */
+
+/* Reset complet */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Configuration de base du body */
+body {
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #2f2f2f;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hauteur complète pour html et body */
+html, body { 
+  height: 100%; 
+}
+
+/* Forcer une scrollbar persistante pour éviter les sauts horizontaux */
+html { 
+  overflow-y: scroll; 
+}
+
+/* Classe pour masquer visuellement les éléments (accessibilité) */
+.visually-hidden { 
+  position: absolute !important; 
+  height: 1px; 
+  width: 1px; 
+  overflow: hidden; 
+  clip: rect(1px, 1px, 1px, 1px); 
+  white-space: nowrap; 
+}
+
+/* =====================================================
+   2. VARIABLES CSS ET COULEURS
+   ===================================================== */
+
+:root {
+  /* Couleurs principales */
+  --color-primary: #2f2f2f;
+  --color-secondary: #1d1d1d;
+  --color-accent: #c2185b;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255,255,255,0.6);
+  
+  /* Couleurs d'état */
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-error: #f44336;
+  
+  /* Espacement */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  /* Rayons de bordure */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  
+  /* Ombres */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.2);
+  --shadow-xl: 0 12px 24px rgba(0,0,0,0.25);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* =====================================================
+   3. LAYOUT PRINCIPAL
+   ===================================================== */
+
+/* === BARRE DE LIVRAISON === */
+.top-bar {
+  background: #4a4a4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  padding: 5px 0;
+}
+
+/* Messages rotatifs de la barre de livraison */
+.topbar-rotator { 
+  position: relative; 
+  display: block; 
+  width: 100%; 
+  height: 24px; 
+  overflow: hidden; 
+  padding: 0 var(--spacing-lg); 
+  max-width: 100%; 
+}
+
+.topbar-msg { 
+  position: absolute; 
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, 110%); 
+  opacity: 0; 
+  transition: opacity 360ms ease, transform 360ms ease; 
+  white-space: normal; 
+  text-align: center; 
+  width: 100%; 
+}
+
+.topbar-msg--visible { 
+  opacity: 1; 
+  transform: translate(-50%, -50%); 
+}
+
+/* === HEADER (EN-TÊTE) === */
+header {
+  background: var(--color-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  position: sticky;
+  top: 0;
+  z-index: 180; /* Au-dessus du contenu mais sous les overlays */
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+
+/* === LOGO === */
+.logo {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-fast);
+}
+
+.logo a,
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* === BOUTON MENU MOBILE === */
+.menu {
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background 180ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+}
+
+.menu:focus {
+  outline: none;
+}
+
+.menu:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* === SECTION HÉRO === */
+.hero {
+  background: var(--color-primary);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+}
+
+/* Ombre sous la section héro */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
+  pointer-events: none;
+}
+
+/* Titre principal du héro */
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-text);
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.hero-main-word {
+  display: block;
+  color: var(--color-text);
+  font-weight: inherit;
+  margin-bottom: -6px;
+}
+
+/* Sous-titre japonais */
+.hero-subtitle {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+}
+
+.hero-subtitle-inner {
+  background: linear-gradient(45deg, #ffd7e6, #e1bee7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Images du héro */
+.hero-images {
+  position: relative;
+  flex: 1;
+  height: 300px;
+  max-width: 500px;
+}
+
+.hero-images img:not(.fond) {
+  position: absolute;
+  max-width: 200px;
+  height: auto;
+  border-radius: var(--radius-lg);
+  transition: var(--transition-normal);
+  cursor: pointer;
+}
+
+/* Image de fond */
+.fond {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  z-index: 1;
+}
+
+/* === LIENS ET IMAGES PRODUITS DU HÉRO === */
+.coque-link {
+  position: absolute;
+  z-index: 20;
+  transition: var(--transition-normal);
+}
+
+.coque-link img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+.coque-link:hover {
+  transform: scale(1.05);
+}
+
+/* Positionnement spécifique des coques */
+.coque-vague-link,
+.coque-vague {
+  top: 20%;
+  left: 30%;
+  z-index: 190;
+}
+
+.coque-neko-link,
+.coque-neko {
+  top: 40%;
+  right: 25%;
+  z-index: 195;
+}
+
+/* Quand on scroll, ramener les coques derrière le header */
+body.scrolled .coque-vague-link,
+body.scrolled .coque-vague,
+body.scrolled .coque-neko-link,
+body.scrolled .coque-neko {
+  z-index: 170;
+}
+
+/* =====================================================
+   4. NAVIGATION ET MENUS
+   ===================================================== */
+
+/* === ICÔNES DE NAVIGATION === */
+.icons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  position: relative;
+}
+
+/* Boutons d'icônes */
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icon-btn:focus {
+  outline: none;
+  box-shadow: var(--shadow-md);
+}
+
+/* Icônes SVG */
+.icon-profile, 
+.icon-cart, 
+.icon-search-open {
+  display: block;
+  width: 22px;
+  height: 22px;
+  color: var(--color-text);
+}
+
+/* === OVERLAY ET MENU LATÉRAL === */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 200;
+  display: none;
+  backdrop-filter: blur(5px);
+}
+
+.overlay[aria-hidden="false"] {
+  display: flex;
+}
+
+.overlay.active {
+  display: flex;
+}
+
+/* Menu latéral */
+.side-menu {
+  background: var(--color-secondary);
+  width: 320px;
+  height: 100%;
+  padding: var(--spacing-xl);
+  transform: translateX(-100%);
+  transition: transform var(--transition-normal);
+  overflow-y: auto;
+  position: relative;
+}
+
+.overlay.active .side-menu {
+  transform: translateX(0);
+}
+
+/* Bouton fermer */
+.close-menu {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 210;
+  pointer-events: none;
+}
+
+.close-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Menu principal */
+.menu-main {
+  list-style: none;
+  margin-top: var(--spacing-xl);
+}
+
+.menu-main li {
+  margin-bottom: var(--spacing-md);
+}
+
+.menu-main a {
+  display: block;
+  padding: var(--spacing-md) 0;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  position: relative;
+  border-left: 3px solid transparent;
+  padding-left: var(--spacing-md);
+}
+
+.menu-main a:hover,
+.menu-main a:focus {
+  color: #ffd7e6;
+  border-left-color: var(--color-accent);
+}
+
+.menu-main a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: rgba(255, 215, 230, 0.1);
+  transition: var(--transition-fast);
+}
+
+.menu-main a:hover::before {
+  width: 100%;
+}
+
+/* === PANNEAUX LATÉRAUX === */
+.side-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-secondary);
+  padding: var(--spacing-xl);
+  transform: translateX(100%);
+  transition: transform var(--transition-normal);
+  z-index: 220;
+}
+
+.side-panel.open {
+  transform: translateX(0);
+}
+
+.side-panel[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+/* Masquer le menu principal quand un panneau est ouvert */
+.side-menu.panel-open .menu-main,
+.side-menu.panel-open .menu-footer {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Bouton retour */
+.panel-back {
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-size: 16px;
+  cursor: pointer;
+  padding: var(--spacing-md) 0;
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: var(--transition-fast);
+}
+
+.panel-back:hover {
+  color: #ffd7e6;
+}
+
+/* Titres des panneaux */
+.side-panel h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
+}
+
+/* Sous-menus dans les panneaux */
+.panel-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.submenu-item {
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  padding: var(--spacing-md);
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+  font-size: 16px;
+}
+
+.submenu-item:hover,
+.submenu-item:focus {
+  background: rgba(255, 215, 230, 0.1);
+  color: #ffd7e6;
+  outline: none;
+}
+
+/* === FOOTER DU MENU === */
+.menu-footer {
+  margin-top: auto;
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Sélecteur de langue */
+.language-selector {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-size: 14px;
+}
+
+.lang-btn:hover,
+.lang-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Sélecteur de pays de livraison */
+.delivery-selector select {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--color-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* =====================================================
+   5. RECHERCHE
+   ===================================================== */
+
+/* Barre de recherche */
+.search-bar {
+  position: relative;
+  max-width: none;
+  width: 420px;
+  background: var(--color-secondary);
+  color: var(--color-text);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 215, 230, 0.06);
+  box-shadow: var(--shadow-xl);
+  transition: var(--transition-normal);
+}
+
+/* Masquer par défaut */
+.search-bar.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Champ de saisie */
+.search-bar input[type="search"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-size: 16px;
+  outline: none;
+  padding: var(--spacing-sm);
+}
+
+.search-bar input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Bouton effacer/fermer */
+#search-clear {
+  position: absolute;
+  right: var(--spacing-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: #ffd7e6;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+/* Éléments croix et loupe */
+#search-clear .search-clear__cross,
+#search-clear .search-clear__loupe {
+  position: absolute;
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+#search-clear .search-clear__loupe {
+  opacity: 0;
+  transform: scale(0.66);
+}
+
+#search-clear .search-clear__cross {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Transition lors de la fermeture */
+.search-bar.search-closing #search-clear .search-clear__cross {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.search-bar.search-closing #search-clear .search-clear__loupe {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Animation d'ouverture */
+.search-bar.search-opening {
+  animation: search-expand-right var(--transition-normal) ease-out;
+  transform-origin: right center;
+}
+
+/* Animation de fermeture */
+.search-bar.search-closing {
+  animation: search-shrink-right var(--transition-normal) ease-in;
+  transform-origin: right center;
+}
+
+/* Bouton d'ouverture de recherche */
+#search-open-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+#search-open-btn .icon-search-open {
+  width: 22px;
+  height: 22px;
+}
+
+/* Animation du bouton loupe */
+#search-open-btn.search-btn-animate {
+  transform: scale(1.06);
+}
+
+/* =====================================================
+   6. PRODUITS ET FILTRES
+   ===================================================== */
+
+/* === FILTRES === */
+.filters {
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--spacing-lg);
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  position: relative;
+  z-index: 170;
+}
+
+/* Quand on scroll, passer les filtres derrière le header */
+body.scrolled .filters {
+  z-index: 160;
+}
+
+/* Dropdown des filtres */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: var(--color-secondary);
+  color: var(--color-text);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 16px;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+
+.dropbtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: var(--color-secondary);
+  min-width: 200px;
+  box-shadow: var(--shadow-xl);
+  border-radius: var(--radius-md);
+  z-index: 180;
+  top: 100%;
+  left: 0;
+  margin-top: var(--spacing-sm);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a,
+.dropdown-content label {
+  color: var(--color-text);
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.dropdown-content a:hover,
+.dropdown-content label:hover {
+  background: rgba(255, 215, 230, 0.1);
+}
+
+/* Options de disponibilité */
+.availability-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.availability-option input[type="checkbox"] {
+  margin: 0;
+}
+
+/* === GRILLE DE PRODUITS === */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Produit individuel */
+.product {
+  position: relative;
+  background: var(--color-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition-normal);
+  text-decoration: none;
+  color: var(--color-text);
+  display: block;
+  box-shadow: var(--shadow-md);
+}
+
+.product:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Image du produit */
+.product img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Informations du produit */
+.product-title {
+  padding: var(--spacing-lg);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.product-price {
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffd7e6;
+  margin: 0;
+}
+
+/* Badges de produit */
+.product-badges {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.new-badge {
+  background: var(--color-accent);
+  color: white;
+}
+
+.stock-badge.in-stock {
+  background: var(--color-success);
+  color: white;
+}
+
+.stock-badge.out-of-stock {
+  background: var(--color-error);
+  color: white;
+}
+
+/* === CARROUSEL D'IMAGES === */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.carousel-left {
+  left: var(--spacing-md);
+}
+
+.carousel-right {
+  right: var(--spacing-md);
+}
+
+/* Dernière ligne de produits */
+.last-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+/* =====================================================
+   7. ANIMATIONS
+   ===================================================== */
+
+/* Animation de rotation des messages top-bar */
+@keyframes topbar-cycle {
+  0% { opacity: 0; transform: translateY(6px); }
+  5% { opacity: 1; transform: translateY(0); }
+  45% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Animations de recherche */
+@keyframes search-expand-right {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes search-shrink-right {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* Animation de flottement lent pour les coques */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Animation de flottement rapide */
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Application des animations de flottement */
+.coque-vague-link, 
+.coque-vague {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.coque-neko-link, 
+.coque-neko {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+/* =====================================================
+   8. RESPONSIVE DESIGN
+   ===================================================== */
+
+/* Tablettes et écrans moyens */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--spacing-lg);
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .hero-images {
+    max-width: 300px;
+    height: 200px;
+  }
+  
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 700px) {
+  header {
+    padding: var(--spacing-md);
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-lg);
+  }
+  
+  .search-bar {
+    width: 100%;
+    margin-right: var(--spacing-sm);
+  }
+  
+  .side-menu {
+    width: 280px;
+  }
+  
+  .icons {
+    gap: var(--spacing-xs);
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+  .hero {
+    padding: var(--spacing-md);
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-images {
+    max-width: 250px;
+    height: 150px;
+  }
+  
+  .product-grid {
+    padding: var(--spacing-md);
+  }
+  
+  .side-menu {
+    width: 260px;
+  }
+}
+
+/* =====================================================
+   9. UTILITAIRES ET PRÉFÉRENCES D'ACCESSIBILITÉ
+   ===================================================== */
+
+/* Respecter les préférences de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .topbar-rotator .topbar-msg {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    position: static;
+    transform: none !important;
+  }
+}
+
+/* États de focus améliorés pour l'accessibilité */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #ffd7e6;
+  outline-offset: 2px;
+}
+
+/* Amélioration du contraste pour les éléments interactifs */
+@media (prefers-contrast: high) {
+  .badge {
+    border: 2px solid white;
+  }
+  
+  .carousel-arrow {
+    border: 2px solid white;
+  }
+  
+  .dropbtn {
+    border: 1px solid white;
+  }
+}
+
+/* Styles d'impression */
+@media print {
+  .overlay,
+  .side-menu,
+  .carousel-arrow,
+  .search-bar,
+  .filters {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .product {
+    break-inside: avoid;
+    border: 1px solid #ccc;
+  }
+}
+
+/* =====================================================
+   FIN DU FICHIER CSS
+   ===================================================== */

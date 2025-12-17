@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Source - Hoshi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      line-height: 1.6;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background: #1e1e1e;
+      padding: 1.5rem 2rem;
+      border-bottom: 2px solid #4f46e5;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+
+    h1 {
+      color: #6366f1;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info {
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #4f46e5;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #6366f1;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 2rem;
+      background: #252526;
+      border-bottom: 1px solid #404040;
+    }
+
+    .tab {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      color: #9ca3af;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .tab:hover {
+      color: #d4d4d4;
+    }
+
+    .tab.active {
+      color: #6366f1;
+      border-bottom-color: #6366f1;
+    }
+
+    .content {
+      padding: 2rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    pre {
+      background: #262626;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid #404040;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    code {
+      color: #d4d4d4;
+    }
+
+    .comment { color: #6a9955; }
+    .tag { color: #569cd6; }
+    .attr { color: #9cdcfe; }
+    .string { color: #ce9178; }
+    .keyword { color: #c586c6; }
+    .function { color: #dcdcaa; }
+    .number { color: #b5cea8; }
+
+    .section-title {
+      color: #6366f1;
+      font-size: 1.2rem;
+      margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #404040;
+    }
+
+    .tech-list {
+      background: #262626;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #6366f1;
+      margin-top: 1rem;
+    }
+
+    .tech-list h3 {
+      color: #6366f1;
+      margin-bottom: 0.75rem;
+    }
+
+    .tech-list ul {
+      color: #9ca3af;
+      margin-left: 1.5rem;
+    }
+
+    .tech-list li {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📄 Code Source - Hoshi (Site E-commerce)</h1>
+    <p class="info">Site e-commerce complet avec panier, recherche et animations</p>
+    <a href="portfolio.html" class="back-btn">← Retour au portfolio</a>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab active" data-tab="accueil">🏠 Accueil</button>
+    <button class="tab" data-tab="produit">🛍️ Page Produit</button>
+    <button class="tab" data-tab="css">🎨 CSS</button>
+    <button class="tab" data-tab="javascript">⚡ JavaScript</button>
+  </div>
+
+  <div class="content">
+    <!-- ONGLET ACCUEIL -->
+    <div class="tab-content active" id="accueil">
+      <h2 class="section-title">Page d'accueil (index.html)</h2>
+      
+      <pre><code><span class="comment">&lt;!-- Structure HTML de la page d'accueil --&gt;</span>
+
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"fr"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Hoshi - Nouvelle Collection<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">href</span>=<span class="string">"https://fonts.googleapis.com/css2?family=Poppins"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"style.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="comment">&lt;!-- Barre de livraison animée --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"top-bar"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"topbar-rotator"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="string">"topbar-msg topbar-msg--visible"</span><span class="tag">&gt;</span>
+        Livraison offerte en <span class="tag">&lt;strong&gt;</span>France MÉTROPOLITAINE<span class="tag">&lt;/strong&gt;</span> dès 100€ 🚚
+      <span class="tag">&lt;/span&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="string">"topbar-msg"</span><span class="tag">&gt;</span>
+        Tente de gagner un voyage au <span class="tag">&lt;strong&gt;</span>Japon<span class="tag">&lt;/strong&gt;</span>⛩️
+      <span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="comment">&lt;!-- Header avec navigation --&gt;</span>
+  <span class="tag">&lt;header&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="string">"menu"</span> <span class="attr">aria-label</span>=<span class="string">"Menu"</span><span class="tag">&gt;</span>☰<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"logo"</span><span class="tag">&gt;</span>星<span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"icons"</span><span class="tag">&gt;</span>
+      <span class="comment">&lt;!-- Barre de recherche --&gt;</span>
+      <span class="tag">&lt;form</span> <span class="attr">class</span>=<span class="string">"search-bar hidden"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="string">"search"</span> <span class="attr">placeholder</span>=<span class="string">"Rechercher des produits..."</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;/form&gt;</span>
+      
+      <span class="comment">&lt;!-- Bouton panier avec badge --&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="string">"cart-btn"</span><span class="tag">&gt;</span>
+        🛒 <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="string">"cart-badge"</span> <span class="attr">id</span>=<span class="string">"cartBadge"</span><span class="tag">&gt;</span>0<span class="tag">&lt;/span&gt;</span>
+      <span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/header&gt;</span>
+
+  <span class="comment">&lt;!-- Section Hero --&gt;</span>
+  <span class="tag">&lt;section</span> <span class="attr">class</span>=<span class="string">"hero"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h1</span> <span class="attr">class</span>=<span class="string">"hero-title"</span><span class="tag">&gt;</span>
+      NOUVELLE<span class="tag">&lt;br&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="string">"hero-main-word"</span><span class="tag">&gt;</span>COLLECTION<span class="tag">&lt;/span&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="string">"hero-subtitle"</span><span class="tag">&gt;</span>新しいコレクション<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"hero-images"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"images-site/cherry blossom.jpg"</span> <span class="attr">class</span>=<span class="string">"fond"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"images-site/coque_vague_japon.png"</span> <span class="attr">class</span>=<span class="string">"coque-vague"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"images-site/coque_neeko.png"</span> <span class="attr">class</span>=<span class="string">"coque-neko"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/section&gt;</span>
+
+  <span class="comment">&lt;!-- Filtres et tri --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"filters"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"dropdown"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="string">"dropbtn"</span><span class="tag">&gt;</span>Filtrer ▾<span class="tag">&lt;/button&gt;</span>
+      <span class="tag">&lt;ul</span> <span class="attr">class</span>=<span class="string">"dropdown-menu"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;li&gt;&lt;button</span> <span class="attr">data-filter</span>=<span class="string">"all"</span><span class="tag">&gt;</span>Tous<span class="tag">&lt;/button&gt;&lt;/li&gt;</span>
+        <span class="tag">&lt;li&gt;&lt;button</span> <span class="attr">data-filter</span>=<span class="string">"in-stock"</span><span class="tag">&gt;</span>Disponibles<span class="tag">&lt;/button&gt;&lt;/li&gt;</span>
+      <span class="tag">&lt;/ul&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="comment">&lt;!-- Grille de produits --&gt;</span>
+  <span class="tag">&lt;section</span> <span class="attr">class</span>=<span class="string">"product-grid"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="string">"page-produit-1.html"</span> <span class="attr">class</span>=<span class="string">"product"</span> <span class="attr">data-price</span>=<span class="string">"90"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"images-site/hoodie.png"</span> <span class="attr">alt</span>=<span class="string">"Hoodie Sakura"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="string">"product-title"</span><span class="tag">&gt;</span>Hoodie Sakura Shirotae<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="string">"price"</span><span class="tag">&gt;</span>90€<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;/section&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+    </div>
+
+    <!-- ONGLET PAGE PRODUIT -->
+    <div class="tab-content" id="produit">
+      <h2 class="section-title">Page Produit</h2>
+      
+      <pre><code><span class="comment">&lt;!-- Structure d'une page produit --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"product-page"</span><span class="tag">&gt;</span>
+  <span class="comment">&lt;!-- Galerie d'images produit --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"product-gallery"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"image-1.png"</span> <span class="attr">class</span>=<span class="string">"main-image"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"thumbnails"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"thumb-1.png"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"thumb-2.png"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"thumb-3.png"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="comment">&lt;!-- Informations produit --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"product-info"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>Hoodie Sakura Shirotae<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="string">"price"</span><span class="tag">&gt;</span>90,00 €<span class="tag">&lt;/p&gt;</span>
+    
+    <span class="comment">&lt;!-- Sélecteur de taille --&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"size-selector"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;label&gt;</span>Taille<span class="tag">&lt;/label&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"size-options"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;button&gt;</span>XS<span class="tag">&lt;/button&gt;</span>
+        <span class="tag">&lt;button&gt;</span>S<span class="tag">&lt;/button&gt;</span>
+        <span class="tag">&lt;button&gt;</span>M<span class="tag">&lt;/button&gt;</span>
+        <span class="tag">&lt;button&gt;</span>L<span class="tag">&lt;/button&gt;</span>
+        <span class="tag">&lt;button&gt;</span>XL<span class="tag">&lt;/button&gt;</span>
+        <span class="tag">&lt;button&gt;</span>XXL<span class="tag">&lt;/button&gt;</span>
+      <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+
+    <span class="comment">&lt;!-- Bouton ajout au panier --&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="string">"add-to-cart"</span><span class="tag">&gt;</span>AJOUTER AU PANIER<span class="tag">&lt;/button&gt;</span>
+
+    <span class="comment">&lt;!-- Description --&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"description"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;h3&gt;</span>Description<span class="tag">&lt;/h3&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Hoodie confortable avec motif sakura...<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <!-- ONGLET CSS -->
+    <div class="tab-content" id="css">
+      <h2 class="section-title">Styles CSS (style.css)</h2>
+      
+      <pre><code><span class="comment">/* Réinitialisation et styles de base */</span>
+<span class="tag">*</span> {
+  <span class="attr">margin:</span> <span class="number">0</span>;
+  <span class="attr">padding:</span> <span class="number">0</span>;
+  <span class="attr">box-sizing:</span> <span class="string">border-box</span>;
+}
+
+<span class="tag">body</span> {
+  <span class="attr">font-family:</span> <span class="string">'Poppins', sans-serif</span>;
+  <span class="attr">background:</span> <span class="string">#2f2f2f</span>;
+  <span class="attr">color:</span> <span class="string">white</span>;
+}
+
+<span class="comment">/* Barre de livraison */</span>
+<span class="tag">.top-bar</span> {
+  <span class="attr">background:</span> <span class="string">#4a4a4a</span>;
+  <span class="attr">padding:</span> <span class="number">5px</span> <span class="number">0</span>;
+  <span class="attr">text-align:</span> <span class="string">center</span>;
+  <span class="attr">font-size:</span> <span class="number">13px</span>;
+}
+
+<span class="comment">/* Messages rotatifs avec animation */</span>
+<span class="tag">.topbar-rotator</span> {
+  <span class="attr">position:</span> <span class="string">relative</span>;
+  <span class="attr">height:</span> <span class="number">24px</span>;
+  <span class="attr">overflow:</span> <span class="string">hidden</span>;
+}
+
+<span class="tag">.topbar-msg</span> {
+  <span class="attr">position:</span> <span class="string">absolute</span>;
+  <span class="attr">opacity:</span> <span class="number">0</span>;
+  <span class="attr">transition:</span> <span class="string">opacity 360ms ease, transform 360ms ease</span>;
+}
+
+<span class="tag">.topbar-msg--visible</span> {
+  <span class="attr">opacity:</span> <span class="number">1</span>;
+}
+
+<span class="comment">/* Header sticky */</span>
+<span class="tag">header</span> {
+  <span class="attr">background:</span> <span class="string">#1d1d1d</span>;
+  <span class="attr">display:</span> <span class="string">flex</span>;
+  <span class="attr">justify-content:</span> <span class="string">space-between</span>;
+  <span class="attr">align-items:</span> <span class="string">center</span>;
+  <span class="attr">padding:</span> <span class="number">15px</span> <span class="number">25px</span>;
+  <span class="attr">position:</span> <span class="string">sticky</span>;
+  <span class="attr">top:</span> <span class="number">0</span>;
+  <span class="attr">z-index:</span> <span class="number">180</span>;
+  <span class="attr">box-shadow:</span> <span class="number">0</span> <span class="number">6px</span> <span class="number">18px</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.35</span>);
+}
+
+<span class="comment">/* Logo avec animation */</span>
+<span class="tag">.logo</span> {
+  <span class="attr">font-size:</span> <span class="number">28px</span>;
+  <span class="attr">font-weight:</span> <span class="number">700</span>;
+  <span class="attr">cursor:</span> <span class="string">pointer</span>;
+  <span class="attr">transition:</span> <span class="string">transform 0.3s ease</span>;
+}
+
+<span class="tag">.logo:hover</span> {
+  <span class="attr">transform:</span> <span class="function">scale</span>(<span class="number">1.1</span>);
+}
+
+<span class="comment">/* Section Hero */</span>
+<span class="tag">.hero</span> {
+  <span class="attr">position:</span> <span class="string">relative</span>;
+  <span class="attr">height:</span> <span class="number">600px</span>;
+  <span class="attr">display:</span> <span class="string">flex</span>;
+  <span class="attr">align-items:</span> <span class="string">center</span>;
+  <span class="attr">justify-content:</span> <span class="string">center</span>;
+  <span class="attr">overflow:</span> <span class="string">hidden</span>;
+}
+
+<span class="tag">.hero-title</span> {
+  <span class="attr">font-size:</span> <span class="number">5rem</span>;
+  <span class="attr">font-weight:</span> <span class="number">800</span>;
+  <span class="attr">text-align:</span> <span class="string">center</span>;
+  <span class="attr">z-index:</span> <span class="number">10</span>;
+}
+
+<span class="comment">/* Grille de produits */</span>
+<span class="tag">.product-grid</span> {
+  <span class="attr">display:</span> <span class="string">grid</span>;
+  <span class="attr">grid-template-columns:</span> <span class="function">repeat</span>(<span class="function">auto-fill</span>, <span class="function">minmax</span>(<span class="number">280px</span>, <span class="number">1fr</span>));
+  <span class="attr">gap:</span> <span class="number">30px</span>;
+  <span class="attr">padding:</span> <span class="number">40px</span> <span class="number">20px</span>;
+  <span class="attr">max-width:</span> <span class="number">1400px</span>;
+  <span class="attr">margin:</span> <span class="number">0</span> <span class="string">auto</span>;
+}
+
+<span class="comment">/* Carte produit */</span>
+<span class="tag">.product</span> {
+  <span class="attr">background:</span> <span class="string">#1d1d1d</span>;
+  <span class="attr">border-radius:</span> <span class="number">12px</span>;
+  <span class="attr">overflow:</span> <span class="string">hidden</span>;
+  <span class="attr">transition:</span> <span class="string">transform 0.3s ease, box-shadow 0.3s ease</span>;
+  <span class="attr">cursor:</span> <span class="string">pointer</span>;
+}
+
+<span class="tag">.product:hover</span> {
+  <span class="attr">transform:</span> <span class="function">translateY</span>(<span class="number">-10px</span>);
+  <span class="attr">box-shadow:</span> <span class="number">0</span> <span class="number">20px</span> <span class="number">40px</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.5</span>);
+}
+
+<span class="comment">/* Responsive */</span>
+<span class="keyword">@media</span> (<span class="attr">max-width:</span> <span class="number">768px</span>) {
+  <span class="tag">.hero-title</span> {
+    <span class="attr">font-size:</span> <span class="number">3rem</span>;
+  }
+  
+  <span class="tag">.product-grid</span> {
+    <span class="attr">grid-template-columns:</span> <span class="function">repeat</span>(<span class="function">auto-fill</span>, <span class="function">minmax</span>(<span class="number">200px</span>, <span class="number">1fr</span>));
+    <span class="attr">gap:</span> <span class="number">20px</span>;
+  }
+}</code></pre>
+    </div>
+
+    <!-- ONGLET JAVASCRIPT -->
+    <div class="tab-content" id="javascript">
+      <h2 class="section-title">JavaScript</h2>
+      
+      <pre><code><span class="comment">// Gestion du panier</span>
+<span class="keyword">let</span> cart = [];
+
+<span class="comment">// Ajouter un produit au panier</span>
+<span class="keyword">function</span> <span class="function">addToCart</span>(product) {
+  cart.<span class="function">push</span>(product);
+  <span class="function">updateCartBadge</span>();
+  <span class="function">saveCart</span>();
+}
+
+<span class="comment">// Mettre à jour le badge du panier</span>
+<span class="keyword">function</span> <span class="function">updateCartBadge</span>() {
+  <span class="keyword">const</span> badge = document.<span class="function">getElementById</span>(<span class="string">'cartBadge'</span>);
+  badge.textContent = cart.length;
+  
+  <span class="keyword">if</span> (cart.length > <span class="number">0</span>) {
+    badge.classList.<span class="function">add</span>(<span class="string">'show'</span>);
+  } <span class="keyword">else</span> {
+    badge.classList.<span class="function">remove</span>(<span class="string">'show'</span>);
+  }
+}
+
+<span class="comment">// Sauvegarder le panier dans localStorage</span>
+<span class="keyword">function</span> <span class="function">saveCart</span>() {
+  localStorage.<span class="function">setItem</span>(<span class="string">'cart'</span>, JSON.<span class="function">stringify</span>(cart));
+}
+
+<span class="comment">// Charger le panier depuis localStorage</span>
+<span class="keyword">function</span> <span class="function">loadCart</span>() {
+  <span class="keyword">const</span> savedCart = localStorage.<span class="function">getItem</span>(<span class="string">'cart'</span>);
+  <span class="keyword">if</span> (savedCart) {
+    cart = JSON.<span class="function">parse</span>(savedCart);
+    <span class="function">updateCartBadge</span>();
+  }
+}
+
+<span class="comment">// Animation des messages de la top-bar</span>
+<span class="keyword">function</span> <span class="function">rotateMessages</span>() {
+  <span class="keyword">const</span> messages = document.<span class="function">querySelectorAll</span>(<span class="string">'.topbar-msg'</span>);
+  <span class="keyword">let</span> current = <span class="number">0</span>;
+  
+  <span class="function">setInterval</span>(() => {
+    messages[current].classList.<span class="function">remove</span>(<span class="string">'topbar-msg--visible'</span>);
+    current = (current + <span class="number">1</span>) % messages.length;
+    messages[current].classList.<span class="function">add</span>(<span class="string">'topbar-msg--visible'</span>);
+  }, <span class="number">4000</span>);
+}
+
+<span class="comment">// Filtrage des produits</span>
+<span class="keyword">function</span> <span class="function">filterProducts</span>(filter) {
+  <span class="keyword">const</span> products = document.<span class="function">querySelectorAll</span>(<span class="string">'.product'</span>);
+  
+  products.<span class="function">forEach</span>(product => {
+    <span class="keyword">if</span> (filter === <span class="string">'all'</span>) {
+      product.style.display = <span class="string">'block'</span>;
+    } <span class="keyword">else</span> {
+      <span class="keyword">const</span> stock = product.<span class="function">getAttribute</span>(<span class="string">'data-stock'</span>);
+      product.style.display = stock === filter ? <span class="string">'block'</span> : <span class="string">'none'</span>;
+    }
+  });
+}
+
+<span class="comment">// Recherche de produits</span>
+<span class="keyword">function</span> <span class="function">searchProducts</span>(query) {
+  <span class="keyword">const</span> products = document.<span class="function">querySelectorAll</span>(<span class="string">'.product'</span>);
+  <span class="keyword">const</span> searchTerm = query.<span class="function">toLowerCase</span>();
+  
+  products.<span class="function">forEach</span>(product => {
+    <span class="keyword">const</span> title = product.<span class="function">querySelector</span>(<span class="string">'.product-title'</span>).textContent.<span class="function">toLowerCase</span>();
+    product.style.display = title.<span class="function">includes</span>(searchTerm) ? <span class="string">'block'</span> : <span class="string">'none'</span>;
+  });
+}
+
+<span class="comment">// Initialisation au chargement</span>
+document.<span class="function">addEventListener</span>(<span class="string">'DOMContentLoaded'</span>, () => {
+  <span class="function">loadCart</span>();
+  <span class="function">rotateMessages</span>();
+});</code></pre>
+
+      <div class="tech-list">
+        <h3>🔧 Fonctionnalités JavaScript</h3>
+        <ul>
+          <li>Système de panier avec localStorage</li>
+          <li>Animation des messages promotionnels</li>
+          <li>Filtrage en temps réel des produits</li>
+          <li>Recherche dynamique</li>
+          <li>Carrousel d'images produit</li>
+          <li>Sélection interactive des tailles</li>
+          <li>Menu hamburger responsive</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tech-list" style="margin-top: 2rem;">
+      <h3>📦 Technologies & Frameworks</h3>
+      <ul>
+        <li><strong>HTML5</strong> : Structure sémantique et accessible</li>
+        <li><strong>CSS3</strong> : Grid, Flexbox, animations et transitions</li>
+        <li><strong>JavaScript Vanilla</strong> : Aucune dépendance externe</li>
+        <li><strong>Google Fonts</strong> : Typographie Poppins et Noto Sans JP</li>
+        <li><strong>LocalStorage API</strong> : Persistance du panier</li>
+        <li><strong>Design Responsive</strong> : Mobile-first approche</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Gestion des onglets
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.getAttribute('data-tab');
+        
+        // Retirer la classe active de tous les onglets
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        
+        // Ajouter la classe active à l'onglet cliqué
+        tab.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

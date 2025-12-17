@@ -1,0 +1,162 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #2f2f2f;
+  color: white;
+}
+
+/* Barre livraison */
+.top-bar {
+  background: #4a4a4a;
+  text-align: center;
+  font-size: 13px;
+  padding: 5px 0;
+}
+
+/* Header */
+header {
+  background: #1d1d1d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+}
+
+.menu {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Page produit */
+.product-page {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  padding: 50px 80px;
+  background: #333;
+}
+
+/* Galerie images */
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.main-image {
+  width: 320px;
+  border-radius: 15px;
+  background: white;
+}
+
+.thumbs {
+  display: flex;
+  gap: 15px;
+}
+
+.thumbs img {
+  width: 100px;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+}
+
+/* Infos produit */
+.product-info {
+  max-width: 400px;
+}
+
+.product-info h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.tax {
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* Tailles */
+.sizes h3,
+.quantity h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.size-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.size-options button {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.size-options .active {
+  background: white;
+  color: black;
+  font-weight: bold;
+}
+
+.size-options .disabled {
+  text-decoration: line-through;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Quantité */
+.quantity select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Bouton panier */
+.add-to-cart {
+  margin-top: 30px;
+  padding: 15px 30px;
+  background: white;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 black;
+  transition: 0.2s;
+}
+
+.add-to-cart:hover {
+  transform: translateY(-2px);
+}

@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoodie Sakura Shirotae - Hoshi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Remarques spécifiques à la page : conserver la charte graphique de l'index tout en adaptant animations et galerie */
+    .product-page { padding: 28px 0 60px; }
+    .product-wrap { max-width:1100px; margin:28px auto; display:grid; grid-template-columns: 1fr 420px; gap:28px; padding: 0 20px; align-items:start; }
+    .product-gallery { background: #fff; border-radius:14px; padding:18px; box-shadow: 0 6px 18px rgba(17,17,17,0.06); }
+  .gallery-main { border-radius:12px; overflow:hidden; display:block; position:relative; }
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.06);
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(17,17,17,0.06);
+      transition: transform 160ms, background 160ms;
+      z-index: 5;
+    }
+    .gallery-arrow:hover { transform: translateY(-50%) scale(1.03); }
+  .gallery-arrow.left { left: 12px; }
+  .gallery-arrow.right { right: 12px; }
+  .gallery-main .main-image { position: relative; z-index: 1; }
+  /* encadrement portrait : plus haut que large */
+  .gallery-main .main-image { width:100%; aspect-ratio: 3 / 4; height: auto; max-height:820px; object-fit:cover; display:block; transition: box-shadow 280ms; border-radius:10px; }
+  .gallery-main .main-image:hover { box-shadow: 0 18px 40px rgba(17,17,17,0.12); }
+  /* animations de transition d'image */
+  /* animation combinée glissement + fondu plus douce */
+  .img-anim { will-change: transform, opacity; }
+  /* supprimer le parallaxe sur l'image principale pour éviter les rebonds — l'image principale reste fixe pendant la transition de l'overlay */
+  .main-image { transition: opacity 260ms ease; }
+  .overlay-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:10px; pointer-events:none; opacity:0; transform:translateX(0); transition: transform 360ms linear, opacity 300ms linear; z-index:2; }
+  .overlay-enter-left { transform: translateX(-6%); opacity:0; }
+  .overlay-enter-right { transform: translateX(6%); opacity:0; }
+  .overlay-enter-visible { transform: translateX(0); opacity:1; }
+  .overlay-exit-left { transform: translateX(6%); opacity:0; }
+  .overlay-exit-right { transform: translateX(-6%); opacity:0; }
+  .thumbs { display:flex; gap:10px; margin-top:12px; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling: touch; }
+  .thumbs::-webkit-scrollbar { height:8px; }
+  .thumbs::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius:8px; }
+    .thumbs button { flex: 0 0 auto; }
+  /* overlay "+" sur une miniature */
+    .thumbs button .plus-overlay {
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+      cursor:pointer;
+    }
+    .thumbs button { position: relative; }
+
+  /* modal affichant toutes les images */
+    .thumbnails-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 60; }
+    .thumbnails-modal.open { display:flex; }
+    .thumbnails-modal .modal-card { background: #fff; width: min(1100px, 94%); max-height: 86vh; overflow:auto; border-radius:12px; padding:14px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+    .thumbnails-modal .modal-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
+  .thumbnails-modal .modal-grid img { width:100%; aspect-ratio: 3 / 4; height:auto; object-fit:cover; border-radius:8px; cursor:pointer; transition: transform 160ms; }
+    .thumbnails-modal .modal-grid img:hover { transform: scale(1.03); }
+    .thumbnails-modal .modal-close { position:absolute; top:18px; right:18px; background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer;border:1px solid rgba(0,0,0,0.08);}    
+    .thumbs button { border: none; background: transparent; padding:0; cursor:pointer; border-radius:8px; overflow:hidden; }
+  .thumbs img { width:80px; height:106px; object-fit:cover; border-radius:8px; display:block; transition: transform 220ms, box-shadow 220ms, filter 220ms; }
+    .thumbs button.active img { transform: scale(1.04); box-shadow: 0 8px 20px rgba(17,17,17,0.12); filter: saturate(1.05); }
+
+    /* Colonne d'informations produit */
+    .product-info { background:#fff; border-radius:14px; padding:20px; box-shadow: 0 6px 18px rgba(17,17,17,0.06); }
+  .product-info h1 { margin:0 0 8px; font-size:28px; font-weight:700; color:#111; }
+    .product-info .price { font-size:22px; font-weight:800; color:#111; }
+    .product-info p { color:#333; margin:12px 0; }
+
+    .size-options { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+    .size-options button { border:1px solid #e6e6e6; background:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; transition: background 180ms, transform 160ms, border-color 160ms; }
+    .size-options button:hover { transform: translateY(-3px); }
+    .size-options button.active { background:#111; color:#fff; border-color:#111; }
+    .size-options button.disabled { opacity:0.38; cursor:not-allowed; }
+
+    .add-to-cart { background:#111; color:#fff; border:none; padding:12px 18px; border-radius:8px; cursor:pointer; font-weight:700; transition: transform 160ms; }
+    .add-to-cart:active { transform: translateY(1px); }
+
+  /* restylisation du select quantité */
+  select#qty { appearance: none; -webkit-appearance: none; padding:8px 12px; border-radius:8px; border:1px solid #e6e6e6; background: linear-gradient(180deg,#fff,#fafafa); font-weight:600; }
+  select#qty:focus { outline:none; box-shadow: 0 6px 18px rgba(17,17,17,0.06); border-color:#bbb; }
+
+  /* bouton wishlist */
+  .wishlist { background: transparent; border: 1px solid #e6e6e6; padding:10px 12px; border-radius:8px; cursor:pointer; transition: background 180ms, transform 120ms, border-color 180ms; }
+  .wishlist:hover { transform: translateY(-3px); }
+  .wishlist.active { background: #ffeef0; border-color:#ff7b9c; color:#c2185b; box-shadow: 0 8px 24px rgba(194,24,91,0.06); }
+
+  /* contrôle de quantité */
+  .qty-control { display:flex; align-items:center; gap:8px; }
+  .qty-btn { width:36px; height:36px; border-radius:8px; border:1px solid #e6e6e6; background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; }
+  .qty-btn:disabled { opacity:0.48; cursor:not-allowed; }
+
+  /* entrée subtile */
+    .enter-up { transform: translateY(8px); opacity:0; transition: transform 340ms cubic-bezier(.2,.9,.2,1), opacity 340ms; }
+    .enter-up.is-visible { transform: none; opacity:1; }
+
+  @media (max-width:920px) { .product-wrap { grid-template-columns:1fr; } .gallery-main .main-image { aspect-ratio: 3/4; max-height:700px; } }
+  @media (max-width:520px) { .gallery-main .main-image { aspect-ratio: 3/4; max-height:560px; } }
+  /* badge du panier sur l'icône du header */
+  .icon-btn.cart-btn { position: relative; }
+  .cart-badge { position: absolute; top: -6px; right: -6px; background: #c2185b; color: #fff; border-radius: 999px; padding: 2px 6px; font-size: 12px; font-weight: 700; line-height: 1; display: none; min-width: 20px; text-align: center; }
+  .cart-badge.show { display: inline-block; }
+  /* Produits associés : rendre titres et prix clairs et lisibles */
+  .related-grid .related-card { overflow: visible; }
+  .related-grid .related-title { font-weight:700; color:#111; margin-top:6px; font-size:15px; line-height:1.2; }
+  .related-grid .related-price { color:#666; margin-top:6px; font-weight:700; font-size:14px; }
+  /* Mise en page : empiler prix et bouton ajouter pour que le bouton soit sous le prix */
+  .related-grid .related-footer { display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:8px; }
+  .related-grid .related-actions { display:block; }
+  .related-grid .related-actions button { background:#111;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:700; }
+  .related-grid .related-actions button:active{ transform: translateY(1px); }
+  .related-grid .related-meta { display:flex; flex-direction:column; }
+  /* Veiller à ce que toutes les cartes aient la même hauteur et que le footer soit poussé en bas pour aligner les boutons */
+  .related-grid .related-card { display:flex; flex-direction:column; min-height:340px; }
+  .related-grid .related-card > a { display:block; }
+  .related-grid .related-card img { display:block; }
+  .related-grid .related-footer { margin-top: auto; }
+  /* overlay utilisé pour des fondus fluides à l'intérieur des cartes associées */
+  .related-grid .related-card > a { position: relative; overflow: hidden; border-radius: 8px; }
+  .related-grid .related-overlay { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: opacity 420ms ease; z-index:2; pointer-events:none; }
+  /* Normaliser zone titre/prix et tailles de boutons pour un alignement horizontal */
+  .related-grid .related-meta { min-height:56px; }
+  .related-grid .related-title { min-height:32px; display:block; }
+  .related-grid .related-price { margin-top:6px; }
+  .related-grid .related-actions button { min-width:92px; display:inline-block; }
+  @media (max-width:520px) {
+    .related-grid .related-card { min-height:0; }
+    .related-grid .related-actions button { width:100%; }
+  }
+  /* Légère surélévation des deux premières cartes pour aligner visuellement leurs boutons avec les autres */
+  .related-grid .related-card:nth-child(1), .related-grid .related-card:nth-child(2) { min-height:360px; }
+  </style>
+  <link rel="icon" href="images-site/kanji etoile.png" sizes="32x32" type="image/png">
+</head>
+<body>
+  <div class="page-content">
+
+  <div class="top-bar">
+    <div class="topbar-rotator" aria-live="polite">
+      <span class="topbar-msg topbar-msg--visible">Livraison offerte en <strong>France MÉTROPOLITAINE</strong> dès 100€ 🚚</span>
+      <span class="topbar-msg">Tente de gagner un voyage au <strong>Japon</strong>⛩️</span>
+    </div>
+  </div>
+
+  <!-- Header (keeps same structure as index) -->
+  <header>
+    <button class="menu" aria-controls="site-overlay" aria-expanded="false">☰</button>
+    <div class="logo"><a href="index.html">星</a></div>
+    <div class="icons">
+      <form class="search-bar hidden" role="search" onsubmit="return false;">
+          <label for="site-search" class="visually-hidden">Rechercher sur le site</label>
+          <button id="search-clear" class="icon-btn" aria-label="Effacer la recherche" type="button">
+            <span class="search-clear__cross">✕</span>
+            <svg class="search-clear__loupe" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM4 9.5C4 6.46 6.46 4 9.5 4S15 6.46 15 9.5 12.54 15 9.5 15 4 12.54 4 9.5z"/>
+            </svg>
+          </button>
+          <input id="site-search" type="search" placeholder="Rechercher des produits..." aria-label="Rechercher" />
+        </form>
+        <button id="search-open-btn" class="icon-btn" aria-label="Ouvrir la recherche" title="Rechercher">
+          <svg class="icon icon-search-open" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM4 9.5C4 6.46 6.46 4 9.5 4S15 6.46 15 9.5 12.54 15 9.5 15 4 12.54 4 9.5z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Panier">
+        <svg class="icon icon-cart" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.16 14l.84-2h7.45c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45C5.08 15.37 5 15.68 5 16c0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.26-.25L7.16 14z"/>
+          </svg>
+          <span class="cart-badge" id="cartBadge" aria-hidden="true">0</span>
+      </button>
+      <button class="icon-btn profile-btn" aria-label="Profil">
+          <svg class="icon icon-profile" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/>
+          </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Product page -->
+  <main class="product-page">
+    <div class="product-wrap">
+
+      <!-- Gallery (use same images as index product) -->
+      <div class="product-gallery enter-up" id="gallery">
+        <div class="gallery-main">
+          <button type="button" class="gallery-arrow left" id="prevBtn" aria-label="Image précédente">‹</button>
+          <img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" alt="Hoodie Sakura Shirotae" class="main-image" id="mainImage">
+          <button type="button" class="gallery-arrow right" id="nextBtn" aria-label="Image suivante">›</button>
+        </div>
+        <div class="thumbs" id="thumbs">
+          <button type="button" data-src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" class="active"><img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png" alt="1"></button>
+          <button type="button" data-src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png"><img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png" alt="2"></button>
+          <button type="button" data-src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp"><img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp" alt="3"></button>
+          <button type="button" data-src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp"><img src="images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp" alt="4"><span class="plus-overlay" title="Voir toutes les images">+</span></button>
+        </div>
+      </div>
+
+      <!-- thumbnails modal (hidden by default) -->
+      <div class="thumbnails-modal" id="thumbsModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-label="Toutes les images">
+          <button class="modal-close" id="modalClose">Fermer ✕</button>
+          <div class="modal-grid" id="modalGrid">
+            <!-- images inserted by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <aside class="product-info enter-up" id="info">
+        <h1>Hoodie Sakura Shirotae</h1>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          <div class="price" id="price" data-price="90">90€</div>
+          <div class="tax">Taxes incluses</div>
+        </div>
+
+        <p>Hoodie à capuche inspiré par les fleurs de sakura, sérigraphié avec motif Shirotae sur le torse. Coupe légèrement oversize pour un confort maximal.</p>
+
+        <div class="sizes">
+          <h3 style="font-size:14px;margin:0 0 8px 0;">Taille</h3>
+          <div class="size-options" id="sizes">
+            <button type="button">XS</button>
+            <button type="button">S</button>
+            <button type="button">M</button>
+            <button type="button" aria-pressed="true" class="active">L</button>
+            <button type="button">XL</button>
+            <button type="button" class="disabled" disabled>XXL</button>
+          </div>
+        </div>
+
+        <div class="quantity" style="margin-top:18px;">
+          <h3 style="font-size:14px;margin:0 0 8px 0;">Quantité</h3>
+          <div class="qty-control" aria-label="Quantité">
+            <button type="button" class="qty-btn" id="qtyDec" aria-label="Diminuer la quantité">−</button>
+            <input type="text" id="qtyDisplay" value="1" aria-live="polite" aria-atomic="true" readonly style="width:36px;text-align:center;border:none;background:transparent;font-weight:700;" />
+            <button type="button" class="qty-btn" id="qtyInc" aria-label="Augmenter la quantité">+</button>
+          </div>
+          <!-- hidden select kept for form compatibility -->
+          <select id="qty" aria-label="Quantité" style="display:none;">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+
+        <div style="margin-top:20px;display:flex;gap:12px;align-items:center;">
+          <button class="add-to-cart" id="addToCart">Ajouter au panier</button>
+          <button class="wishlist" id="wishlist">♡ Ajouter à la wishlist</button>
+        </div>
+
+        <!-- empty cart button removed as requested -->
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Description / Details -->
+    <section style="max-width:1100px;margin:20px auto;padding:0 20px;">
+      <h2>Description</h2>
+      <p>Confection française. 80% coton, 20% polyester. Lavage en machine à 30°C.</p>
+
+      <h3 style="margin-top:12px;">Détails du produit</h3>
+      <ul>
+        <li>Coupe oversize</li>
+        <li>Broderie Shirotae</li>
+        <li>Poids tissu 320g/m²</li>
+      </ul>
+    </section>
+
+    <!-- Related products -->
+    <section class="related-products" style="max-width:1100px;margin:20px auto;padding:0 20px;">
+      <h2>Vous pourriez aussi aimer :</h2>
+      <div class="related-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:12px;">
+        <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+          <a href="page produit 2.html" style="text-decoration:none;color:inherit;display:block;">
+            <img src="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp" alt="Hoodie Sakura Zippé" data-images="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp, images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 2.webp, images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 3.webp, images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 4.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;">
+          </a>
+          <div class="related-footer">
+            <div class="related-meta">
+              <a href="page produit 2.html" style="text-decoration:none;color:inherit;"><div class="related-title">Hoodie Sakura Zippé</div></a>
+              <div class="related-price">90€</div>
+            </div>
+            <div class="related-actions">
+              <button class="related-add" data-sku="hoodie-sakura-zippe" data-title="Hoodie Sakura Zippé" data-price="90" data-image="images-site/vetement/Hoodie Sakura Zippé/Hoodie Sakura Zippé 1.webp">Ajouter</button>
+            </div>
+          </div>
+        </div>
+        <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+          <a href="page produit 3.html" style="text-decoration:none;color:inherit;display:block;">
+            <img src="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp" alt="Hoodie Black Kitsune" data-images="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp, images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 2.webp, images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 3.webp, images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 4.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;">
+          </a>
+          <div class="related-footer">
+            <div class="related-meta">
+              <a href="page produit 3.html" style="text-decoration:none;color:inherit;"><div class="related-title">Hoodie Black Kitsune</div></a>
+              <div class="related-price">90€</div>
+            </div>
+            <div class="related-actions">
+              <button class="related-add" data-sku="hoodie-black-kitsune" data-title="Hoodie Black Kitsune" data-price="90" data-image="images-site/vetement/Hoodie Black Kitsune/Hoodie Black Kitsune 1.webp">Ajouter</button>
+            </div>
+          </div>
+        </div>
+        <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+          <a href="page produit 4.html" style="text-decoration:none;color:inherit;display:block;">
+            <img src="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp" alt="T-Shirt blanc" data-images="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp, images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 2.webp, images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 3.webp, images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 4.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;">
+          </a>
+          <div class="related-footer">
+            <div class="related-meta">
+              <a href="page produit 4.html" style="text-decoration:none;color:inherit;"><div class="related-title">T-Shirt blanc ONI x HOKUSAI</div></a>
+              <div class="related-price">30€</div>
+            </div>
+            <div class="related-actions">
+              <button class="related-add" data-sku="tshirt-blanc-oni-hokusai" data-title="T-Shirt blanc ONI x HOKUSAI" data-price="30" data-image="images-site/vetement/T-Shirt blanc ONI x HOKUSAI/T-Shirt blanc ONI x HOKUSAI 1.webp">Ajouter</button>
+            </div>
+          </div>
+        </div>
+        <div class="related-card" style="display:block;background:#fff;border-radius:10px;padding:10px;color:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+          <a href="page produit 5.html" style="text-decoration:none;color:inherit;display:block;">
+            <img src="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp" alt="T-Shirt noir" data-images="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp, images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 2.webp, images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 3.webp, images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 4.webp" style="width:100%;height:200px;object-fit:cover;border-radius:8px;display:block;margin-bottom:8px;">
+          </a>
+          <div class="related-footer">
+            <div class="related-meta">
+              <a href="page produit 5.html" style="text-decoration:none;color:inherit;"><div class="related-title">T-Shirt noir ONI x HOKUSAI</div></a>
+              <div class="related-price">33€</div>
+            </div>
+            <div class="related-actions">
+              <button class="related-add" data-sku="tshirt-noir-oni-hokusai" data-title="T-Shirt noir ONI x HOKUSAI" data-price="33" data-image="images-site/vetement/T-Shirt noir ONI x HOKUSAI/T-Shirt noir ONI x HOKUSAI 1.webp">Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  
+  <!-- Footer: reuse the same footer insertion from index (static copy) -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-advantages">
+        <div class="adv"><span class="adv-ico">📦</span><div class="adv-t">Expédition sous 24h</div></div>
+        <div class="adv"><span class="adv-ico">📍</span><div class="adv-t">Livraison spécialisée</div></div>
+        <div class="adv"><span class="adv-ico">💳</span><div class="adv-t">Paiement sécurisé</div></div>
+        <div class="adv"><span class="adv-ico">🇫🇷</span><div class="adv-t">Basé en France</div></div>
+      </div>
+    </div>
+    <div class="footer-main">
+      <div class="footer-col footer-products">
+        <h4>NOS PRODUITS</h4>
+        <ul>
+          <li><a href="#" class="footer-link">Hoodie</a></li>
+          <li><a href="#" class="footer-link">Kimono</a></li>
+          <li><a href="#" class="footer-link">T-Shirt</a></li>
+          <li><a href="#" class="footer-link">Jogging</a></li>
+          <li><a href="#" class="footer-link">Accessoires</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-support">
+        <h4>SERVICE CLIENT</h4>
+        <ul>
+          <li><a href="#" class="footer-link">Conditions Générales de Vente</a></li>
+          <li><a href="#" class="footer-link">Mentions légales</a></li>
+          <li><a href="#" class="footer-link">Politique de confidentialité</a></li>
+          <li><a href="#" class="footer-link">Règlement Jeu-concours voyage au Japon</a></li>
+          <li><a href="#" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-art">
+        <div class="footer-art-emoji" translate="no" data-no-translate>星</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="payments">
+        <img src="images-site/Visa_Inc._logo.svg.png" alt="visa"/>
+        <img src="images-site/Mastercard-logo.svg.png" alt="mastercard"/>
+        <img src="images-site/Apple_Pay_logo.svg.png" alt="applepay"/>
+      </div>
+      <div class="copyright">© 2025 HOSHI.</div>
+    </div>
+  </footer>
+
+</div>
+  <!-- Background audio (page-specific) -->
+  <audio id="bg-audio" src="audio/background.mp3" loop preload="auto"></audio>
+  <!-- Overlay + side menu (moved outside .page-content to keep menu sharp while background blurs) -->
+  <div class="overlay" id="site-overlay" aria-hidden="true">
+    <nav class="side-menu" role="navigation" aria-label="Menu principal">
+      <button class="close-menu" aria-label="Fermer le menu"><span class="close-icon">✕</span></button>
+      <ul class="menu-main">
+        <li><a href="index.html" data-samewindow>Accueil</a></li>
+        <li><a href="#" class="open-panel" data-panel="shop">Boutique</a></li>
+        <li><a href="#" class="open-panel" data-panel="new">Nouveautés</a></li>
+        <li><a href="#" class="open-panel" data-panel="contact">Contact</a></li>
+      </ul>
+      <!-- Sous-menu (panel) pour la boutique -->
+      <div class="side-panel" id="panel-shop" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Boutique</h3>
+        <ul>
+          <li><a href="#" class="panel-link open-panel" data-panel="shop-vetements">Vêtements</a></li>
+          <li><a href="#" class="panel-link">Accessoires</a></li>
+          <li><a href="#" class="panel-link">Chaussures</a></li>
+          <li><a href="#" class="panel-link">Sacs</a></li>
+          <li><a href="#" class="panel-link">Promotions</a></li>
+        </ul>
+      </div>
+      <div class="menu-footer">
+        <div class="audio-controls">
+          <button class="audio-toggle" aria-pressed="false" aria-label="Activer la musique">🔈 Musique</button>
+          <label class="audio-volume" aria-hidden="false">Volume
+            <input type="range" class="audio-volume-range" min="0" max="100" value="80" aria-label="Volume de la musique">
+          </label>
+        </div>
+        <div id="sound-cta" style="display:none;position:fixed;bottom:14px;left:14px;z-index:9999;">
+          <button id="sound-cta-btn" style="background:#111;color:#fff;border:none;padding:8px 12px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25);">Activer le son</button>
+        </div>
+        <div class="delivery-country">
+          <span class="delivery-label">Livraison vers :</span>
+          <div class="country-dropdown" data-expanded="false">
+            <button class="country-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Sélectionner le pays de livraison">
+              <span class="country-label">France</span>
+              <span class="country-caret">▾</span>
+            </button>
+            <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="true">
+              <li role="option"><button class="country-option" data-value="FR">France</button></li>
+              <li role="option"><button class="country-option" data-value="RE">La Réunion</button></li>
+              <li role="option"><button class="country-option" data-value="BE">Belgique</button></li>
+              <li role="option"><button class="country-option" data-value="ES">Espagne</button></li>
+              <li role="option"><button class="country-option" data-value="JP">Japon</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="language-selector">
+          <span class="lang-label" aria-hidden="true">Language :</span>
+          <div class="lang-dropdown country-dropdown" data-expanded="false">
+            <button class="lang-btn country-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Sélectionner la langue">
+              <span class="lang-visible country-label">Français</span>
+              <span class="country-caret">▾</span>
+            </button>
+            <ul class="lang-list country-list" role="listbox" tabindex="-1" aria-hidden="true">
+              <li role="option"><button class="lang-option country-option" data-lang="FR">Français</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="EN">English</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="ES">Español</button></li>
+              <li role="option"><button class="lang-option country-option" data-lang="JP">日本語</button></li>
+            </ul>
+          </div>
+        </div>
+        <a href="#" class="help-link">Besoin d'aide ?</a>
+      </div>
+      <div class="side-panel" id="panel-new" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Nouveautés</h3>
+        <ul>
+          <li><a href="nouveaute-photo.html" class="panel-link">Photo</a></li>
+          <li><a href="nouveaute-video.html" class="panel-link">Vidéo</a></li>
+          <li><a href="nouveaute-formule.html" class="panel-link">Formule</a></li>
+        </ul>
+      </div>
+      <div class="side-panel" id="panel-contact" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Contact</h3>
+        <div class="contact-info">
+          <p><strong>Nom :</strong> ROGER Mathys</p>
+          <p><strong>Email :</strong> mathysroger974@gmail.com</p>
+          <p><strong>Téléphone :</strong> +33 7 75 72 98 92</p>
+          <form class="contact-form" action="#" method="post">
+            <label>Message
+              <textarea name="message" rows="4" placeholder="Votre message..." required></textarea>
+            </label>
+            <button type="submit" class="panel-link">Envoyer</button>
+          </form>
+        </div>
+      </div>
+      <div class="side-panel" id="panel-shop-vetements" aria-hidden="true">
+        <button class="panel-back" aria-label="Retour">← Retour</button>
+        <h3>Vêtements</h3>
+        <ul>
+          <li><a href="#" class="panel-link submenu-item" data-category="hoodie">Hoodie</a></li>
+          <li><a href="#" class="panel-link submenu-item" data-category="tshirt">T-Shirt</a></li>
+          <li><a href="#" class="panel-link submenu-item" data-category="kimono">Kimono</a></li>
+          <li><a href="#" class="panel-link submenu-item" data-category="jogging">Jogging</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    // Cart panel (inserted here so it's sibling to overlay and body-level)
+    (function(){
+      if (document.querySelector('.cart-menu')) return; // already added elsewhere
+  var cartHtml = '\n<nav class="cart-menu" role="navigation" aria-label="Panier" aria-hidden="true">\n  <button class="close-cart" aria-label="Fermer le panier">✕</button>\n  <div class="cart-main" role="region" aria-label="Contenu du panier">\n    <h3>Votre panier</h3>\n    <p class="cart-empty">Votre panier est vide.</p>\n    <ul class="cart-items" aria-live="polite"></ul>\n    <div style="display:flex;gap:8px;align-items:center;margin-top:10px;">\n      <button class="cart-empty-btn" title="Vider le panier" aria-label="Vider le panier" style="background:transparent;border:1px solid #e6e6e6;padding:8px;min-width:44px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🗑️</button>\n      <div style="flex:1"></div>\n      <div class="cart-actions">\n        <button class="cart-checkout">Commander</button>\n        <button class="cart-view">Voir le panier</button>\n      </div>\n    </div>\n  </div>\n</nav>\n';
+      document.body.insertAdjacentHTML('beforeend', cartHtml);
+      // remove the injected global empty-cart button so only per-item remove icons remain
+      try {
+        document.querySelectorAll('.cart-empty-btn').forEach(function(n){ n.parentNode && n.parentNode.removeChild(n); });
+      } catch(e) { /* ignore */ }
+    })();
+    // Small product page script: thumbnails, size pick, add-to-cart
+    (function(){
+      // entrance
+      requestAnimationFrame(function(){
+        document.querySelectorAll('.enter-up').forEach(function(el){ el.classList.add('is-visible'); });
+      });
+
+      var main = document.getElementById('mainImage');
+      var thumbs = document.getElementById('thumbs');
+      // full image list (10 images)
+      var imageSrcs = [
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 1.png',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 2.png',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 3.webp',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 4.webp',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 5.webp',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 6.webp',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 7.webp',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 8.png',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 9.webp',
+        'images-site/vetement/Hoodie Sakura Shirotae/Hoodie Sakura Shirotae 10.webp'
+      ];
+      var currentIndex = 0; // track current image index in imageSrcs
+      if (thumbs) {
+        thumbs.addEventListener('click', function(e){
+          var btn = e.target.closest('button');
+          if (!btn) return;
+          var src = btn.getAttribute('data-src');
+          if (src) {
+            var idx = imageSrcs.indexOf(src);
+            if (idx !== -1) {
+              var dir = (idx >= currentIndex) ? 1 : -1;
+              currentIndex = idx;
+              animateImage(src, dir);
+            } else {
+              // fallback: if the src exists elsewhere in the list, animate; otherwise ignore
+              var fallbackIdx = imageSrcs.indexOf(src);
+              if (fallbackIdx !== -1) {
+                var dir = (fallbackIdx >= currentIndex) ? 1 : -1;
+                currentIndex = fallbackIdx;
+                animateImage(src, dir);
+              }
+            }
+          }
+          // active state (only among visible thumbs)
+          thumbs.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+        });
+      }
+      // quantity +/- control
+      (function(){
+        var min = 1, max = 5;
+        var dec = document.getElementById('qtyDec');
+        var inc = document.getElementById('qtyInc');
+        var disp = document.getElementById('qtyDisplay');
+        var select = document.getElementById('qty');
+        function updateButtons(n){
+          if (dec) dec.disabled = n <= min;
+          if (inc) inc.disabled = n >= max;
+          if (disp) disp.value = String(n);
+          if (select) select.value = String(n);
+        }
+        if (dec) dec.addEventListener('click', function(e){ e.preventDefault(); var v = Math.max(min, parseInt(disp.value || '1',10)-1); updateButtons(v); });
+        if (inc) inc.addEventListener('click', function(e){ e.preventDefault(); var v = Math.min(max, parseInt(disp.value || '1',10)+1); updateButtons(v); });
+        // init
+        updateButtons(parseInt(disp.value || '1',10));
+      })();
+
+      // size pick
+      var sizes = document.getElementById('sizes');
+      if (sizes) {
+        sizes.addEventListener('click', function(e){
+          var b = e.target.closest('button');
+          if (!b || b.classList.contains('disabled')) return;
+          sizes.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); x.removeAttribute('aria-pressed'); });
+          b.classList.add('active'); b.setAttribute('aria-pressed','true');
+        });
+      }
+
+      // add to cart (real behavior)
+      var addBtn = document.getElementById('addToCart');
+      // cart helpers
+      var CART_KEY = 'hoshi_cart_v1';
+      function loadCart(){ try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e){ return []; } }
+      function saveCart(cart){ try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e){} }
+      // update header cart badge with total quantity
+      function updateCartBadge(){
+        try {
+          var cart = loadCart();
+          var total = 0;
+          for (var i=0;i<cart.length;i++) total += (cart[i].qty || 0);
+          var badge = document.getElementById('cartBadge');
+          if (!badge) return;
+          if (total > 0) { badge.textContent = String(total); badge.classList.add('show'); badge.setAttribute('aria-hidden','false'); }
+          else { badge.textContent = '0'; badge.classList.remove('show'); badge.setAttribute('aria-hidden','true'); }
+        } catch(e){ /* ignore */ }
+      }
+      function renderCart(){
+        var cart = loadCart();
+        var cartItemsEl = document.querySelector('.cart-items');
+        var cartEmpty = document.querySelector('.cart-empty');
+        if (!cartItemsEl || !cartEmpty) return;
+        cartItemsEl.innerHTML = '';
+        if (!cart.length) {
+          cartEmpty.style.display = '';
+        } else {
+          cartEmpty.style.display = 'none';
+          cart.forEach(function(item, idx){
+            var li = document.createElement('li');
+            li.className = 'cart-item';
+            // render with small thumbnail on the left
+            var imgHtml = item.image ? '<img src="' + item.image + '" alt="" style="width:60px;height:80px;object-fit:cover;border-radius:6px;margin-right:10px;flex:0 0 auto;">' : '';
+            // add a compact remove button (icon-only) placed next to the product title
+            var removeBtnHtml = '<button class="cart-remove" data-idx="' + idx + '" title="Supprimer cet article" aria-label="Supprimer cet article" style="background:transparent;border:none;color:#c2185b;cursor:pointer;font-weight:700;padding:4px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;">🗑️</button>';
+            li.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">' + imgHtml + '<div style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px;"><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;align-items:center;gap:8px;"><strong>' + escapeHtml(item.title) + '</strong>' + removeBtnHtml + '</div><div style="font-size:13px;color:#666;">' + escapeHtml(item.sizeText || '') + '</div></div><div style="text-align:right">' + item.qty + ' × ' + item.price + '€<div style="font-weight:700">' + (item.qty * item.price) + '€</div></div></div></div>';
+            cartItemsEl.appendChild(li);
+          });
+        }
+        try { updateCartBadge(); } catch(e){}
+      }
+      // remove a single item by index (cart-panel only)
+      function removeItem(idx){
+        var cart = loadCart();
+        if (!cart || !cart.length) return;
+        if (idx < 0 || idx >= cart.length) return;
+        cart.splice(idx,1);
+        saveCart(cart);
+        renderCart();
+        try { updateCartBadge(); } catch(e){}
+      }
+
+      // empty the cart (from cart panel)
+      function removeAll(){
+        try { if (!confirm('Vider le panier ? Cette action est irréversible.')) return; } catch(e){}
+        saveCart([]);
+        renderCart();
+        try { updateCartBadge(); } catch(e){}
+      }
+      function openCart(){
+        var cartMenu = document.querySelector('.cart-menu');
+        var overlay = document.getElementById('site-overlay');
+        var side = document.querySelector('.side-menu');
+        if (!cartMenu) return;
+        // force-hide the main side menu as a safety to avoid visual flash
+        try {
+          if (side) {
+            side.setAttribute('aria-hidden', 'true');
+            side.style.transform = 'translateX(-100%)';
+            side.style.pointerEvents = 'none';
+          }
+        } catch (e) { /* ignore */ }
+        document.body.classList.add('cart-open');
+        if (overlay) overlay.setAttribute('aria-hidden','false');
+        cartMenu.setAttribute('aria-hidden','false');
+      }
+
+      function closeCart(){
+        var cartMenu = document.querySelector('.cart-menu');
+        var overlay = document.getElementById('site-overlay');
+        var side = document.querySelector('.side-menu');
+        if (!cartMenu) return;
+        // start closing the cart (it has a CSS transition)
+        cartMenu.setAttribute('aria-hidden','true');
+        // wait for the cart menu transition to finish before hiding the overlay / restoring side menu
+        var done = function(){
+          try {
+            if (overlay) overlay.setAttribute('aria-hidden','true');
+            document.body.classList.remove('cart-open');
+            // restore side menu styling removed during openCart
+            if (side) {
+              side.removeAttribute('aria-hidden');
+              side.style.removeProperty('transform');
+              side.style.removeProperty('pointer-events');
+            }
+          } catch(e) { /* ignore */ }
+        };
+        var handler = function(e){
+          if (e.target === cartMenu && (e.propertyName === 'transform' || e.propertyName === 'opacity')) {
+            cartMenu.removeEventListener('transitionend', handler);
+            done();
+          }
+        };
+        cartMenu.addEventListener('transitionend', handler);
+        // fallback: ensure we still run done after 400ms in case transitionend doesn't fire
+        setTimeout(function(){ try { cartMenu.removeEventListener('transitionend', handler); done(); } catch(e){} }, 450);
+      }
+      function addToCart(item){
+        var cart = loadCart();
+        // match by id/sku (fallback to title)
+        var existing = cart.find(c => c.sku === item.sku);
+        if (existing) { existing.qty = Math.min(99, existing.qty + item.qty); }
+        else cart.push(item);
+        saveCart(cart);
+        renderCart();
+        openCart();
+        try { updateCartBadge(); } catch(e){}
+      }
+      function escapeHtml(s){ return String(s).replace(/[&"'<>]/g, function(c){ return {'&':'&amp;','"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;'}[c]; }); }
+
+      // wire add button
+      if (addBtn) {
+        addBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          var title = document.querySelector('.product-info h1')?.textContent?.trim() || 'Produit';
+          var priceEl = document.getElementById('price');
+          var price = priceEl ? parseFloat(priceEl.getAttribute('data-price') || (priceEl.textContent||'').replace(/[€\s]/g,'')) || 0 : 0;
+          var qty = parseInt(document.getElementById('qtyDisplay')?.value || '1',10) || 1;
+          // size text (if selected)
+          var sizeBtn = document.querySelector('#sizes button.active');
+          var sizeText = sizeBtn ? sizeBtn.textContent.trim() : '';
+          var sku = title.toLowerCase().replace(/[^a-z0-9]+/g,'-') + (sizeText ? '-' + sizeText.toLowerCase() : '');
+          var imgSrc = (typeof main !== 'undefined' && main && main.src) ? main.src : (imageSrcs && imageSrcs.length ? imageSrcs[0] : '');
+          addToCart({ sku: sku, title: title, price: price, qty: qty, sizeText: sizeText, image: imgSrc });
+          // small visual confirmation on the button
+          var old = addBtn.textContent;
+          addBtn.textContent = 'Ajouté ✓';
+          addBtn.disabled = true;
+          setTimeout(function(){ addBtn.textContent = old; addBtn.disabled = false; }, 900);
+        });
+      }
+
+      // wishlist toggle
+      var wish = document.getElementById('wishlist');
+      if (wish) {
+        wish.addEventListener('click', function(e){
+          e.preventDefault();
+          var isActive = wish.classList.toggle('active');
+          wish.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          wish.textContent = isActive ? '♥ Dans la wishlist' : '♡ Ajouter à la wishlist';
+        });
+      }
+
+      // modal for all thumbnails (triggered by plus overlay)
+      var modal = document.getElementById('thumbsModal');
+      var modalGrid = document.getElementById('modalGrid');
+      var modalClose = document.getElementById('modalClose');
+      // build modal grid from thumbs buttons
+      if (thumbs && modal && modalGrid) {
+        // populate modal with all images
+        imageSrcs.forEach(function(src, idx){
+          var img = document.createElement('img'); img.src = src; img.alt = '';
+          img.addEventListener('click', function(){
+            // determine direction relative to currentIndex
+            var dir = (idx >= currentIndex) ? 1 : -1;
+            currentIndex = idx;
+            // animate into place
+            animateImage(src, dir);
+            // update visible thumbs active if index < 4
+            thumbs.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); });
+            if (idx < 4) thumbs.querySelectorAll('button')[idx].classList.add('active');
+            closeModal();
+          });
+          modalGrid.appendChild(img);
+        });
+
+        // open modal when plus overlay clicked
+        thumbs.addEventListener('click', function(e){
+          var overlay = e.target.closest('.plus-overlay');
+          if (overlay) {
+            openModal();
+          }
+        });
+      }
+
+      function openModal(){ if (!modal) return; modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); }
+      function closeModal(){ if (!modal) return; modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+
+      // helper to animate image swap with direction (-1 left, 1 right)
+      // Uses an overlay image to crossfade/slide smoothly on top of the main image.
+      function animateImage(newSrc, dir){
+        if (!main) return;
+        // create overlay image
+        var overlay = document.createElement('img');
+        overlay.src = newSrc;
+        overlay.alt = main.alt || '';
+        overlay.className = 'overlay-image ' + (dir > 0 ? 'overlay-enter-right' : 'overlay-enter-left');
+        // position overlay absolutely inside the gallery-main container
+        var container = main.parentElement;
+        container.style.position = container.style.position || 'relative';
+        container.appendChild(overlay);
+
+        // force reflow then show overlay
+        void overlay.offsetWidth;
+        overlay.classList.add('overlay-enter-visible');
+
+        // do not move the main image — avoid any rebound/overshoot.
+        // finalize the swap when the overlay finishes transitioning.
+        function done(){
+          // set main src to the new image and remove overlay
+          main.src = newSrc;
+          if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          overlay.removeEventListener('transitionend', handler);
+        }
+        var handler = function(e){
+          // ensure we only react to the opacity/transform transition
+          if (e.target === overlay && (e.propertyName === 'opacity' || e.propertyName === 'transform')) done();
+        };
+        overlay.addEventListener('transitionend', handler);
+      }
+  if (modalClose) modalClose.addEventListener('click', function(e){ e.preventDefault(); closeModal(); });
+      if (modal) modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+
+      // gallery prev/next
+      var prev = document.getElementById('prevBtn');
+      var next = document.getElementById('nextBtn');
+      function stepThumb(step){
+        // remember old index for logic (not strictly needed because step carries direction)
+        var oldIndex = currentIndex;
+        // navigate the full imageSrcs array
+        currentIndex = (currentIndex + step + imageSrcs.length) % imageSrcs.length;
+        var src = imageSrcs[currentIndex];
+        // animate main image with the provided direction (step is 1 or -1)
+        var dirAnim = step >= 0 ? 1 : -1;
+        animateImage(src, dirAnim);
+        // update visible thumb active state if within first 4
+        var visibleButtons = Array.prototype.slice.call(thumbs.querySelectorAll('button'));
+        visibleButtons.forEach(function(b){ b.classList.remove('active'); });
+        // if currentIndex maps to a visible thumb (0..3), set it active
+        if (currentIndex >= 0 && currentIndex < visibleButtons.length) {
+          visibleButtons[currentIndex].classList.add('active');
+          // perform horizontal-only scroll of the thumbs container to center the active thumb (avoids vertical jumps)
+          try {
+            var thumb = visibleButtons[currentIndex];
+            var container = thumbs;
+            var containerRect = container.getBoundingClientRect();
+            var thumbRect = thumb.getBoundingClientRect();
+            var offset = (thumbRect.left + thumbRect.right) / 2 - (containerRect.left + containerRect.right) / 2;
+            container.scrollBy({ left: offset, behavior: 'smooth' });
+          } catch (err) { /* ignore if anything fails */ }
+        }
+      }
+      if (prev) prev.addEventListener('click', function(e){ e.preventDefault(); stepThumb(-1); });
+      if (next) next.addEventListener('click', function(e){ e.preventDefault(); stepThumb(1); });
+
+  // Cart open/close wiring
+  var cartBtn = document.querySelector('.cart-btn');
+  var cartMenu = document.querySelector('.cart-menu');
+  var closeCartBtn = document.querySelector('.close-cart');
+  if (cartBtn) cartBtn.addEventListener('click', function(e){ e.preventDefault(); var open = cartMenu && cartMenu.getAttribute('aria-hidden') === 'false'; if (open) { closeCart(); } else { renderCart(); openCart(); } });
+  if (closeCartBtn) closeCartBtn.addEventListener('click', function(){ closeCart(); });
+  // cart-panel removal wiring: handle per-item remove and empty-cart inside the cart panel
+  if (cartMenu) {
+    // delegate clicks for remove buttons
+    cartMenu.addEventListener('click', function(e){
+      var rem = e.target.closest && e.target.closest('.cart-remove');
+      if (rem) {
+        var idx = parseInt(rem.getAttribute('data-idx'),10);
+        if (!isNaN(idx)) removeItem(idx);
+      }
+    });
+    // empty cart button inside the cart panel
+  // global empty-cart button removed; per-item remove remains
+  }
+  // overlay click should close cart if cart-open
+  var siteOverlay = document.getElementById('site-overlay');
+  siteOverlay?.addEventListener('click', function(e){ if (e.target === siteOverlay) { if (document.body.classList.contains('cart-open')) closeCart(); } });
+
+  // initialize on load
+  renderCart();
+    })();
+    // Synchronize cart UI across tabs/pages when localStorage changes
+    window.addEventListener('storage', function(e){
+      try {
+        if (!e.key || e.key !== 'hoshi_cart_v1') return;
+        try { renderCart && renderCart(); } catch(e){}
+        try { updateCartBadge && updateCartBadge(); } catch(e){}
+      } catch(err) { /* ignore */ }
+    });
+  </script>
+    <script>
+      // Inline search bar behavior (copied from index.html and adapted)
+      (function () {
+      const searchInput = document.getElementById('site-search');
+      const searchClear = document.getElementById('search-clear');
+        const searchForm = document.querySelector('.search-bar');
+        const searchOpenBtn = document.getElementById('search-open-btn');
+
+        if (searchInput && searchClear) {
+          // show/hide clear button based on input value
+          const updateClear = () => {
+            if (searchInput.value && searchInput.value.trim() !== '') searchClear.style.visibility = 'visible'; else searchClear.style.visibility = 'hidden';
+          };
+          // Position the clear button when the search bar opens. Provide a safe helper
+          function positionClearOverOpen() {
+            try {
+              var searchForm = document.querySelector('.search-bar');
+              if (!searchForm || !searchInput || !searchClear) return;
+              var inputRect = searchInput.getBoundingClientRect();
+              var formRect = searchForm.getBoundingClientRect();
+              searchClear.style.position = 'absolute';
+              var left = Math.round(inputRect.right - formRect.left - 36);
+              left = Math.max(6, Math.min(left, Math.max(6, formRect.width - 42)));
+              // use right to anchor inside the search form and avoid layout shifts
+              searchClear.style.removeProperty('left');
+              searchClear.style.right = Math.max(6, Math.min(42, formRect.width - left)) + 'px';
+              // vertically center using CSS transform for consistent layout
+              searchClear.style.top = '50%';
+              searchClear.style.transform = 'translateY(-50%)';
+              updateClear();
+            } catch (err) { /* no-op if measurement fails */ }
+          }
+      // expose globally in case other inline scripts call it
+      try { window.positionClearOverOpen = positionClearOverOpen; } catch(e) { /* ignore */ }
+          updateClear();
+          searchInput.addEventListener('input', updateClear);
+          searchClear.addEventListener('click', () => {
+            // start closing animation (shrink left->right)
+            const bar = searchForm;
+            if (!bar) {
+              searchInput.value = '';
+              updateClear();
+              searchInput.focus();
+              return;
+            }
+            // add class to animate
+            bar.classList.remove('hidden');
+            bar.classList.add('search-closing');
+            const onEnd = (ev) => {
+              if (ev.target !== bar) return;
+              bar.classList.remove('search-closing');
+              // hide the bar after animation
+              bar.classList.add('hidden');
+              // cleanup and reset input
+              try { searchInput.value = ''; } catch (e) {}
+              try { updateClear(); } catch (e) {}
+              try { searchInput.blur(); } catch (e) {}
+              try {
+                if (searchClear) {
+                  searchClear.style.visibility = 'hidden';
+                  searchClear.style.left = '';
+                  searchClear.style.top = '';
+                }
+              } catch (e) {}
+              try {
+                const reopen = document.getElementById('search-open-btn');
+                if (reopen) reopen.style.pointerEvents = '';
+              } catch (e) { /* ignore */ }
+              try { bar.style.transform = ''; } catch (e) {}
+              bar.removeEventListener('animationend', onEnd);
+            };
+            bar.addEventListener('animationend', onEnd);
+          });
+          // Escape clears the input when focused
+          searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              if (searchInput.value) {
+                searchInput.value = '';
+                updateClear();
+              } else {
+                searchInput.blur();
+              }
+            }
+          });
+          // prevent form submit reload (optional: wire to real search)
+          searchForm?.addEventListener('submit', (e) => { e.preventDefault(); /* TODO: implement search */ });
+        }
+
+      })();
+
+          // Open search bar via the open button
+          (function() {
+            const openBtn = document.getElementById('search-open-btn');
+            const bar = document.querySelector('.search-bar');
+            const input = document.getElementById('site-search');
+            const clearBtn = document.getElementById('search-clear');
+            if (!openBtn || !bar || !input) return;
+            openBtn.addEventListener('click', () => {
+              // unhide and animate open
+              bar.classList.remove('hidden');
+              bar.classList.remove('search-closing');
+              bar.classList.add('search-opening');
+              const onEnd = (ev) => {
+                if (ev.target !== bar) return;
+                input.focus();
+                bar.classList.remove('search-opening');
+                try { if (window.positionClearOverOpen) window.positionClearOverOpen(); } catch(e) {}
+                bar.removeEventListener('animationend', onEnd);
+              };
+              bar.addEventListener('animationend', onEnd);
+            });
+          })();
+
+    </script>
+
+    <script>
+      // Background audio init for product page
+      (function(){
+        var audio = document.getElementById('bg-audio');
+        var btn = document.querySelector('.audio-toggle');
+        var range = document.querySelector('.audio-volume-range');
+        if (!audio) return;
+
+        function updateButton(isPlaying){
+          if (!btn) return;
+          btn.setAttribute('aria-pressed', String(!!isPlaying));
+          btn.textContent = isPlaying ? '🔊 Musique (on)' : '🔈 Musique (off)';
+          btn.setAttribute('aria-label', isPlaying ? 'Désactiver la musique' : 'Activer la musique');
+        }
+
+        var savedPlay = localStorage.getItem('bg-music-on');
+        var savedVol = parseFloat(localStorage.getItem('bg-music-volume'));
+        if (isNaN(savedVol)) savedVol = 0.8;
+        audio.volume = Math.max(0, Math.min(1, savedVol));
+        if (range) range.value = Math.round(audio.volume * 100);
+
+        if (savedPlay === 'true') {
+          audio.muted = false;
+          audio.play().then(function(){ updateButton(true); }).catch(function(){ updateButton(false); });
+        } else {
+          // best-effort muted autoplay
+          audio.muted = true;
+          audio.setAttribute('autoplay', '');
+          audio.play().then(function(){ updateButton(true); }).catch(function(){ updateButton(false); });
+        }
+
+        if (btn) btn.addEventListener('click', function(){
+          try {
+            if (audio.paused) {
+              audio.muted = false; audio.play(); localStorage.setItem('bg-music-on','true'); updateButton(true);
+            } else { audio.pause(); localStorage.setItem('bg-music-on','false'); updateButton(false); }
+          } catch(e) { /* ignore */ }
+        });
+
+        if (range) range.addEventListener('input', function(){ var v = parseInt(range.value,10)||0; audio.volume = Math.max(0, Math.min(1, v/100)); localStorage.setItem('bg-music-volume', String(audio.volume)); });
+
+      })();
+    </script>
+
+  <script>
+      // Related products minor interaction: focus/hover affordance
+      (function(){
+        try {
+          var cards = document.querySelectorAll('.related-card');
+          cards.forEach(function(c){
+            c.addEventListener('mouseenter', function(){ c.style.transform = 'translateY(-4px)'; c.style.transition = 'transform 180ms'; });
+            c.addEventListener('mouseleave', function(){ c.style.transform = ''; });
+            c.addEventListener('focus', function(){ c.style.boxShadow = '0 12px 28px rgba(0,0,0,0.12)'; });
+            c.addEventListener('blur', function(){ c.style.boxShadow = ''; });
+          });
+        } catch(e) { /* ignore */ }
+      })();
+
+      // Wire quick-add buttons on related cards
+      (function(){
+        try {
+          document.querySelectorAll('.related-add').forEach(function(btn){
+            btn.addEventListener('click', function(e){
+              e.preventDefault();
+              try {
+                // Use base product selected size/price/quantity
+                var sizeBtn = document.querySelector('#sizes button.active');
+                var sizeText = sizeBtn ? sizeBtn.textContent.trim() : '';
+                var basePriceEl = document.getElementById('price');
+                var basePrice = basePriceEl ? parseFloat(basePriceEl.getAttribute('data-price') || (basePriceEl.textContent||'').replace(/[€\s]/g,'')) || 0 : 0;
+                var qty = parseInt(document.getElementById('qtyDisplay')?.value || '1',10) || 1;
+                var relatedSku = btn.getAttribute('data-sku') || btn.getAttribute('data-title') || 'related-item';
+                var title = btn.getAttribute('data-title') || 'Article';
+                var img = btn.getAttribute('data-image') || '';
+                var sku = relatedSku + (sizeText ? '-' + sizeText.toLowerCase() : '');
+                // call addToCart with base product metadata
+                if (typeof addToCart === 'function') {
+                  addToCart({ sku: sku, title: title, price: basePrice, qty: qty, sizeText: sizeText, image: img });
+                } else {
+                  // fallback to localStorage
+                  var cart = JSON.parse(localStorage.getItem('hoshi_cart_v1')||'[]');
+                  cart.push({ sku: sku, title: title, price: basePrice, qty: qty, sizeText: sizeText, image: img });
+                  localStorage.setItem('hoshi_cart_v1', JSON.stringify(cart));
+                }
+                // small UI feedback on the button
+                var old = btn.textContent;
+                btn.textContent = 'Ajouté ✓';
+                btn.disabled = true;
+                setTimeout(function(){ btn.textContent = old; btn.disabled = false; }, 900);
+              } catch(err) { console.error('related add failed', err); }
+            });
+          });
+        } catch(e) { /* ignore */ }
+      })();
+
+    // Related-card hover slideshow: hold 2s to start cycling product photos, stop on mouseleave
+    (function(){
+  var HOVER_DELAY = 2000; // ms before starting slideshow
+  var SLIDE_INTERVAL = 1400; // ms between images (slower)
+  var TRANS_MS = 420; // transition duration for fade
+
+      function inferCandidates(src){
+        var candidates = [];
+        try {
+          // split base and extension
+          var m = src.match(/^(.*?)(\.[a-zA-Z0-9]+)$/);
+          if (!m) return candidates;
+          var base = m[1]; var ext = m[2];
+          // common patterns: 'name 1.ext', 'name1.ext', 'name-1.ext'
+          for (var i=1;i<=8;i++){
+            candidates.push(base + ' ' + i + ext);
+            candidates.push(base + i + ext);
+            candidates.push(base + '-' + i + ext);
+          }
+          // also try with underscores
+          for (var k=1;k<=4;k++) candidates.push(base + '_' + k + ext);
+        } catch(e){ /* ignore */ }
+        return candidates;
+      }
+
+      function preloadAvailable(urls, cb){
+        var loaded = [];
+        var toCheck = urls.slice(0,8);
+        var pending = toCheck.length;
+        if (!pending) return cb([]);
+        var finished = false;
+        toCheck.forEach(function(u){
+          var img = new Image();
+          var done = function(ok){ if (finished) return; if (ok) loaded.push(u); pending--; if (pending<=0){ finished=true; cb(loaded); }};
+          img.onload = function(){ done(true); };
+          img.onerror = function(){ done(false); };
+          // longer timeout to allow local file loads
+          setTimeout(function(){ done(false); }, 1200);
+          try { img.src = u; } catch(e){ done(false); }
+        });
+      }
+
+      document.querySelectorAll('.related-card').forEach(function(card){
+        var img = card.querySelector('img');
+        if (!img) return;
+        var hoverTimer = null;
+        var slideTimer = null;
+        var originals = { src: img.src };
+        var cycling = false;
+        var slides = [];
+        var idx = 0;
+
+        function startCycling(){
+          if (cycling) return;
+          console.debug && console.debug('related-card: startCycling called for', img && img.src);
+          var dataImgs = img.getAttribute('data-images') || card.querySelector('.related-add')?.getAttribute('data-images');
+          var candidates = [];
+          if (dataImgs) candidates = dataImgs.split(',').map(s=>s.trim()).filter(Boolean);
+          console.debug && console.debug('related-card: candidates after data-images/infer check', candidates.slice(0,10));
+          if (!candidates.length) candidates = inferCandidates(img.src);
+          console.debug && console.debug('related-card: candidates after infer', candidates.slice(0,10));
+          // If explicit data-images provided, start immediately and don't wait for preload
+          if (dataImgs && candidates.length) {
+            slides = candidates.filter(function(u){ return u && u !== originals.src; });
+            console.debug && console.debug('related-card: slides list (direct)', slides);
+            if (!slides.length) return; // nothing to show
+            cycling = true; idx = 0;
+            function showNextDirect(){
+              try {
+                var next = slides[idx % slides.length]; idx++;
+                var container = img.closest('a') || img.parentElement || card;
+                var overlay = document.createElement('img');
+                overlay.className = 'related-overlay';
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity ' + TRANS_MS + 'ms ease';
+                // handle load/error
+                overlay.onload = function(){
+                  try { container.appendChild(overlay); } catch(e){}
+                  requestAnimationFrame(function(){ overlay.style.opacity = '1'; });
+                  var done = function(){ try { img.src = next; } catch(e){}; try { overlay.parentNode && overlay.parentNode.removeChild(overlay); } catch(e){}; overlay.removeEventListener('transitionend', done); };
+                  overlay.addEventListener('transitionend', done);
+                };
+                overlay.onerror = function(){ try { overlay.parentNode && overlay.parentNode.removeChild(overlay); } catch(e){} };
+                // set src after handlers
+                overlay.src = next;
+              } catch(err) { console.error('showNextDirect failed', err); }
+            }
+            showNextDirect();
+            slideTimer = setInterval(showNextDirect, SLIDE_INTERVAL);
+            return;
+          }
+          // otherwise try preloading inferred candidates
+          preloadAvailable(candidates, function(available){
+            // exclude the original if present as first
+            slides = available.filter(function(u){ return u && u !== originals.src; });
+            console.debug && console.debug('related-card: available preloaded slides', slides);
+            if (!slides.length) return; // nothing to show
+            cycling = true; idx = 0;
+            // show first slide immediately with fade
+            function showNext(){
+              try {
+                var next = slides[idx % slides.length];
+                idx++;
+                var container = img.closest('a') || img.parentElement || card;
+                // create overlay
+                var overlay = document.createElement('img');
+                overlay.src = next;
+                overlay.className = 'related-overlay';
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity ' + TRANS_MS + 'ms ease';
+                container.appendChild(overlay);
+                // force reflow then fade in
+                requestAnimationFrame(function(){ overlay.style.opacity = '1'; });
+                var done = function(){
+                  try { img.src = next; } catch(e){}
+                  try { overlay.parentNode && overlay.parentNode.removeChild(overlay); } catch(e){}
+                  overlay.removeEventListener('transitionend', done);
+                };
+                overlay.addEventListener('transitionend', done);
+              } catch(err) { console.error('showNext failed', err); }
+            }
+            showNext();
+            slideTimer = setInterval(showNext, SLIDE_INTERVAL);
+          });
+        }
+
+        function stopCycling(){
+          if (hoverTimer) { clearTimeout(hoverTimer); hoverTimer = null; }
+          if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
+          if (cycling) {
+            cycling = false; try { img.src = originals.src; } catch(e){}
+            console.debug && console.debug('related-card: stopped cycling, restored original', originals.src);
+          }
+        }
+
+        card.addEventListener('mouseenter', function(){
+          // start a delayed timer to begin cycling
+          if (hoverTimer) clearTimeout(hoverTimer);
+          console.debug && console.debug('related-card: mouseenter, starting hoverTimer (ms)', HOVER_DELAY);
+          hoverTimer = setTimeout(startCycling, HOVER_DELAY);
+        });
+        card.addEventListener('mouseleave', function(){ console.debug && console.debug('related-card: mouseleave, stopping'); stopCycling(); });
+        // also stop on touchstart to avoid stuck states on mobile
+        card.addEventListener('touchstart', function(){ stopCycling(); });
+      });
+    })();
+
+    // Menu wiring copied from index.html but guarded for product page
+    (function(){
+      const menuBtn = document.querySelector('.menu');
+      const overlay = document.getElementById('site-overlay');
+      const closeBtn = document.querySelector('.close-menu');
+      if (!menuBtn || !overlay) return; // nothing to wire
+
+      // initialize ARIA
+      overlay.setAttribute('aria-hidden', 'true');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      if (closeBtn) closeBtn.style.setProperty('pointer-events', 'none');
+
+      let _savedScrollY = 0;
+      function updateScrollLockState(){ /* minimal: add class when menu open */
+        const overlayVisible = overlay.getAttribute('aria-hidden') === 'false';
+        if (overlayVisible) document.body.classList.add('menu-open'); else document.body.classList.remove('menu-open');
+      }
+
+      let _panelTransitionLock = false;
+      function openMenu(){ if (_panelTransitionLock) return; _panelTransitionLock=true; setTimeout(()=>{_panelTransitionLock=false;},200);
+        _savedScrollY = window.scrollY || 0; overlay.setAttribute('aria-hidden','false'); menuBtn.setAttribute('aria-expanded','true'); if (closeBtn){ closeBtn.style.removeProperty('display'); closeBtn.style.setProperty('pointer-events','auto'); closeBtn.focus(); }
+        updateScrollLockState();
+      }
+      function closeMenu(){ overlay.setAttribute('aria-hidden','true'); menuBtn.setAttribute('aria-expanded','false'); if (closeBtn) closeBtn.style.setProperty('pointer-events','none'); window.scrollTo(0,_savedScrollY||0); updateScrollLockState(); menuBtn.focus(); }
+
+      menuBtn.addEventListener('click', function(e){ const isOpen = document.body.classList.contains('menu-open'); if (isOpen) closeMenu(); else openMenu(); });
+      closeBtn?.addEventListener('click', closeMenu);
+
+      // panel triggers
+      const panelTriggers = document.querySelectorAll('.open-panel');
+      const panels = document.querySelectorAll('.side-panel');
+      const sideMenuEl = document.querySelector('.side-menu');
+      let lastPanelOpener = null;
+      panelTriggers.forEach(t => { t.addEventListener('click', function(e){ e.preventDefault(); const id = t.getAttribute('data-panel'); const panel = document.getElementById('panel-' + id); if (!panel) return; panels.forEach(p=>{ p.classList.remove('open'); p.setAttribute('aria-hidden','true'); }); panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); sideMenuEl?.classList.add('panel-open'); closeBtn?.style.setProperty('display','none'); lastPanelOpener = t; const firstLink = panel.querySelector('.panel-link, button'); firstLink?.focus(); }); });
+
+      // back buttons
+      document.querySelectorAll('.panel-back').forEach(btn => { btn.addEventListener('click', function(){ const panel = btn.closest('.side-panel'); if (!panel) return; if (panel.id === 'panel-shop-vetements') { panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); const parentPanel = document.getElementById('panel-shop'); if (parentPanel) { parentPanel.classList.add('open'); parentPanel.setAttribute('aria-hidden','false'); sideMenuEl?.classList.add('panel-open'); closeBtn?.style.setProperty('display','none'); const firstLink = parentPanel.querySelector('.panel-link, button'); firstLink?.focus(); return; } } panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); sideMenuEl?.classList.remove('panel-open'); closeBtn?.style.removeProperty('display'); (lastPanelOpener || menuBtn)?.focus(); lastPanelOpener = null; }); });
+
+      // overlay click closes menu
+      overlay.addEventListener('click', function(e){ if (e.target === overlay) { const menuOpenNow = document.body.classList.contains('menu-open'); if (menuOpenNow) closeMenu(); } });
+
+      // close on Esc
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ if (document.body.classList.contains('menu-open')) closeMenu(); } });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1164 @@
+/*
+Vous devez commenter votre code CSS en français et indiquer pour chaque section de code à quoi elle sert et pourquoi vous avez choisi cette approche.
+*/
+
+/*
+largeur maximale des contenus 1400px
+*/
+
+/* 
+Couleurs principales du site web
+Jaune: #FBD784
+Bleu: #0B1D26
+Blanc: #FFFFFF 
+*/
+
+/*
+Styles de base pour le corps de la page
+Questrial taille 18px avec hauteur de ligne 30px
+*/
+
+/* 
+Vous allez devoir utiliser un dégradé linéaire par dessus un arrière plan. 
+Voici l'url d'un site pour fabriquer des dégradés: https://cssgradient.io/
+*/
+
+/* 
+Styles de base pour le titre 1
+Playfair Display taille 88px avec hauteur de ligne 100px
+*/
+
+/* 
+Styles de base pour les titres 2
+Playfair Display taille 54px avec hauteur de ligne 62px
+*/
+
+/* 
+Style de base pour les surtitres 
+Questrial 12px avec hauteur de ligne 14px et espacement de lettre de 6px
+*/
+
+/* 
+Numéro Section
+Questrial 210px par 210px
+*/
+
+/* 
+En responsive les sections se mettent les unes en dessous des autres en dessous de 768px. Dans l'ordre contenu texte puis image.
+La zone des réseaux sociaux disparait.
+*/
+
+/* Reset CSS pour supprimer les marges et paddings par défaut du navigateur */
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styles pour le lecteur audio d'ambiance */
+/* Cache l'élément audio natif */
+#musique-ambiance {
+    display: none;
+}
+
+/* Lecteur audio personnalisé en bas à droite */
+.lecteur-audio-personnalise {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    background: rgba(11, 29, 38, 0.85);
+    backdrop-filter: blur(15px) saturate(180%);
+    border-radius: 50px;
+    border: 1px solid rgba(251, 215, 132, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    opacity: 0.3;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lecteur-audio-personnalise:hover {
+    opacity: 1;
+    box-shadow: 0 12px 40px rgba(251, 215, 132, 0.25);
+    border-color: rgba(251, 215, 132, 0.5);
+}
+
+/* Bouton play/pause */
+.lecteur-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FBD784;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.lecteur-btn:hover {
+    transform: scale(1.1);
+    color: #FFFFFF;
+}
+
+.lecteur-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Slider de volume personnalisé */
+.lecteur-volume {
+    width: 100px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.lecteur-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #FBD784;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 8px rgba(251, 215, 132, 0.4);
+}
+
+.lecteur-volume::-webkit-slider-thumb:hover {
+    background: #FFFFFF;
+    transform: scale(1.2);
+}
+
+.lecteur-volume::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #FBD784;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 8px rgba(251, 215, 132, 0.4);
+}
+
+.lecteur-volume::-moz-range-thumb:hover {
+    background: #FFFFFF;
+    transform: scale(1.2);
+}
+
+/* Comportement de défilement fluide pour toute la page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Styles de base pour le corps de la page */
+body {
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    line-height: 30px;
+    background-color: #0B1D26;
+    color: #FFFFFF;
+}
+
+/* Styles de base pour le titre principal h1 */
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 88px;
+    line-height: 100px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+/* Styles de base pour les titres de niveau 2 h2 */
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    line-height: 62px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+/* Style de base pour les titres de niveau 3 h3 */
+h3 {
+    font-family: 'Questrial', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #FBD784;
+}
+
+/* Style pour les liens */
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #FBD784;
+}
+
+/* Header avec menu de navigation fixé en haut */
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 0;
+    z-index: 1000;
+}
+
+/* Conteneur du menu avec largeur maximale */
+
+.menu-conteneur {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80px;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.menu-logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+/* Navigation principale en liste horizontale */
+.menu-navigation {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.menu-navigation-item {
+    display: flex;
+    align-items: center;
+}
+
+.menu-navigation-item a {
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    line-height: 1;
+}
+
+.menu-utilisateur {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.menu-utilisateur img {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-utilisateur:hover img {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* Modal de connexion/inscription */
+/* Overlay qui couvre toute la page avec un fond semi-transparent */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 29, 38, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Affichage de la modal */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Conteneur principal de la modal */
+.modal-auth-conteneur {
+    background: linear-gradient(135deg, rgba(11, 29, 38, 0.95) 0%, rgba(11, 29, 38, 0.98) 100%);
+    border: 1px solid rgba(251, 215, 132, 0.3);
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-auth-conteneur {
+    transform: translateY(0);
+}
+
+/* Bouton de fermeture */
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #FBD784;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, color 0.3s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+    color: #FFFFFF;
+}
+
+/* Onglets connexion/inscription */
+.modal-auth-onglets {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(251, 215, 132, 0.2);
+}
+
+.modal-auth-onglet {
+    flex: 1;
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.modal-auth-onglet::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #FBD784;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.modal-auth-onglet.active {
+    color: #FBD784;
+}
+
+.modal-auth-onglet.active::after {
+    transform: scaleX(1);
+}
+
+/* Contenu des formulaires */
+.modal-auth-contenu {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-auth-contenu.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Titres de la modal */
+.modal-auth-titre {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    line-height: 40px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+.modal-auth-sous-titre {
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+/* Formulaire */
+.modal-auth-formulaire {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-auth-groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-auth-label {
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    color: #FBD784;
+    font-weight: 700;
+}
+
+.modal-auth-input {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(251, 215, 132, 0.3);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.modal-auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-auth-input:focus {
+    outline: none;
+    border-color: #FBD784;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Options du formulaire */
+.modal-auth-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.modal-auth-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.modal-auth-checkbox input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #FBD784;
+}
+
+.modal-auth-lien {
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    color: #FBD784;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.modal-auth-lien:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+/* Bouton de soumission */
+.modal-auth-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #FBD784 0%, #F0C24F 100%);
+    border: none;
+    border-radius: 8px;
+    color: #0B1D26;
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+}
+
+.modal-auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(251, 215, 132, 0.4);
+}
+
+.modal-auth-btn:active {
+    transform: translateY(0);
+}
+
+/* Lien de retour */
+.modal-auth-retour {
+    display: inline-block;
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+
+.modal-auth-retour:hover {
+    color: #FBD784;
+}
+
+/* Modal de contact */
+/* Réutilise les styles de base de la modal auth pour la cohérence */
+.modal-contact-conteneur {
+    background: linear-gradient(135deg, rgba(11, 29, 38, 0.95) 0%, rgba(11, 29, 38, 0.98) 100%);
+    border: 1px solid rgba(251, 215, 132, 0.3);
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-contact-conteneur {
+    transform: translateY(0);
+}
+
+/* Contenu de la modal de contact */
+.modal-contact-contenu {
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-contact-titre {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    line-height: 44px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+.modal-contact-sous-titre {
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+/* Formulaire de contact */
+.modal-contact-formulaire {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-contact-groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-contact-label {
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    color: #FBD784;
+    font-weight: 700;
+}
+
+.modal-contact-input,
+.modal-contact-textarea {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(251, 215, 132, 0.3);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    resize: vertical;
+}
+
+.modal-contact-input::placeholder,
+.modal-contact-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-contact-input:focus,
+.modal-contact-textarea:focus {
+    outline: none;
+    border-color: #FBD784;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.modal-contact-textarea {
+    min-height: 120px;
+}
+
+/* Bouton d'envoi */
+.modal-contact-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #FBD784 0%, #F0C24F 100%);
+    border: none;
+    border-radius: 8px;
+    color: #0B1D26;
+    font-family: 'Questrial', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+}
+
+.modal-contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(251, 215, 132, 0.4);
+}
+
+.modal-contact-btn:active {
+    transform: translateY(0);
+}
+
+/* Section héro avec image de fond et dégradé */
+/* Effet de parallaxe avec 3 couches : ciel, montagnes, sol */
+.hero {
+    position: relative;
+    min-height: 150vh;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 200px;
+    overflow: hidden;
+    background-color: #0B1D26;
+    --sky-offset: 0px;
+    --mountains-offset: 0px;
+    --ground-offset: 0px;
+}
+
+/* Couche 1 : Ciel (arrière-plan, défile lentement) */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('imagesmountain/background-image-sky.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    transform: translateY(var(--sky-offset));
+    will-change: transform;
+}
+
+/* Couche 2 : Montagnes (plan moyen) */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('imagesmountain/background-image-montains.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    z-index: 2;
+    transform: translateY(var(--mountains-offset));
+    will-change: transform;
+}
+
+/* Dégradé par-dessus les couches de parallaxe */
+.hero-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(11, 29, 38, 0.3) 0%, rgba(11, 29, 38, 0.6) 70%, rgba(11, 29, 38, 1) 100%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Couche 3 : Sol (premier plan, défile rapidement) */
+.hero-ground {
+    position: absolute;
+    bottom: 0;
+    left: -1.5%;
+    width: 100%;
+    height: 60%;
+    background-image: url('imagesmountain/background-image-ground.png');
+    background-size: contain;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    z-index: 3;
+    transform: translateY(var(--ground-offset));
+    will-change: transform;
+    pointer-events: none;
+}
+
+/* Conteneur du contenu du hero */
+
+.hero-conteneur {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 80px;
+    text-align: left;
+    width: 100%;
+    position: relative;
+    z-index: 15;
+}
+
+/* Conteneur du surtitre avec ligne décorative */
+.hero-introduction-conteneur {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    margin-bottom: 24px;
+}
+
+/* Ligne décorative avant le texte d'introduction */
+.hero-introduction-ligne {
+    width: 72px;
+    height: 2px;
+    background-color: #FBD784;
+    display: block;
+}
+
+/* Style pour le surtitre et introduction */
+.hero-introduction {
+    font-family: 'Questrial', sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #FBD784;
+    font-weight: 800;
+    margin: 0;
+}
+
+.hero-titre {
+    margin-bottom: 24px;
+}
+
+/* Indicateur de défilement cliquable avec effet de survol */
+.hero-scroll {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-top: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hero-scroll:hover {
+    transform: translateY(5px);
+}
+
+.hero-scroll:hover .hero-scroll-texte {
+    color: #FBD784;
+}
+
+.hero-scroll-texte {
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.hero-scroll-icone {
+    width: 24px;
+    height: 24px; 
+    display: block;
+}
+
+/* Barre latérale de réseaux sociaux */
+.reseaux-sociaux {
+    position: absolute;
+    left: 215px;
+    top: 35%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 999;
+}
+
+/* Titre Suivez-nous avec rotation verticale */
+.reseaux-sociaux-titre {
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    writing-mode: vertical-rl;
+    transform: rotate(0deg);
+}
+
+/* Conteneur des icônes de réseaux sociaux */
+.reseaux-sociaux-icones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reseaux-sociaux-lien {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.reseaux-sociaux-lien:hover {
+    transform: scale(1.1);
+}
+
+.reseaux-sociaux-lien img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Conteneur principal avec largeur maximale */
+.contenu-principal {
+    max-width: 1400px;
+    margin: -400px auto 0;
+    padding: 0 80px 120px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Section article */
+.section-article {
+    margin-bottom: 200px;
+}
+
+.section-article:last-child {
+    margin-bottom: 40px;
+}
+
+/* Conteneur de section avec disposition flex */
+.section-article-conteneur {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+/* Section inversée */
+.section-article-inverse .section-article-conteneur {
+    flex-direction: row-reverse;
+}
+
+/* Image de section */
+.section-article-image {
+    flex: 1;
+}
+
+.section-article-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Contenu textuel de section */
+.section-article-contenu {
+    flex: 1;
+    position: relative;
+}
+
+/* Conteneur du surtitre avec ligne décorative pour les sections */
+.section-article-surtitre-conteneur {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+/* Ligne décorative avant le surtitre de section */
+.section-article-surtitre-ligne {
+    width: 72px;
+    height: 2px;
+    background-color: #FBD784;
+    display: block;
+}
+
+/* Surtitre de section */
+.section-article-surtitre {
+    font-family: 'Questrial', sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #FBD784;
+    font-weight: 800;
+    margin: 0;
+}
+
+/* Numéro de section en filigrane */
+.section-article-numero {
+    position: absolute;
+    top: -120px;
+    left: -40px;
+    font-family: 'Questrial', sans-serif;
+    font-size: 210px;
+    line-height: 210px;
+    font-weight: 700;
+    color: #FFFFFF;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.section-article-titre {
+    margin-bottom: 30px;
+    color: #FFFFFF;
+}
+
+.section-article-texte {
+    margin-bottom: 30px;
+    color: #FFFFFF;
+}
+
+/* Lien En savoir plus */
+.section-article-lien {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FBD784;
+}
+
+.section-article-lien-icone {
+    width: 24px;
+    height: 24px;
+}
+
+/* Footer avec trait */
+.pied-de-page {
+    background-color: rgba(11, 29, 38, 0.8);
+    padding: 80px 0 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Conteneur du footer avec disposition en colonnes */
+.pied-de-page-conteneur {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 120px;
+}
+
+/* Colonne principale du footer */
+.pied-de-page-colonne-principale {
+    flex: 1;
+    max-width: 300px;
+}
+
+/* Conteneur des colonnes secondaires */
+.pied-de-page-colonnes-droite {
+    display: flex;
+    gap: 100px;
+}
+
+/* Colonnes secondaires */
+.pied-de-page-colonne {
+    flex: 0 0 auto;
+    min-width: 200px;
+}
+
+.pied-de-page-logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+    margin-bottom: 24px;
+}
+
+.pied-de-page-slogan {
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    line-height: 32px;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+}
+
+.pied-de-page-copyright {
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    line-height: 32px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.pied-de-page-colonne-titre {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #FBD784;
+    margin-bottom: 24px;
+}
+
+.pied-de-page-liste {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pied-de-page-liste-item {
+    margin-bottom: 16px;
+}
+
+.pied-de-page-liste-item a {
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    line-height: 32px;
+    color: #FFFFFF;
+    transition: color 0.3s ease;
+}
+
+.pied-de-page-liste-item a:hover {
+    color: #FBD784;
+}
+
+/* Media queries pour le design responsive en dessous de 768px */
+/* Les sections se mettent en colonne avec le contenu texte d'abord puis l'image */
+/* La zone des réseaux sociaux disparaît */
+@media screen and (max-width: 768px) {
+    
+    /* Cache la barre latérale des réseaux sociaux */
+    .reseaux-sociaux {
+        display: none;
+    }
+    
+    /* Réduit le padding des conteneurs pour mobile */
+    .hero-conteneur {
+        padding: 0 30px;
+    }
+    
+    .contenu-principal {
+        padding: 0 30px 60px;
+    }
+    
+    /* Ajuste la disposition des sections en colonne */
+    /* Force le contenu texte avant l'image */
+    .section-article-conteneur {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    /* Annule l'inversion pour que le texte soit toujours en premier */
+    .section-article-inverse .section-article-conteneur {
+        flex-direction: column;
+    }
+    
+    /* Ajuste les marges des sections */
+    .section-article {
+        margin-bottom: 100px;
+    }
+    
+    /* Réduit la taille du numéro de section */
+    .section-article-numero {
+        font-size: 120px;
+        line-height: 120px;
+        top: -60px;
+        left: -20px;
+    }
+    
+    /* Ajuste le footer en colonne */
+    .pied-de-page-conteneur {
+        flex-direction: column;
+        gap: 40px;
+        padding: 0 30px;
+    }
+    
+    .pied-de-page-colonne-principale {
+        max-width: 100%;
+    }
+    
+    .pied-de-page-colonnes-droite {
+        flex-direction: column;
+        gap: 40px;
+        width: 100%;
+    }
+    
+    /* Ajuste les tailles de police pour mobile */
+    h1 {
+        font-size: 48px;
+        line-height: 56px;
+    }
+    
+    h2 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+    
+    body {
+        font-size: 16px;
+        line-height: 26px;
+    }
+    
+    /* Ajuste le menu pour mobile */
+    .menu-conteneur {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 30px;
+    }
+    
+    .menu-navigation {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    /* Adapte l'image de fond du hero pour mobile */
+    .hero {
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+    }
+}
+
+
